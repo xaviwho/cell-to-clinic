@@ -8,6 +8,80 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): pre-registration code release `prereg-v1.0.0`, synthetic-tested only
+
+Done the planning session's tasks 1–2. **Nothing has been run on real FOUNDIN-PD or clinical data.** Code frozen as tag [`prereg-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-v1.0.0) (commit `c61fb9b`).
+
+### What is in the release
+| File | Contents |
+|---|---|
+| `config/genesets/` | HALLMARK_OXIDATIVE_PHOSPHORYLATION (200 genes) and KEGG_LYSOSOME (121 genes), MSigDB v2023.2.Hs (KEGG set from the `c2.cp.kegg_legacy` file) |
+| `config/phenotypes.json` | Table S3 columns: P1 = "Dopaminergic Neurons"; progenitor sum = Neuroepithelial-like Cells + Proliferating Floor Plate Progenitors + Early neuron Progenitor + Late neuron Progenitor (ependymal and both DA clusters excluded); thresholds |
+| `scripts/phenotypes.py` | P1–P4 as in Part 3, plus the registered variants (sensitivity 3: %TH+ at ≥1 and ≥2 UMI, totalDopa; sensitivity 4: marker-label residualisation) |
+| `scripts/gates_prelink.py` | A0-2 ICC = 1 − S²(control runs)/S²(79 donor lines), with F-based 95% CI; A0-3 ≥ 1,000 QC cells |
+| `scripts/lmm.py` | REML mixed model with Satterthwaite df (lmerTest method), registered fallbacks, OLS, partial r, TOST, BH; numpy/scipy only |
+| `scripts/ppmi_load.py` + `config/ppmi_columns.json` | Tidy clinical tables. Logic fixed in code (OFF = untreated or PDSTATE OFF; time = years since diagnosis; earliest SAA; latest NSD-ISS; mean L/R putamen). File and column names live in the config and are checked on download |
+| `scripts/models.py` | A0-1, H1, H2, H3 (SAA, NSD-ISS), A0-5, sensitivity analyses 1–9 |
+| `scripts/power_sim.py`, `results/power_sim.json` | Simulation check of the registered power figures (synthetic) |
+| `tests/` | `test_lmm.py`, `test_pipeline_synthetic.py` |
+
+### Validation (synthetic)
+- **LMM:**
+  - fixed effects and variance components match statsmodels MixedLM REML to ≤ 5e-4; SEs agree within 0.7%, the expected difference between the two SE definitions;
+  - Satterthwaite df on a balanced design is 39.000, exactly the theoretical value (47 − 8);
+  - type I error 0.047 over 300 null simulations;
+  - with no simulated slope variance, the fallback rule switches as specified.
+- **End-to-end** (fake scRNA outputs, Tables S1/S3, and PPMI-format CSVs; P1 × time effect planted):
+  - P1 is recovered as *supported* in H1 and in sensitivity analyses 1, 2, 3, 6, 7 and 9;
+  - P2–P4 come out *equivalent* or *inconclusive*;
+  - A0-3 drops the planted low-cell line, and the ≥ 3-OFF-visit rule drops the planted 2-visit donor;
+  - A0-5 runs over all 200 OXPHOS and 121 lysosome genes;
+  - the loader keeps OFF/ON, SAA, NSD-ISS and LEDD-by-visit correct and drops non-FOUNDIN participants.
+
+### Power simulation (registered H1 analysis, 300 reps per cell)
+Assumptions (made before linkage): 3–9 annual OFF visits starting 0–3 years after diagnosis; slope 2 ± 1.5 points/year; residual SD 5.
+
+| | n = 47 | n = 30 |
+|---|---|---|
+| \|partial r\| at 80% power, single test | **0.45** (registered: 0.43) | > 0.52, power 74% at r = 0.52 (registered: ≈ 0.54) |
+| same, BH over 4, one true effect | **0.53** (registered: ≈ 0.49) | > 0.52, power 53% at r = 0.52 |
+| P(equivalent) when the true effect is 0 | **58%** (registered: ≈ 83%) | **16%** (registered: ≈ 62%) |
+| Type I error, null phenotypes | 0.04–0.06 | 0.04–0.07 |
+| Median Satterthwaite df | ≈ 33 | ≈ 19 |
+
+**The registered equivalence-power figures are optimistic.** The analytic figures appear to assume about n − 3 df. The registered model spends 8 df on slope terms (time, phenotype × time, 6 covariates × time), and REML/Satterthwaite lowers the effective df further. Detection power is close to the registered figures. The registration is filed, so this goes into the paper as a reported discrepancy, not a change of plan. Expect most null results at n = 47 to be classed *inconclusive* rather than *equivalent*, and nearly all at n = 30.
+
+### Decisions made in code (not spelled out in the registration; frozen in the tag before any data)
+1. **"Fails to converge"** = optimiser failure, OR a singular fit (random-effect SD < 1e-4 × residual SD, or |correlation| > 0.999, as in lme4 `isSingular`), OR a non-positive-definite deviance Hessian.
+2. **TOST:** the 90% CI of β₃ (t distribution, Satterthwaite df) is mapped to partial r by r = t/√(t² + df).
+3. **A0-2 ICC:**
+   - P1 within-line variance uses the control line's 4 Table S3 rows. The note "the control line has no usable Table S3 linkage" holds only for the mapping of row to run, and a variance doesn't depend on that mapping.
+   - For P2–P4, the control runs are residualised with the line's mean Table S3 composition. This can only lower the ICC.
+4. **Sample rules by analysis:**
+   - H2 uses all donors with ≥ 1 DaTscan.
+   - Sensitivity 8 (Part II) uses the same ≥ 3-visit rule as H1.
+   - In sensitivity 1 (idiopathic only), the genetic-PD covariate is dropped because it is constant.
+   - In sensitivity 6, LEDD is attached to the UPDRS III exam with the same EVENT_ID.
+5. **Coding:**
+   - NSD-ISS numeric = integer stage, with subtype letters dropped (2B → 2).
+   - Age at onset uses the symptom-onset date.
+   - Month/year dates are set to day 15.
+6. **Milestone time-to-event analyses** (exploratory) are not coded yet. They stay labelled exploratory.
+
+### Disclosures (this session, before the tag)
+- A structure check printed **2 rows of public Table S3** (IDs and proportions) into the local chat. It is public data, but it breaks our own masking rule. Nothing went to this log.
+- A column check displayed **one aggregate count:** 1 of the 83 runs has fewer than 1,000 QC cells (minimum 517). That is effectively the overall A0-3 count. The run was not identified and not related to diagnosis or any donor characteristic.
+
+### For the planning session
+- **Inconsistency in the Claude Doc:** the "Coding and model details" bullet still says *"time in years since PPMI baseline, not centred"*, while the filed change makes time = years since diagnosis (baseline is sensitivity 9). The code follows the filed version. Please check that the OSF text matches, and fix the doc.
+- Please review the power discrepancy and the 6 coded decisions above.
+
+### For the user
+1. **Zenodo:** log in to zenodo.org with GitHub and switch the toggle **on** for `xaviwho/cell-to-clinic`, under Account → GitHub. Then create a GitHub release from tag `prereg-v1.0.0`; Zenodo archives it and mints the DOI. I can create the release with `gh` once the toggle is on. A release made before that gets no DOI.
+2. Once OSF shows the registration as **approved** and the DOI is logged, the local session will download the PPMI data cut and run: phenotypes → A0-2/A0-3 → A0-1 → H1–H3, exactly as tagged.
+
+---
+
 ## 2026-11-12 (planning session): OSF pre-registration SUBMITTED
 
 - **Registered 2026-11-12** on OSF: [osf.io/s6w9c](https://osf.io/s6w9c), template "OSF Preregistration", **embargoed until 2027-11-12**. Status at submission: pending admin approval (the user approves via the OSF email). The OSF record is authoritative; the Claude Doc mirrors it.
