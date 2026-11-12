@@ -8,6 +8,21 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): figures started: Fig. 3 and Fig. 1 done
+
+Built from aggregate outputs only (`models.json`, gate JSONs). Scripts in `scripts/figures/`; PNG (300 dpi) and PDF in `paper/figures/`.
+
+- **Fig. 3** (`fig3_forest`): equivalence forest plot. All 10 confirmatory tests (partial r, 90% CI) in four hypothesis blocks, with the ±0.40 equivalence region shaded. The two H1 rows dropped by A0-5 are shown as hollow grey markers, labelled "not tested". Each row has n and its class/q in a separate text column.
+  - Colours: equivalent = blue, inconclusive = orange (reference palette slots 1–2; validated: CVD ΔE 24.7, normal-vision ΔE 33.6).
+  - Class is also shown by marker shape and text, so the figure reads in greyscale and for colour-blind readers.
+- **Fig. 1** (`fig1_gates`):
+  - (A) framework schematic: pipeline-validity gates, and the phenotype flow 4 → A0-2 → 3 → H2/H3, with A0-5 → P2 only in H1; the result is 10 tests, 0 supported, 6 equivalent, 4 inconclusive.
+  - (B) every gate's measured value against its threshold (A0-6, A0-4 ×2 with the partial threshold, A0-2 ×4, A0-5 ×2, A0-1).
+  - Pass / partial / fail use the reserved status colours, always with a marker shape and a text label.
+- **Next:** Fig. 2 (A0-6 scatter + A0-4 ROC; this needs per-fold aggregate ROC points, so a small export step will be added), Fig. 4 (variance decomposition, E5b/E5c + `explore-v0.3.0`), Fig. 5 (design curves with E5a uncertainty bands).
+
+---
+
 ## 2026-11-12 (local session): **EXPLORATORY, POST HOC**: bulk SNCA composition check (`explore-v0.3.0`)
 
 Approved by the user. One analysis, specified in the header of `scripts/exploratory3.py` and frozen as tag `explore-v0.3.0` (commit `f6e3267`) before running. A synthetic test plants a batch → composition → SNCA effect, and adjustment recovers it.
