@@ -8,6 +8,66 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): review of the confirmatory and exploratory results; paper outline
+
+Careful, well-documented work. Every analysis was frozen before it ran, the bug fix is logged, and failures are kept. I agree with the summary and the recommendation (experimental phase complete), with the points below.
+
+### Review notes
+1. **Results and classes are correct as registered:** 10 tests, 0 supported, 6 equivalent, 4 inconclusive; gates applied mechanically.
+2. **OXPHOS in H1 (r −0.33, 90% CI −0.55 to −0.04).** Its CI excludes zero, but it is not a confirmatory result: A0-5 dropped the composite before testing. In the paper:
+   - show it in the "reported only" row, with the gate decision beside it;
+   - describe the gene-level direction (E1) as "consistent but not significant";
+   - name it as the one candidate signal for replication.
+
+   Don't put it in the abstract as a finding.
+3. **Wording fix (E4, point 1).** "Even a perfectly measured study of 47 donors could only have detected r ≥ 0.55" mixes two ideas. 0.55 already includes attenuation by the measured reliabilities. Say instead: "given the measured reliabilities, the smallest detectable true correlation was 0.55 (SNCA) to 0.92 (DA yield)". Separately, n = 47 alone limits detection to about r ≥ 0.43.
+4. **E5 rests on one control line** (4–13 runs). The batch-share and design numbers describe that line. Present them as an empirical example with wide uncertainty (E5a gives it), not as general constants.
+5. **Disclosure 4 (a PATNO and CDI printed into the local chat) is more than cosmetic.** A participant identifier went to a third-party service.
+   - Record it in the prior-exposure and data-handling section.
+   - Check whether your DUA requires reporting it.
+   - From now on: no directory listings of `data/` in chat; use counts or hashed IDs.
+6. **The optional bulk SNCA composition check (summary 6.2).** It's worth doing only because it tests the paper's central design claim directly ("composition adjustment is what makes SNCA reliable"). Freeze it first, keep it to one analysis, and stop there. User's call.
+7. **Release:** agree on `paper-v1.0` + Zenodo, with aggregate outputs only. Also cite the OSF registration and both A0-4 versions.
+
+### Paper outline (TCBB): *Cell-to-Clinic: A Gated Framework Linking iPSC Neuron Phenotypes to Parkinson's Progression*
+1. **Introduction.** The promise of patient iPSC "avatars"; the untested assumption that dish phenotypes track the patient's clinical course; why a pre-registered, gated test is needed.
+2. **The framework (main methodological contribution).** Gates A0-1 to A0-6, each with a pass rule and a positive control; how they order the analysis; equivalence testing; pre-registration plus frozen code. Written to apply beyond FOUNDIN-PD.
+3. **Data.** FOUNDIN-PD Project 150 (80 lines, day-65 scRNA, day-0/25/65 bulk) linked to PPMI; access, timeline and firewall (download dates, OSF, Zenodo).
+4. **Results I: the gates.**
+   - A0-6 reproduction;
+   - A0-4 two versions (fail, then partial);
+   - A0-2 drops DA yield;
+   - A0-5 drops both composites.
+
+   4 phenotypes in, 1 tested in H1.
+5. **Results II: confirmatory tests.** 10 tests: 0 supported, 6 equivalent (DaTscan decline; 2 NSD-ISS), 4 inconclusive; the 9 sensitivity analyses.
+6. **Results III: why (exploratory, labelled).**
+   - E4/E5 measurement properties: run-to-run noise is batch-driven, composition adjustment is the key, lysosome is robust;
+   - design curves;
+   - E1–E3 briefly.
+7. **Discussion.**
+   - What the null means and doesn't mean;
+   - the design guide for future studies (5 points);
+   - limitations: one control line, n = 47, power discrepancy, iPSC aging reset, prior exposure and disclosures.
+8. **Reproducibility statement.** OSF, Zenodo DOIs, tags, ACTIVITY.md.
+
+### Figures
+1. **Framework schematic + gate flow:** 4 phenotypes → A0-2 → A0-5 → tests, with each gate's measured value against its threshold.
+2. **Reproduction and positive control:** A0-6 scatter (r = 0.999); A0-4 ROC for v0.1.0 and v0.2.0 against the published value.
+3. **Equivalence forest plot:** all 10 confirmatory tests (partial r, 90% CI, ±0.40 bounds, class colour); the reported-only rows in grey.
+4. **Variance decomposition:** within-batch vs between-batch run variance per phenotype (E5c), and scRNA vs bulk ICC (E5b).
+5. **Design curves:** donors needed against true r, per phenotype, for 1 vs 4 runs per line, with uncertainty bands (E4/E5a).
+6. **Supplementary:** sensitivity-analysis grid; E1 gene-level volcano; E2 milestone hazard ratios; E3 carriers; power simulation vs analytic.
+
+Tables: 1, cohort; 2, gates; 3, confirmatory results; S-tables, sensitivity analyses and exploratory results.
+
+### For the local session
+- Apply the E4 wording fix (point 3) wherever the summary is reused.
+- If the user approves point 6, freeze and run the bulk SNCA composition check (`explore-v0.3.0`) as one analysis only.
+- Then start the figures in the order above (Fig. 3 and Fig. 1 first), from aggregate outputs only.
+
+---
+
 ## 2026-11-12 (local session): **PROJECT STATUS SUMMARY AND RECOMMENDATION**: all registered and exploratory analyses complete
 
 A single overview of everything so far; the detailed entries are below. Aggregates only.
