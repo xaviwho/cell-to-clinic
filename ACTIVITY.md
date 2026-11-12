@@ -8,6 +8,83 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **EXPLORATORY** analyses E1–E4 (frozen as `explore-v0.1.0` before running)
+
+Code: `scripts/exploratory.py`, commit `2db113d`, tag `explore-v0.1.0`; synthetic tests in `tests/test_exploratory.py` (Cox with delayed entry recovers planted hazard ratios). Same data and sample as the confirmatory run (47 PD donors). **Everything below is exploratory and hypothesis-generating.**
+
+### E1: component genes of P3 and P4 (H1 model per gene; BH within each set)
+| Set | Genes | q < 0.05 | p < 0.05 (null expectation) | Share with β₃ < 0 | Median r |
+|---|---|---|---|---|---|
+| OXPHOS | 189 | **0** | 8 (9.5) | 75% | −0.12 |
+| Lysosome | 85 | **0** | 3 (4.3) | 62% | −0.05 |
+
+- **No single gene is associated with motor progression after correction.** The number of nominal hits matches chance.
+- **OXPHOS direction is consistent:** three quarters of the genes point the same way as the composite ("higher OXPHOS, slower OFF-state progression"). The nominally strongest are core ATP-synthase and complex III subunits (ATP5PB, ATP5F1A, ATP5MC3, UQCRC1) and PDP1, all at r ≈ −0.36 to −0.40.
+- **Caveat:** the genes are co-expressed, so the sign share is not 189 independent votes. A naive sign test (p ≈ 3e-12) greatly overstates the evidence. Read it as one weak, directionally consistent signal, not a finding.
+
+### E2: time from diagnosis to milestones (Cox with delayed entry; phenotype + age at onset + genetic PD + media)
+| Milestone | Donors | Events | Median follow-up | HR per SD (95% CI): P2 / P3 / P4 | Min q |
+|---|---|---|---|---|---|
+| H&Y ≥ 3 (OFF) | 46 | 15 | 6.7 y | 1.01 (0.61–1.68) / 0.98 (0.60–1.59) / 1.17 (0.71–1.92) | 0.95 |
+| Freezing (NP2FREZ ≥ 1) | 47 | 37 | 4.7 y | 1.06 (0.75–1.51) / 1.19 (0.85–1.65) / 1.05 (0.78–1.41) | 0.95 |
+| Cognitive impairment (MCI or dementia) | 46 | 26 | 7.1 y | 0.85 (0.56–1.30) / 0.78 (0.54–1.12) / 1.11 (0.78–1.58) | 0.95 |
+
+- Falls are not available in the downloaded data.
+- **No association with any milestone.** The CIs are wide: hazard ratios of about 0.6–1.7 per SD are not excluded.
+
+### E3: manifesting (n = 19) vs non-manifesting (n = 21) carriers (OLS; adjusted for LRRK2, media, sex)
+| | Difference (SD) | q | partial r [90% CI] | |
+|---|---|---|---|---|
+| P2 SNCA | +0.18 | 0.70 | +0.09 [−0.19, 0.35] | **equivalent** |
+| P3 OXPHOS | +0.14 | 0.70 | +0.07 [−0.21, 0.33] | **equivalent** |
+| P4 Lysosome | −0.14 | 0.70 | −0.07 [−0.34, 0.21] | **equivalent** |
+
+- **Day-65 neuron phenotypes don't distinguish carriers who developed PD from those who haven't.** All three differences fall inside the ±0.40 equivalence bound.
+- One donor line was dropped by A0-3, giving 21 non-manifesting carriers rather than 22.
+
+### E4: what a cell-to-clinic study needs (uses reliabilities only, no phenotype–outcome association)
+**Measured reliabilities:**
+- **Phenotypes** (A0-2 ICC, one run per line): P1 0.33, P2 0.94, P3 0.55, P4 0.64. These rest on 3 df, so they are very uncertain.
+- **Outcome slopes** (per donor, from the LMM without phenotype):
+  - OFF-state UPDRS III: λ = 0.64 (slope SD 1.45 points/year; residual SD 7.2);
+  - putamen SBR: λ = 0.54.
+
+**Smallest true correlation this study could detect** (80% power, single test):
+
+| | OFF-state UPDRS III | Putamen SBR |
+|---|---|---|
+| P1 | 0.92 | > 1 |
+| P2 | 0.55 | 0.67 |
+| P3 | 0.71 | 0.88 |
+| P4 | 0.66 | 0.81 |
+
+**Donors needed for 80% power** (OFF-state UPDRS III slope; k = differentiation runs per line):
+
+| True r | P2 (k = 1 → 4) | P3 (k = 1 → 4) | P1, DA yield (k = 1 → 4) |
+|---|---|---|---|
+| 0.3 | 149 → 142 | 249 → 167 | 416 → 209 |
+| 0.4 | 85 → 81 | 142 → 96 | 235 → 119 |
+
+**Interpretation:**
+1. **Even a perfectly measured study of 47 donors could only have detected large effects** (r ≥ 0.55 even for the most reliable phenotype). After attenuation from measurement error, plausible biological effects (r 0.2–0.4) were out of reach. The null results are expected, not evidence against cell-to-clinic links.
+2. **For noisy phenotypes (DA yield, OXPHOS), repeating differentiations helps more than recruiting donors.** Four runs per line roughly halves the donors needed for DA yield (416 → 209 at r = 0.3).
+3. **For reliable phenotypes (SNCA), the limit is the clinical slope.** Here λ = 0.64, so more visits per donor or longer follow-up help, and extra runs do not.
+4. **A realistic target is about 150–250 donors with 2–4 runs per line, for effects of r ≈ 0.3.** That is 3–5 times FOUNDIN-PD's PD arm.
+
+**Caveats:**
+- The ICCs come from one control line with 4 runs.
+- λ assumes PPMI-like visit schedules.
+- The Fisher-z sample sizes assume about 6 covariates.
+
+### For the planning session
+- E4 is the most useful new result: an empirical design guide for iPSC-to-clinic studies, built on measured reliabilities. It would make a strong figure: required N against runs per line, one curve per phenotype.
+- Possible next steps, all exploratory; I need a request before running any:
+  1. A bootstrap CI for E4, resampling the donor lines and the 4 control runs, to show how uncertain the ICC is.
+  2. Using the replicate structure that FOUNDIN does have across batches for other modalities. The bulk RNA day-0/25/65 control runs may give more within-line runs, and so a better ICC.
+  3. An OXPHOS replication check, if an independent iPSC cohort with clinical follow-up is accessible.
+
+---
+
 ## 2026-11-12 (local session): **CONFIRMATORY RESULTS**: H1–H3 on P2–P4. No hypothesis supported; A0-5 drops P3 and P4 from H1
 
 Run at `prereg-v1.0.1` (analysis code identical to `prereg-v1.0.0`), PPMI Study Data 2026-11-12 plus Curated Cut v.2026-08-10. Output `data/derived/models.json` (local only). No model needed a random-effects fallback in the primary analyses; all df are Satterthwaite. Classes: **supported** (q < 0.05), **equivalent** (90% CI of partial r inside ±0.40), **inconclusive**. Phenotypes are per SD.
