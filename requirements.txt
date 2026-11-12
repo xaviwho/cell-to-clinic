@@ -1,4 +1,4 @@
-# scanpy/anndata/pyarrow deliberately omitted: blocked by Windows Application Control
+﻿# scanpy/anndata/pyarrow/scikit-learn deliberately omitted: blocked by Windows Application Control
 # on the analysis machine (numba, zarr/numcodecs, pyarrow DLLs). See scripts/scrn_per_run.py.
 numpy
 scipy
