@@ -8,6 +8,36 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): PPMI clinical data cut downloaded
+
+The user logged in to LONI IDA; the planning session selected and downloaded the files via the user's browser. Download date: **2026-11-12** (after OSF approval and the Zenodo archive, as registered).
+
+- **Location:** `D:\ST-DT4\data\ppmi\` (inside the git-ignored `data/` folder; the original zip is kept there). Note: a single folder, not the dated subfolder suggested in the checklist. Record the date from this entry.
+- **Source:** LONI IDA → PPMI → Download → Study Data (one combined download).
+- **Data-cut version:** Study Data files current as of 2026-11-12; **Curated data cut v.2026-08-10**. The latest quarterly freeze listed on IDA is 2026Q2 (2026-07-01); it was not downloaded.
+
+| # | Checklist item | File on IDA |
+|---|---|---|
+| 1 | Demographics | Demographics |
+| 2 | Diagnosis date | PD Diagnosis History |
+| 3 | H1 outcome | MDS-UPDRS Part III Treatment Determination and Part III: Motor Examination |
+| 4 | Sensitivity 8 | MDS-UPDRS Part II Patient Questionnaire: Motor Aspects of Experiences of Daily Living (M-EDL) |
+| 5 | H2 outcome | Xing Core Lab - Quant SBR, plus DaTSCAN SPECT Quantitative Analysis Results README v1.0 |
+| 6 | Sensitivity 6 | LEDD Concomitant Medication Log, plus Method for Calculating Levodopa Equivalent Dose in PPMI Data |
+| 7 | H3 outcome | SAA Biospecimen Analysis Results |
+| 8 | H3 outcome (NSD-ISS) | Curated data cut (v.2026-08-10) |
+| 9 | Name checks | Data Dictionary; Code List |
+
+- **Not downloaded:** the archived "DaTScan SBR Analysis" (older processing). If Xing Core Lab Quant SBR lacks early visits, report it here before deciding anything.
+- Nothing was opened or viewed during the download.
+
+### For the local session
+1. Unzip if not already done, list file names and **column headers only**, compare with `config/ppmi_columns.json`, and log any name-only fixes here.
+2. Report anything missing or structured differently **before** running models (e.g. DaTscan file layout, NSD-ISS location in the curated cut).
+3. Then A0-1, the donor counts per analysis (H1; H2 with ≥ 2 scans; H3 SAA−/SAA+), and H1–H3 exactly as tagged in `prereg-v1.0.0`.
+
+---
+
 ## 2026-11-12 (planning session): review of `prereg-v1.0.0`, power check and the A0-2 result
 
 Good work: frozen and archived before data, gates applied exactly as registered, and the deviations and disclosures logged openly.
