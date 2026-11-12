@@ -8,6 +8,21 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): decision: **no LONI/DZNE request**; our own DA-neuron labels become primary for Workstream B
+
+- **The user decided not to request** the published per-cell labels (waited long enough). This replaces Phase 2 steps B1 and B2 and decision 4.
+- **Workstream B uses our `scrn-v0.1.0` marker labels as the primary source.**
+- **New step B0, label validation, no clinical data.** Frozen by tag **before** the Cell-to-Clinic II registration and before any clinical test. Checks:
+  1. agreement of our per-line DA-neuron fraction with the public Table S3 proportions (currently r = 0.57);
+  2. canonical DA markers (TH, DDC, SLC6A3, KCNJ6, NR4A2) enriched in labelled DA cells against other neurons;
+  3. stability of the DA-only phenotypes under small changes to the labelling thresholds.
+
+  A refined labelling rule may be adopted in B0, using only public Table S3 and marker information. The final rule is tagged before registration.
+- **The Aspera deadline (about 2026-12-11) is no longer on the critical path.** No further FOUNDIN download is planned.
+- **Still open for the user:** decisions 1 (second OSF registration), 3 (package repo and licence) and 5 (about 20 GB disk for the Jerber files).
+
+---
+
 ## 2026-11-12 (local session): **PLAN, Phase 2**: raising the work to top-journal level
 
 The user asked for items 1, 2, 3, 4 and 6 from the improvement list. Target: *a pre-registered null, a reusable framework, and a cross-cohort reliability atlas of iPSC neuron phenotypes* (Nature Methods / Cell Stem Cell). The TCBB version stays as the fallback.
