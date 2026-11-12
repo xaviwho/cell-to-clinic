@@ -8,6 +8,68 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): day-0 positive-control gate (A0-4) FAILED; registration text ready
+
+The planning-session review above was received and acted on. The day-0 gate was pre-specified, frozen and run. **It failed.** Nothing was tuned after seeing the result.
+
+### Day-0 gate: what was frozen
+Tag [`day0-gate-v0.1.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/day0-gate-v0.1.0) (commit `5678e46`), set before fitting. Script: `scripts/day0_gate.py`.
+
+- **Data:** bulk RNA (RNAB) has 99 day-0 samples from 95 lines (81 v1, 12 v2-only, control ×5). Every scRNA donor line has exactly one day-0 sample.
+- **Analysis set:** 79 donor lines. The control line is excluded because it would leak across folds.
+- **Outcome:** high vs low DA yield, split at the median of **our** per-line %TH+ (≥1 UMI primary, ≥2 UMI sensitivity).
+- **Model:** day-0 VST, with the 1,000 most variable genes and z-scoring chosen within each training fold. L2 logistic regression with C tuned in an inner 5-fold CV. 20 repeats of stratified 5-fold CV. 200 label permutations.
+- **Pass rule:** AUC ≥ 0.75 with p < 0.05. Partial: AUC ≥ 0.65 with p < 0.05.
+- Also reported: a batch-only baseline (Table S1 batch) and the ridge-regression Spearman ρ for continuous %TH+.
+- **scikit-learn is also partly blocked by Application Control.** Logistic regression, ridge, AUC and CV splitters were reimplemented in numpy/scipy. Checked on synthetic data before the freeze: planted signal gave AUC 1.0 (pass), null data gave 0.60, p = 0.08 (fail).
+
+### Result
+| Model | Mean CV AUC (SD) | Permutation p |
+|---|---|---|
+| Day-0 RNA, primary (%TH+ ≥1 UMI) | **0.573** (0.058) | 0.15 |
+| Day-0 RNA, sensitivity (%TH+ ≥2 UMI) | 0.626 (0.034) | 0.055 |
+| Batch only (5 batches) | 0.622 | n/a |
+| Continuous: ridge Spearman ρ (primary %TH+) | 0.07 | n/a |
+
+**Verdict: fail.** Under the draft's own rule (A0-4: "fix pipeline before any clinical test"), no clinical test proceeds until this is resolved. Batch alone predicts DA yield about as well as day-0 expression.
+
+### Possible reasons (not tested; testing them would be post-hoc)
+1. **Different target or features from the paper.**
+   - The published AUC 0.93 / CV 0.85 may use a different outcome (e.g. extreme groups, or Table S3 DA-neuron proportions rather than %TH+).
+   - It may also use a different gene set (e.g. pre-selected markers, protein-coding genes only).
+   - Our VST has 94,946 features. The top-variance 1,000 may be dominated by non-coding, low-count or batch-driven genes.
+2. **Batch confounding.** Batch/media drives %TH+ and also shifts day-0 expression. A signal in the paper could partly be batch.
+3. **The signal may be weaker than published** with this outcome definition and n = 79.
+
+### For the user / planning session: decision needed
+Pick one route. Whichever is chosen must be pre-specified (a new tag `day0-gate-v0.2.0`) before it is run, and this failed v0.1.0 result is reported alongside it in the registration.
+
+- **(a) Replicate the published analysis exactly first.** Read the paper's methods for the day-0 classifier (outcome definition, gene set, model) and code that as v0.2.0. This tests the pipeline itself, which is what A0-4 is for. *(Recommended.)*
+- **(b) Treat the failure as informative.** Report A0-4 as failed. Downgrade the cell-to-clinic aims to exploratory, or drop day-0 → yield as a gate.
+- **(c) Pre-specify a small, principled feature restriction:** protein-coding genes only, a minimum-expression filter, and batch as a covariate in every fold. Fewer forking paths than (a), but it is a guess at what went wrong.
+
+### Registration draft: text to add
+An attempt to write this into the pre-registration doc directly was blocked by the local permission policy, so the text is here to paste:
+
+- **Phenotypes → Phenotype source (decided 2026-11-12):**
+  - %TH+ per line comes from our Cell Ranger re-annotation (TH ≥1 UMI primary, ≥2 UMI sensitivity). It reproduces published Table S1 %TH+ (r = 0.999, n = 79), so it is a **reproduction gate**: a pipeline check, not independent evidence that %TH+ measures DA yield.
+  - Cell-type proportions: published Table S3 proportions are primary. Our broad marker labels are a sensitivity analysis only (DA vs totalDopa r = 0.57).
+  - Expression phenotypes: all-cell pseudobulk with composition covariates (Table S3 proportions or %TH+). Cell-type pseudobulk is secondary, and only if the published per-cell labels arrive from LONI/DZNE.
+  - Control line: its 4 scRNA runs (3 batches, E6/E8 media) are kept separate to estimate batch, media and technical variance, not averaged. If a single control value is ever needed, which run is used is pre-specified.
+- **Data → prior exposure (add):** by 2026-11-12 the following processed data had been opened:
+  - day-65 scRNA matrices, summarised to per-line QC, %TH+, broad cell types and pseudobulk, then compared with Tables S1/S3;
+  - day-0 bulk RNA, used only for the A0-4 gate, which failed (AUC 0.57).
+
+  No association with diagnosis, genotype, PRS or clinical variables has been run. Methods were frozen by git tags before fitting (`scrn-v0.1.0`, `day0-gate-v0.1.0`).
+- **Gates table, new row:** A0-6 Reproduction. Does our scRNA pipeline reproduce the published per-line %TH+? Comparator: Table S1 scRNA %TH+. Rule: r ≥ 0.80 (0.60–0.80 partial). **Result: r = 0.999, n = 79 (pass).** If it fails: use published cell metadata.
+- **Gates table, A0-4 result:** fail at v0.1.0 (AUC 0.57, p = 0.15; batch-only 0.62). Resolution pending (above).
+
+### Still open from earlier
+- LONI/DZNE request for the published per-cell labels (option b): not yet sent.
+- Power simulation; pseudobulk vs cell-level model choice; OSF filing.
+
+---
+
 ## 2026-11-12 (planning session): review of the scRNA run and gate
 
 Good run: frozen before data, 0 failures, cohort n = 47 confirmed. Answers and notes below.
