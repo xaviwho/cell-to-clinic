@@ -8,6 +8,49 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-13 (local session): **EXPLORATORY**: A2 across-batch reliability atlas on Jerber (`jerber-a2-v0.1.0`)
+
+Public data only (Jerber et al. 2021, day 52, untreated). The code was frozen and tagged before the run; synthetic tests pass (`tests/test_jerber_reliability.py`).
+- **Sample:** one line in one pool, using the pseudobulk of that sample. Each pool is an independent differentiation.
+- **ICC:** 1 − S_w²/S_d², the same estimator as FOUNDIN A0-2.
+  - S_d² comes from one sample per line.
+  - S_w² is pooled from lines in ≥ 2 pools, so it measures **across-batch** variation.
+- **Phenotypes:** defined as in FOUNDIN (`config/phenotypes.json`).
+  - Composition adjustment: residualised on logit DA and logit progenitor (FPP + P_FPP + P_Sert).
+  - DA-only versions use the Jerber "DA" cells.
+
+**Primary analysis** (≥ 200 cells per sample, ≥ 50 DA cells; 155 lines for donor variance, 23 within-line df; DA-only: 135 lines, 18 df):
+
+| Phenotype | Jerber across-batch ICC (95% CI) | FOUNDIN A0-2 (within-batch reference replicates) | Donors for true r = 0.3 at 1 / 2 / 4 runs per line (λ = 0.64) |
+|---|---|---|---|
+| P1 logit DA fraction | 0.38 (−0.26, 0.64) | 0.33 | 362 / 251 / 196 |
+| P2 SNCA, all cells, adjusted | 0.41 (−0.19, 0.66) | 0.94 | 336 / 238 / 189 |
+| P2 SNCA, all cells, unadjusted | 0.04 | n/a | n/a |
+| P3 OXPHOS, adjusted | −0.06 (−1.14, 0.39) | 0.55 | unbounded |
+| P4 lysosome, adjusted | 0.19 (−0.65, 0.53) | 0.64 | 721 / 430 / 285 |
+| **P2da SNCA in DA neurons** | **0.62 (0.14, 0.79)** | n/a | **224 / 182 / 161** |
+| P3da OXPHOS in DA neurons | 0.18 | n/a | n/a |
+| P4da lysosome in DA neurons | 0.43 | n/a | 321 / 230 / 185 |
+
+- **Genome-wide** (8,686 genes with mean CPM ≥ 10):
+  - median gene ICC 0.49 (IQR 0.29–0.66); 48% of genes have ICC ≥ 0.5.
+  - After composition adjustment: median 0.42; 37% ≥ 0.5.
+  - DA-only pseudobulk: median 0.41; 37% ≥ 0.5.
+- **Sensitivity to the minimum cells per sample:**
+  - ≥ 100 / 20 cells gives similar values (P1 0.44, P2 0.40, P2da 0.56).
+  - ≥ 500 / 100 cells gives higher values (P1 0.71, P2 0.62, P4 0.68; median gene ICC 0.67, 75% ≥ 0.5). However, that subset keeps only 112 lines and 10 within-line df, and it selects lines that differentiate well, so it confounds cell count with line quality.
+
+**Interpretation:**
+1. **In an independent dataset, the across-batch reliability of these line phenotypes is moderate to low (0.2–0.6). OXPHOS shows no line signal across batches.** This independently confirms E5c: FOUNDIN's within-batch reference replicates overstate reliability. P2 falls from 0.94 to 0.41, and P3/P4 from 0.55/0.64 to −0.06/0.19.
+2. **The composition adjustment is needed for SNCA.** Unadjusted all-cell SNCA has no line signal (0.04), which matches E5b in FOUNDIN bulk (SNCA ICC ≈ 0). Measuring SNCA **within DA neurons** gives the most reliable phenotype (0.62, the only CI clear of 0). This supports Workstream B: DA-only phenotypes as primary.
+3. **Design consequence:** detecting a true r = 0.3 with one run per line needs about **220–720 donors**. With 4 runs per line spanning batches it needs 160–290. The n = 47 FOUNDIN–PPMI overlap is an order of magnitude short, which is consistent with our null and equivalence results being the expected outcome.
+4. **Caveats:**
+   - The CIs are wide (18–23 within-line df).
+   - Jerber has day 52 in pooled "village" differentiations; FOUNDIN has day 65 with lines differentiated individually.
+   - The cell-count effect is confounded with line quality.
+
+**Next (A3):** split the within-line variance into cell-sampling noise (∝ 1/cells) and true batch variance, by downsampling cells within replicated samples. The design guide can then advise on both runs per line and cells per run. After that comes A4, design guide v2, which combines the FOUNDIN and Jerber estimates.
+
 ## 2026-11-13 (local session): A1 Jerber replicate check: **GO**
 
 Public data (Jerber et al. 2021, Zenodo 4651413, CC-BY): the day-52 file downloaded after one resumed drop, and the **MD5 matched** Zenodo's checksum. It is stored locally only; no FOUNDIN or PPMI data was involved. Script: `scripts/jerber_inspect.py`, which prints structure and counts only.
