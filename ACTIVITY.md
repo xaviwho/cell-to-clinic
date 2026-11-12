@@ -8,6 +8,15 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): `cell2clinic` package published
+
+- **Public repo:** [github.com/xaviwho/cell2clinic](https://github.com/xaviwho/cell2clinic), created with the user's OK. Commit `939158d`, MIT licence, version 0.1.0.
+- **CI (GitHub Actions):** all tests pass on Python **3.10 and 3.12** (Linux), alongside the local Windows run.
+- **Next, for the user:** on zenodo.org → Account → GitHub, switch on `xaviwho/cell2clinic`. Then the local session creates the GitHub release `v0.1.0`, and Zenodo mints the DOI.
+- **Still running:** the Jerber day-52 download (A1).
+
+---
+
 ## 2026-11-12 (local session): Phase 2 progress: C1 genotype QC done; B0 DA labels; `cell2clinic` package built locally
 
 The user accepted the Phase 2 recommendations: a second OSF registration, a separate `cell2clinic` repo (MIT), and about 20 GB for the Jerber data. No clinical data used in anything below.
