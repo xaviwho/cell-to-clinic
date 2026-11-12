@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): pre-registration drafted
+
+The full registration text is in the Claude Doc [Cell-to-Clinic: OSF Pre-registration](https://claude.ai/artifact/ED1Q5tAFzQ3H3WTupWX3G6), laid out to match the OSF Secondary Data Preregistration template. It supersedes the earlier working draft.
+
+### Decided by the user
+- The Tier 3 commitment is to register **before linking to clinical data**. Processing so far is disclosed (Part 4), not a deviation.
+- Primary group: all PD donors with day-65 scRNA, n = 47; idiopathic-only as sensitivity.
+- Phenotypes: P1 Table S3 "Dopaminergic Neurons" fraction (logit); P2 SNCA; P3 OXPHOS score (MSigDB Hallmark); P4 lysosomal score (MSigDB KEGG Lysosome). P2–P4 from all-cell pseudobulk, residualised on composition across the 79 donor lines.
+- Carrier comparison and non-scRNA modalities: exploratory.
+
+### Proposed, awaiting the user
+- **A0-3 changed** to ≥ 1,000 QC-passing cells per line (was ≥ 200 DA cells). P1 is now a composition measure, so excluding low-DA lines would truncate it.
+- Six covariates: age at onset, sex, genetic PD, PRS without GBA/LRRK2, media (E6/E8), disease duration at baseline.
+
+### For the local session (do not run on real data until the registration is filed)
+1. Save gene lists for P3/P4 (MSigDB v2023.2.Hs) and the Table S3 progenitor-cluster column names under `config/`.
+2. Write `scripts/phenotypes.py` (P1–P4 exactly as in Part 3 of the doc), `scripts/gates_prelink.py` (A0-2 ICC from the control line's 4 runs vs 79 donor lines; A0-3) and the H1–H3 model code with A0-5. Test on synthetic data only.
+3. Tag the release (e.g. `prereg-v1.0.0`) and archive it on Zenodo; report the DOI here.
+4. The PPMI clinical data cut is downloaded only after the user records the OSF registration date here.
+
+---
+
 ## 2026-11-12 (planning session): review of A0-4 v0.1.0 / v0.2.0 and the two decisions
 
 Paper title noted (`paper/main.tex`): *Cell-to-Clinic: A Gated Framework Linking iPSC Neuron Phenotypes to Parkinson's Progression.* Handling the failed gate, choosing route (a), freezing before fitting and reporting both versions is exactly how this should go.
