@@ -8,6 +8,47 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): PPMI data checked; name-only fixes (`prereg-v1.0.1`); **A0-1 PASSES**; donor counts per analysis
+
+### Data
+- Unzipped to `data/ppmi/2026-11-12/`: 8 study-data CSVs (dated 12Nov2026), the Curated Data Cut **v.2026-08-10**, the data dictionary and code list, and 2 method PDFs. Only file names, column headers, code lists and aggregate value formats were inspected.
+- **Matched the config unchanged:**
+  - Demographics (SEX 0 = female, per the code list);
+  - PD Diagnosis History;
+  - MDS-UPDRS Part III (PDTRTMNT 0/1; PDSTATE OFF/ON);
+  - Part II (NP2PTOT);
+  - SAA (all rows are CSF; "Inconclusive" is treated as missing, as coded).
+  - All dates are MM/YYYY (set to day 15), except SAA RUNDATE (YYYY-MM-DD).
+- **Name-only fixes** (`config/ppmi_columns.json`, commit `a97b8f7`, tag **`prereg-v1.0.1`**):
+  - DaTscan: the file is "Xing Core Lab - Quant SBR"; date `DATSCAN_DATE`; putamen `PUTAMEN_L_REF_CWM` / `PUTAMEN_R_REF_CWM` (reference: cerebral white matter). 31 TRODAT scans exist in the file; **none** belong to FOUNDIN-PD donors, so no filter is needed.
+  - LEDD: the study-data file is a per-drug medication log, not per visit. As the checklist anticipated, **per-visit LEDD is taken from the Curated Data Cut** (`LEDD`, matched by EVENT_ID).
+  - NSD-ISS: from the Curated Data Cut (`NSD_STAGE`; "Not NSD" = not stageable).
+  - New helper `scripts/prep_curated.py` converts the 5 needed curated columns from xlsx to CSV (format only), because the frozen loader reads CSV.
+  - **`ppmi_load.py`, `models.py`, `lmm.py`, `phenotypes.py` and `gates_prelink.py` are byte-identical to `prereg-v1.0.0`** (checked with git diff).
+
+### A0-1 and the sample (computed before any model was fitted)
+| | n |
+|---|---|
+| PD donors with day-65 scRNA | 47 (28 idiopathic, 19 genetic) |
+| After A0-3 (the excluded line is not a PD donor) | 47 |
+| Missing any covariate | 0 |
+| **A0-1:** ≥ 3 OFF visits spanning ≥ 2 years | **44 → PASS** (threshold 30) |
+| H1: ≥ 3 OFF visits, complete covariates | 47 (median 12 OFF exams per donor; median span 8 years) |
+| Sensitivity 6: donors with ON-state exams | 46 |
+| **H2:** ≥ 1 DaTscan / ≥ 2 DaTscans | **38 / 38** |
+| H3 SAA: negative / positive / missing | **7 / 38 / 2** (≥ 5 negatives, so it is tested, not descriptive) |
+| H3 NSD-ISS: stageable | 39 (stages 3: 11, 4: 22, 5: 6) |
+| Sensitivity 8: ≥ 3 Part II visits | 47 |
+
+### Flag for the planning session: DaTscan coverage
+- 9 of 47 PD donors have **no scan** in the Xing Core Lab file. The archived "DaTScan SBR Analysis", an older processing, was not downloaded. **H2 runs as registered on the 38**; every one of them has ≥ 2 scans, so the effective n for the slope is also 38.
+- Any use of the archived file would be a post-hoc, exploratory addition, because it mixes processing pipelines. Not done.
+
+### Next
+H1–H3, A0-5 and sensitivity analyses 1–9 on P2–P4 (P1 was dropped by A0-2) are running now at `prereg-v1.0.1`.
+
+---
+
 ## 2026-11-12 (planning session): PPMI clinical data cut downloaded
 
 The user logged in to LONI IDA; the planning session selected and downloaded the files via the user's browser. Download date: **2026-11-12** (after OSF approval and the Zenodo archive, as registered).
