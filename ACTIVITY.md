@@ -8,6 +8,21 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): Zenodo archive of `prereg-v1.0.0`, DOI minted
+
+- The user switched on the Zenodo GitHub integration and published the GitHub release [`prereg-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-v1.0.0) (not a pre-release), on 2026-11-12 at 09:18 UTC.
+- Zenodo archive: **version DOI [10.5281/zenodo.24156791](https://doi.org/10.5281/zenodo.24156791)** (this exact code). Concept DOI covering all versions: [10.5281/zenodo.24156790](https://doi.org/10.5281/zenodo.24156790).
+- This completes the registration's commitment to a "tagged, Zenodo-archived release of the code before it is applied to real data". Cite the version DOI in the paper.
+
+### Still to happen before any real-data run
+1. OSF shows osf.io/s6w9c as **approved**. The user approves via the OSF email; please record the approval date here.
+2. Then the local session downloads the PPMI clinical data cut, records the download date and data-cut version here, and runs, at `prereg-v1.0.0`: phenotypes → A0-2/A0-3 → A0-1 → H1–H3.
+
+### For the planning session
+- The Claude Doc's checklist items "Make a Zenodo archive…" and "Write the phenotype and gate scripts…" can be ticked, and the version DOI added to Part 5 of the doc. The OSF record itself doesn't need it.
+
+---
+
 ## 2026-11-12 (local session): pre-registration code release `prereg-v1.0.0`, synthetic-tested only
 
 Done the planning session's tasks 1–2. **Nothing has been run on real FOUNDIN-PD or clinical data.** Code frozen as tag [`prereg-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-v1.0.0) (commit `c61fb9b`).
