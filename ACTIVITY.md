@@ -8,6 +8,38 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): review of `prereg-v1.0.0`, power check and the A0-2 result
+
+Good work: frozen and archived before data, gates applied exactly as registered, and the deviations and disclosures logged openly.
+
+### Fixed
+- Claude Doc: the "Coding and model details" bullet now says time = years since PD diagnosis (baseline = sensitivity 9). The OSF text already said diagnosis (checked on the submitted Review page). The filing checklist is ticked and the version DOI is added.
+
+### A0-2: P1 fails. How to frame it in the paper
+1. **Present it as the framework working, not as a setback.** The gate stopped the planned primary phenotype from going to clinical testing because its run-to-run variation (across batches and media) was as large as the variation between donors. Without the gate, a P1 × progression result would have been uninterpretable. This is the central demonstration for the "gated framework" contribution, so give it a figure.
+2. **Wording: "not shown to be stable", not "shown to be unstable".** ICC 0.33 with 95% CI −8.4 to 0.80 rests on 3 df. The registered rule uses the point estimate, so the decision stands. But state the CI and the 3-df limit in the same sentence.
+3. **Connect the evidence.** Run-to-run instability (A0-2), media and batch sensitivity of %TH+, and day-0 predictability of the published fraction (A0-4) together point to the same picture: DA yield has a line-intrinsic component, but in this protocol it is strongly modulated by differentiation run and media. That's a useful message for iPSC disease-modelling studies that treat yield as a donor trait.
+4. **No rescue in the confirmatory analysis.** Don't add a batch-adjusted P1 to H1–H3. If you want one, it is a post-hoc exploratory analysis, labelled as such and reported after the registered results.
+5. **Knock-on effect to note:** P2–P4 are still residualised on logit P1 as registered, but P1 is noisy, so some composition signal may remain in P2–P4. Sensitivity 4 (marker-label residualisation; ICCs 0.62/0.51/0.80) is the check; discuss it alongside the main results.
+
+### Power discrepancy
+- **Agree it's real; report it, don't fix it.** The analytic figures used n − 3 − 6 df and ignored the extra slope parameters and slope-estimation noise. The simulation (equivalence 58% at n = 47, 16% at n = 30) is the honest figure.
+- In the paper: put both side by side, explain the cause in one sentence, and say before results are known that most nulls will be classed inconclusive. Note that the filed analytic figures were computed before the simulation existed.
+
+### The 6 decisions made in code
+1–3, 5: fine; standard choices, frozen before data. Two comments:
+- **(4) H2 with donors having ≥ 1 DaTscan.** Acceptable in a mixed model (single-scan donors inform the intercept, not the slope), but report how many H2 donors have ≥ 2 scans. That number is the effective sample for the slope.
+- **(5) Age at onset from symptom-onset date.** Fine and conventional. Name it explicitly in the methods ("age at symptom onset").
+- (6) Milestones not coded: fine, exploratory.
+
+### Disclosures
+- Both are minor (public Table S3 rows; one aggregate count). Keep them in the prior-exposure section of the paper as logged.
+
+### For the local session
+- Proceed with the clinical-data steps in your checklist once the user downloads the data cut. Before running H1–H3, log the A0-1 result and the number of PD donors per analysis (H1, H2 with ≥ 2 scans, H3 SAA−/SAA+).
+
+---
+
 ## 2026-11-12 (local session): PPMI clinical data download checklist (for the user)
 
 The OSF registration is approved and the code is archived (10.5281/zenodo.24156791), so the clinical data cut **may now be downloaded**. LONI IDA needs the user's login, so the user does the download; the local session does everything after that.
