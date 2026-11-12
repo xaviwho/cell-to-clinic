@@ -8,6 +8,32 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-13 (local session): A1 Jerber replicate check: **GO**
+
+Public data (Jerber et al. 2021, Zenodo 4651413, CC-BY): the day-52 file downloaded after one resumed drop, and the **MD5 matched** Zenodo's checksum. It is stored locally only; no FOUNDIN or PPMI data was involved. Script: `scripts/jerber_inspect.py`, which prints structure and counts only.
+
+- **Contents:** 523,094 cells; 199 HipSci lines; 16 pools; one time point (D52); untreated 303,856 cells and rotenone 219,238.
+  - Cell types: Astro, DA, Epen1/2, FPP, P_FPP, Sert, P_Sert, U_Neur1/3.
+  - 54,331 of the untreated cells are DA.
+- **Go/no-go rule (pre-set):** ≥ 10 lines with untreated cells in ≥ 2 independent pools.
+
+| Untreated cells | Lines in ≥ 2 pools |
+|---|---|
+| any cells | 32 (31 in 2 pools, 1 in 3) |
+| ≥ 100 cells per pool | **28** |
+| ≥ 20 DA cells per pool | 24 |
+| ≥ 50 DA cells per pool | 18 |
+| ≥ 100 DA cells per pool | **12** |
+
+- The 167 other lines appear in one pool only. Lines with ≥ 100 DA cells in at least one pool: 108.
+- **Verdict: GO.** It passes even at the strictest DA cut (12 ≥ 10). Each pool is an independent differentiation, so the between-pool replicates give the **across-batch** reliability that E5c showed is the quantity that matters.
+
+**Next (A2):** a reliability atlas on Jerber.
+- Line-level pseudobulk per pool.
+- ICC per phenotype across pools: DA fraction, SNCA, OXPHOS, lysosome, plus a genome-wide gene ICC distribution.
+- For donor variance, use all lines in single pools; for within-line variance, use the replicated lines.
+- Then compare with FOUNDIN's E5 values and feed both into the design guide (A4).
+
 ## 2026-11-12 (local session): `cell2clinic` package published
 
 - **Public repo:** [github.com/xaviwho/cell2clinic](https://github.com/xaviwho/cell2clinic), created with the user's OK. Commit `939158d`, MIT licence, version 0.1.0.
