@@ -8,6 +8,65 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): A0-4 v0.2.0 (exact replication of the published classifier): PARTIAL; published analysis reproduced
+
+The user chose route (a). The published method was taken **verbatim** from the STAR Methods (Europe PMC full-text XML; PMC itself served a CAPTCHA), implemented, tested on synthetic data and frozen as tag [`day0-gate-v0.2.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/day0-gate-v0.2.0) (commit `ee99751`) **before** fitting. Script: `scripts/day0_gate_v2.py`. The failed v0.1.0 result stands and is reported alongside.
+
+### What differed from v0.1.0 (and is now replicated)
+| | v0.1.0 (ours) | Published, used in v0.2.0 |
+|---|---|---|
+| Outcome | our %TH+, median split | Table S3 **"Dopaminergic Neurons"** cluster %, **≥ 15.7% (Q25)**: high/low |
+| Features | VST, top 1,000 by variance | DESeq2 **normalised counts**, rows with mean ≥ 50 (16,415 kept of 94,946) |
+| Model | L2 logistic, C tuned | binomial **elastic net, alpha 0.5, lambda 0.22** (glmnet objective, standardised x) |
+| CV | 20 × 5-fold, pooled AUC | **100 × 5-fold**, fold-averaged AUC (as cv.glmnet) |
+
+- **Check that the outcome is right:** Q25 of all 83 Table S3 rows is 15.66%, which reproduces the published 15.7% cut and the **62 high / 21 low** split exactly.
+- **Deviation:** 79 donor lines rather than 83 rows (57 high / 22 low). The control line is excluded because Table S3 can't link its 4 rows to its batch-specific day-0 samples.
+- scikit-learn is blocked, so elastic net was implemented in numpy: a working-set FISTA solver, checked against the KKT optimality conditions (max violation 2e-7 on the real fit).
+
+### Result
+| | Ours (v0.2.0) | Published |
+|---|---|---|
+| Apparent (in-sample) AUC | **0.935** | 0.93 |
+| Non-zero genes | 14 | 10 |
+| Published 5 genes among selected | **5 / 5** | n/a |
+| Repeated 5-fold CV AUC | **0.72** (SD 0.05); permutation p = 0.02 (null mean 0.51); pooled out-of-fold 0.67 | 0.85 (SD 0.03) |
+
+The five published genes (Spearman ρ of day-0 normalised counts vs DA %, n = 79) all replicate in the published direction with FDR < 1%:
+
+| Gene | ρ | FDR | Published sign |
+|---|---|---|---|
+| HNRNPH3 | +0.41 | 4e-4 | + |
+| SRSF5 | +0.35 | 2e-3 | + |
+| HSD17B6 | +0.40 | 4e-4 | + |
+| ZSWIM8 | −0.44 | 2e-4 | − |
+| ARSA | −0.34 | 2e-3 | − |
+
+**Verdict under the frozen rule: partial** (AUC ≥ 0.65 and p < 0.05, but < 0.75).
+
+**Reading:** the pipeline **reproduces the published analysis**: same in-sample AUC, the same key genes and the same gene-level correlations. The shortfall is only in cross-validated AUC (0.72 vs 0.85). The synthetic null run gave an in-sample AUC of 0.99 with no signal, so the published 0.93 is not informative by itself; the CV figure is the real benchmark. Possible (untested) reasons for the CV gap:
+- the paper's 83 rows include the control line's 4 near-identical runs, which can leak across folds;
+- cv.glmnet's AUC details;
+- n of 79 vs 83.
+
+### Secondary results (pre-specified, not gating)
+- **Batch-only baseline** for the published outcome: CV AUC **0.53**. Unlike %TH+ (v0.1.0: batch-only 0.62), DA-cluster fraction is not batch-driven. This is consistent with the paper's "not related to batch".
+- **Same model, outcome = our %TH+ split at Q25: CV AUC 0.35.** Day-0 expression does **not** predict %TH+. AUC < 0.5 in small-n CV with no signal is a known artefact, so read it as "no signal", not as a reversed effect.
+- **Implication:** %TH+ (TH ≥1 UMI, any cell) and published DA-neuron cluster fraction are **different constructs**. %TH+ is batch-sensitive and not predictable from day 0. The DA-cluster fraction is predictable and not batch-driven. This supports the planning decision to use **Table S3 proportions as primary cell-type phenotypes**, and argues for treating %TH+ as secondary.
+
+### For the user / planning session: decisions
+1. **What a partial A0-4 means.** The draft gates table defines only pass (AUC ≥ 0.75) and fail ("fix pipeline before any clinical test"); partial is undefined.
+   - Proposal: treat A0-4 as **met for pipeline validity**, because the published analysis is reproduced: apparent AUC, all 5 genes, gene correlations, p = 0.02.
+   - Report CV AUC 0.72 vs 0.85 honestly, with v0.1.0's failure alongside.
+   - Fix this interpretation in the registration before any clinical step.
+2. **Primary DA phenotype:** switch from %TH+ to Table S3 DA-neuron (or totalDopa) fraction? The evidence above favours it. %TH+ stays as the reproduction gate (A0-6) and a secondary phenotype.
+
+### Prior exposure (add to registration)
+- Day-0 bulk RNA was used in the A0-4 gate only: v0.1.0 (failed) and v0.2.0 (partial), both frozen before fitting.
+- No clinical variables were touched.
+
+---
+
 ## 2026-11-12 (local session): day-0 positive-control gate (A0-4) FAILED; registration text ready
 
 The planning-session review above was received and acted on. The day-0 gate was pre-specified, frozen and run. **It failed.** Nothing was tuned after seeing the result.
