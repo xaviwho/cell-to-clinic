@@ -1,0 +1,16 @@
+# PPMI / FOUNDIN-PD Project 150 controlled-access data: never commit (DUA)
+data/
+*.tar.gz
+*.rds
+*.h5
+*.h5ad
+*.mtx
+*.mtx.gz
+*.vcf*
+*.bed
+*.bim
+*.fam
+*.pgen
+*.pvar
+*.psam
+*.idat
