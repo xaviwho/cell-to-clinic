@@ -8,6 +8,93 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **PLAN, Phase 2**: raising the work to top-journal level
+
+The user asked for items 1, 2, 3, 4 and 6 from the improvement list. Target: *a pre-registered null, a reusable framework, and a cross-cohort reliability atlas of iPSC neuron phenotypes* (Nature Methods / Cell Stem Cell). The TCBB version stays as the fallback.
+
+### Feasibility checks done today (no data opened)
+- **Jerber et al. 2021 (Nat Genet) is usable for item 1.**
+  - 215 HipSci iPSC lines differentiated toward midbrain DA neurons; scRNA-seq at days 11, 30 and 52.
+  - The processed data is **open, CC-BY 4.0**, on Zenodo ([4651413](https://zenodo.org/records/4651413): `day52.h5.zip` 7.1 GB, `eqtl_summary_stats.tar.gz` 9.7 GB; also [6079122](https://zenodo.org/records/6079122)).
+  - Raw data is in EGA (managed) and ENA (open). We don't need raw data.
+  - **Not yet confirmed:** that enough lines were differentiated in more than one pool, so a within-line run variance can be estimated across many lines. The sample map on Zenodo doesn't show it; the day-52 metadata will. This is the **go/no-go check A1**.
+- **FOUNDIN genotypes (item 3):** the GENO bundle is a PLINK set (.bed/.bim/.fam, about 700k variants) plus QC PDFs. numpy can read it directly; no new software is needed.
+- **Prior work (item 4):** a first search found no PD study linking iPSC-neuron phenotypes to the same donors' longitudinal clinical course. The nearest precedent is in ALS (patient-neuron expression vs ALSFRS-R slope). A proper literature check is still needed before any novelty claim.
+
+### Governance for Phase 2
+- **Clinical tests (Workstream B, and D2) run only after a new OSF registration**, "Cell-to-Clinic II". It must declare plainly that the confirmatory results of osf.io/s6w9c are already known. Workstreams A, C and F use no clinical data, but they are frozen by git tag before running, as before.
+- **Jerber/HipSci data are public.** They go to `data/external/jerber/` (git-ignored), and are kept separate from the PPMI/FOUNDIN data. They are not linked to any clinical data.
+- **Chat hygiene:** no `data/` listings or file names; counts or hashed IDs only.
+
+### Workstream A: cross-cohort reliability atlas (item 1)
+| Step | What | Output |
+|---|---|---|
+| A1 | Download the Jerber day-52 h5 (and day 11/30 if useful). Read the metadata with h5py: lines, pools, conditions. **Go/no-go:** ≥ 10 lines with ≥ 2 independent pools in untreated cells. | Counts only |
+| A2 | Rebuild the same phenotypes on Jerber cells: SNCA, OXPHOS and lysosome (same MSigDB sets), DA-neuron fraction (their annotation). Composition adjustment uses their cell types. Untreated cells only (no rotenone). | Per-line × pool table (local) |
+| A3 | Variance components: between line, between pool, residual. ICC and between-pool share for each phenotype, raw and composition-adjusted; then set beside the FOUNDIN results (A0-2, E5, explore-v0.3.0). | Reliability atlas table |
+| A4 | Design guide v2: E4/E5a curves recomputed with the cross-cohort reliability estimates, with uncertainty. | Updated Fig. 5 |
+| Note | **Jerber pooled 4–24 lines per dish.** Pooling shares the batch environment across lines, so the batch → composition effect partly cancels between lines in a pool. Comparing pooled (Jerber) with separate-well (FOUNDIN) differentiation is itself a design result to report. | |
+| No-go fallback | If too few lines are replicated: use between-pool variation of the pool means and of the shared control lines, or ask the authors. Report whatever is feasible. | |
+
+### Workstream B: DA-neuron-intrinsic phenotypes (item 2)
+| Step | What |
+|---|---|
+| B1 | **User:** request the published per-cell labels from LONI/DZNE now. Aspera expires about 2026-12-11. |
+| B2 | Recompute P2–P4 from **DA-neuron cells only**. Primary: the published labels if they arrive by the registration date. Fallback: our `scrn-v0.1.0` marker labels; their DA pseudobulk already exists, but they agree only moderately with Table S3 (r = 0.57), which must be stated. |
+| B3 | Gates re-applied: A0-2 (ICC ≥ 0.5, control-line runs); A0-3 changed to ≥ 100 DA-labelled cells per line; A0-5 for composites. |
+| B4 | After the Cell-to-Clinic II registration: the H1–H3 models from `prereg-v1.0.0`, unchanged, on DA-only phenotypes. Separate BH families, equivalence classes as before. |
+
+### Workstream C: genetic positive control (item 3)
+| Step | What |
+|---|---|
+| C1 | Unpack GENO; standard QC (call rate, MAF ≥ 5%, HWE); match samples to lines; dosage matrix. Report counts only. |
+| C2 | **Main test:** take Jerber's day-52 DA-neuron eQTL lead variants (FDR < 5%) for genes expressed in FOUNDIN, and test them in FOUNDIN (79 lines; all-cell pseudobulk, and DA-only when B2 exists). Linear model: expression ~ dosage + media + 3 genotype PCs. |
+| C3 | Metrics: sign concordance, π₁ replication rate, and the slope of effect sizes. Null: MAF-matched random SNP–gene pairs. |
+| C4 | **Interpretation:** if donor eQTLs replicate, the cultures carry donor-specific biology, which makes the clinical null more informative: the dish is not simply failing to reflect the donor. Pre-specified pass rule, to be fixed in the registration (proposed: sign concordance ≥ 70% and π₁ ≥ 0.3). |
+| C5 | Bonus result: an independent replication of DA-neuron eQTLs across two iPSC cohorts and protocols. |
+
+### Workstream D: the OXPHOS signal (item 4); claims kept narrow
+| Step | What |
+|---|---|
+| D1 | **Within-cohort technical replication:** compute the OXPHOS score from **bulk RNA-seq at day 65**, an independent library of the same lines, and fit it in the H1 model. Pre-specified in Cell-to-Clinic II; exploratory. |
+| D2 | **External replication search:** a systematic search for PD iPSC collections with donor longitudinal clinical data (literature, consortia, iPSC banks). Planning session: list candidates; check access. **No cohort is named as available until it is confirmed.** |
+| D3 | If one is found: a data access request, then the frozen H1-type model for OXPHOS only. If not: report D1 and the gene-level E1 direction as hypothesis-generating. |
+| Rule | No clinical claim beyond "candidate for replication" unless D3 replicates. |
+
+### Workstream F: the `cell2clinic` software package (item 6)
+| Step | What |
+|---|---|
+| F1 | Python package (numpy/scipy/pandas only; runs where scanpy can't):<br>• `gates`: ICC with F-CI, reproduction, positive control, coherence, linkage; rules from config<br>• `lmm`: REML + Satterthwaite + fallbacks<br>• `equivalence`: TOST on partial r, BH, classes<br>• `design`: attenuation, N calculator, bootstrap uncertainty, runs-per-line trade-off<br>• `survival`: Cox with delayed entry<br>• `io`: tidy-table adapters |
+| F2 | Tests: port all synthetic tests. Validation against statsmodels and exact analytic cases (balanced Satterthwaite df). A local regression test that reproduces the tagged FOUNDIN aggregates exactly; it is never committed with data. |
+| F3 | Docs: a worked example on synthetic data, plus a design-calculator CLI. Optionally an interactive web calculator. |
+| F4 | CI on GitHub Actions (synthetic data only). Release `v1.0.0`; Zenodo DOI. |
+
+### Order and dependencies
+1. **Now, in parallel:**
+   - B1 (user sends the per-cell label request);
+   - A1 (download + go/no-go);
+   - C1 (genotype QC);
+   - F1 (start the package from the existing tested code);
+   - D2 (planning-session search).
+2. **Draft and file the Cell-to-Clinic II registration:** B3/B4, the C2–C4 rule, D1, and A3/A4 as descriptive. **Filed before any of B4 or D1 runs.**
+3. Run A2–A4 and C2–C3; they need no clinical data.
+4. After registration: B4 and D1.
+5. Package F2–F4; release; the paper on the extended structure.
+
+### Decisions needed from the user
+1. **File a second OSF registration** (Cell-to-Clinic II) before the new clinical tests? *Recommended: yes.*
+2. **Send the per-cell label request** to LONI/DZNE this week; it needs your account.
+3. **Package:** its own public repo (`cell2clinic`) or a subfolder here; and the license (MIT or Apache-2.0). *Recommended: its own repo, MIT.*
+4. **DA-only primary label source:** published labels if they arrive by the registration date, otherwise our marker labels? *Recommended: yes.*
+5. **Disk:** about 20 GB for the Jerber files (day 52 + eQTL statistics) on `D:`.
+
+### For the planning session
+- D2 search, and a full literature check of novelty claims.
+- Draft the Cell-to-Clinic II registration text from this plan.
+- The paper restructure for the target journal.
+
+---
+
 ## 2026-11-12 (local session): figures started: Fig. 3 and Fig. 1 done
 
 Built from aggregate outputs only (`models.json`, gate JSONs). Scripts in `scripts/figures/`; PNG (300 dpi) and PDF in `paper/figures/`.
