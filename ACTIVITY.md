@@ -4,7 +4,79 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 > **Public repository.** This log holds no participant-level information: no PATNOs, cell-line (CDI) numbers, per-line values, credentials or data. Controlled-access data stays on the local machine under `data/`, which is git-ignored.
 
-> **Two sessions share this log.** The **local session** (Claude in VS Code, on the machine with the data) runs analyses. The **planning session** (Claude on claude.ai, no data access) writes scripts and plans. Each entry is tagged with which session wrote it. Requests between sessions go under **"For the local session"** / **"For the planning session"** headings. Pull before starting, commit and push when done. Only aggregate, non-identifying results go here.
+> **Two sessions share this log.** The **local session** (Claude in VS Code, on the machine with the data) is the **main environment**: from 2026-11-12 it does all the work, including scripts, analyses, commits and tags. The **planning session** (Claude on claude.ai, no data access) reads this log and can raise requests or reviews. Each entry is tagged with which session wrote it. Requests go under **"For the local session"** / **"For the planning session"** headings. Pull before starting, commit and push when done. Only aggregate, non-identifying results go here.
+
+---
+
+## 2026-11-12 (local session): scRNA pipeline frozen, run on all 83 runs, validation gate PASSED
+
+All planning-session steps 1–6 are done. The method was frozen **before** any real data was processed: tag [`scrn-v0.1.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/scrn-v0.1.0) (commit `702d623`).
+
+### Changes to the planning session's script (all made before the freeze)
+- **scanpy/anndata/pyarrow removed.** Windows Application Control on the analysis machine blocks their compiled dependencies (numba, zarr/numcodecs, pyarrow DLLs). The policy is not bypassed. `scripts/scrn_per_run.py` now uses only numpy, scipy, pandas and h5py:
+  - own 10x `.h5` reader (Gene Expression features only; duplicate symbols made unique);
+  - own `score_genes`: the same Seurat/scanpy algorithm (25 expression bins, 50 control genes per bin, seed 0), not bit-identical to scanpy;
+  - outputs written as `.csv.gz` instead of parquet.
+- **GBA1 is looked up as `GBA1` or `GBA`.** FOUNDIN-era Cell Ranger references name it `GBA`.
+- **TH rule:** ≥1 UMI is primary (as planned); **≥2 UMI is a pre-specified sensitivity metric**, computed alongside (`frac_TH_pos_all_sens`, `frac_DA_neuron_sens`).
+- QC thresholds and marker sets unchanged: ≥500 genes, ≥1000 UMIs, ≤20% mito, ≤8000 genes.
+- **Gate pre-specified** (thresholds in the script): Pearson r between our per-line %TH+ and published per-line %TH+.
+  - r ≥ 0.80: pass. 0.60–0.80: partial. < 0.60: fail.
+  - The per-line comparator is **Table S1 "scRNA %TH+ cells"**, matched by PATNO. Table S3 holds cell-type proportions, not %TH+.
+  - Secondary, not gating: our DA-neuron fraction vs Table S3 `totalDopa`.
+  - New `scripts/scrn_gate.py` prints aggregates only.
+- Tested on synthetic Cell Ranger files before the freeze: planted cell types recovered with 100% accuracy; gate script checked on fake tables.
+- Minor fixes: error log now closed properly; peak RAM is recorded per run.
+
+### Run
+- Dry run found **83 runs** (as expected). Unpacked size 17 GB.
+- 83/83 processed, **0 failures**. About 4 s per run, **≤0.93 GB peak RAM**, about 5 min total.
+
+### Results (aggregates only)
+| Item | Value |
+|---|---|
+| Runs / distinct lines | 83 / **80** (control line ×4 runs). The earlier "82" was wrong. Table S3 also has 83 rows / 80 distinct IDs. |
+| Cells per run, raw (Cell Ranger filtered) | median 6,460 (IQR 5,130–7,480) |
+| Cells per run after QC | median 5,420 (IQR 4,120–6,210); QC pass rate median 82% (IQR 77–87%) |
+| %TH+ (≥1 UMI) | median 12.1% (IQR 9.4–17.3) |
+| %TH+ (≥2 UMI, sensitivity) | median 6.1% (IQR 4.2–9.9) |
+| Lines with <10% / <5% TH+ (≥1 UMI) | 26 / 2 of 80 |
+| Broad compartments (median %) | Progenitor 60.6 · Other neuron 17.6 · DA neuron 9.8 · Proliferating 3.3 · Ependymal-like 3.2 · Unassigned 1.0 |
+
+**Validation gate: PASS.**
+- Primary: r = **0.999** (Spearman 0.999), n = 79 lines with a published value. All 79 matched; none missing from ours.
+- Sensitivity (≥2 UMI): r = 0.979.
+- Reading: published "scRNA %TH+ cells" is the fraction of cells with any TH UMI, and we reproduce it. **The 42.7 GB Seurat object is not needed for %TH+.**
+
+**Secondary (not gating): DA-neuron fraction vs Table S3 `totalDopa`: r = 0.57** (Spearman 0.53), n = 80.
+- Our broad marker-based labels do **not** reproduce the published cell-type clusters (immature + mature DA neurons, progenitor subtypes).
+- **Caveat:** treat our cell-type labels (and cell-type pseudobulk) as provisional. %TH+ and all-cell pseudobulk are fine.
+- If an aim needs published cell types, use Table S3 proportions directly (per line, public) or obtain the published cell metadata (option b).
+
+### Cohort for day-65 scRNA (public Table S1, matched to our 80 lines)
+| Group | Lines |
+|---|---|
+| Idiopathic PD | 28 |
+| Genetic PD | 19: LRRK2 11, GBA 6 (incl. one E326K), SNCA 2 |
+| **All PD** | **47** (confirms planning n) |
+| Unaffected carriers | 22: GBA 10, LRRK2 10, LRRK2+GBA 1, SNCA 1 |
+| Healthy controls | 8 (incl. the control line) |
+| Prodromal / SWEDD | 2 / 1 |
+
+### Prior exposure (update for the registration)
+- Day-65 scRNA Cell Ranger matrices opened and summarised: %TH+, QC metrics, broad compartments, per-cell-type pseudobulk.
+- Per-line values were compared with published Table S1/S3. No association with diagnosis, genotype or PRS was run, and none was looked at.
+- **No PPMI clinical outcomes pulled.**
+- The cohort counts above come from public Table S1 only.
+
+### Next (local session)
+1. Settle the phenotype set. %TH+ is validated. Should cell-type proportions use our labels or Table S3?
+2. Decide pseudobulk vs cell-level modelling. All-cell pseudobulk per run is already in `data/derived/scrn/`.
+3. Check bulk RNA (RNAB) headers for day-0 samples, for the day-0 → DA-yield positive-control gate.
+4. Power simulation, then OSF filing.
+
+### For the planning session
+- Review the gate outcome and the secondary-comparison caveat. Should cell-type phenotypes come from Table S3 (published, public) rather than our re-annotation?
 
 ---
 
