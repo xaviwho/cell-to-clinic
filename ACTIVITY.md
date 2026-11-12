@@ -8,6 +8,74 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **EXPLORATORY** E5: design-guide uncertainty, bulk-RNA replicates, batch vs within-batch noise
+
+Code: `scripts/exploratory2.py`, frozen as `explore-v0.2.0` (commit `1a52f41`) before running.
+- **Bug found on the first real-data run:** bulk Ensembl IDs were mapped to symbols with the version stripped on one side only, so E5b and E5c returned all-NaN.
+- **Fix:** commit `ef33d61`, tag **`explore-v0.2.1`**; strips versions on both sides. The test now uses versioned IDs. No analysis choice changed.
+- **E5a** does not use the mapping and has a fixed seed; its results are identical in both runs.
+
+### E5a: uncertainty in the design guide (E4)
+- ICC drawn from its F-based sampling distribution (4 control runs); slope reliability from a donor bootstrap (200 refits per outcome).
+- **Slope reliability λ**, median (10th–90th percentile): OFF-state UPDRS III **0.60 (0.49–0.69)**; putamen SBR **0.45 (0.14–0.60)**.
+- **Donors needed for 80% power, true r = 0.3, OFF-state UPDRS III slope**, median (10th percentile); the 90th percentile is unbounded for all except P2:
+
+| Phenotype | P(no line signal, ICC ≤ 0) | k = 1 run per line | k = 4 runs per line |
+|---|---|---|---|
+| P2 SNCA | 2% | 164 (141); 90th: 234 | 153 (134); 90th: 198 |
+| P4 Lysosome | 23% | 283 (175) | 192 (146) |
+| P3 OXPHOS | 26% | 352 (186) | 208 (152) |
+| P1 DA yield | 43% | 1,053 (214) | 392 (163) |
+
+### E5b: replicate reliability in bulk RNA-seq, day 65
+Independent library preparation; the control line has **5 runs (4 df)**; composition is **not** adjusted.
+
+| Bulk phenotype | ICC, 79 scRNA donor lines (95% CI) | ICC, all 91 lines | scRNA ICC (A0-2, composition-residualised) |
+|---|---|---|---|
+| SNCA | **−0.15** (−8.6 to 0.61) | 0.02 | **0.94** |
+| TH (DA proxy) | 0.02 (−7.2 to 0.67) | 0.23 | P1: 0.33 |
+| OXPHOS | 0.21 (−5.6 to 0.73) | 0.19 | 0.55 |
+| **Lysosome** | **0.89 (0.12 to 0.96)** | **0.89** | 0.64 |
+
+### E5c: where run-to-run noise comes from (bulk, day 25)
+The control line has 9 runs in batch 1 and 4 in other batches.
+
+| Phenotype | Share of run variance between batches | ICC using within-batch-1 variance | ICC using all 13 runs |
+|---|---|---|---|
+| SNCA | **97%** | 0.99 | 0.54 |
+| TH | **94%** | 0.98 | 0.69 |
+| OXPHOS | **85%** | 0.92 | 0.48 |
+| Lysosome | 21% | 0.87 | 0.83 |
+
+### What E5 adds (exploratory)
+1. **Run-to-run noise is almost entirely batch-to-batch.** Within one batch, replicate differentiations are nearly identical (within-batch ICC 0.87–0.99). Across batches, 85–97% of the run variance appears for SNCA, TH and OXPHOS. Two consequences:
+   - replicates within a single batch overstate reliability and don't help;
+   - to average out the noise, replicate differentiations must **span batches**, or batch must be designed out (balanced across groups) and modelled.
+2. **Composition adjustment is what makes SNCA reliable.** Unadjusted bulk SNCA has no line signal (ICC ≈ 0). The scRNA SNCA residualised on cell-type composition has ICC 0.94. The batch effect on SNCA runs mostly through how many neurons a run makes. Without single-cell composition, SNCA would not be a usable donor trait.
+3. **The lysosomal programme is the most robust line-intrinsic signal.** It is reliable in both assays (bulk 0.89; scRNA 0.64), and the least batch-driven (21% between-batch). It is the best candidate phenotype for a future, larger cell-to-clinic study. In this study it was dropped from H1 only by A0-5, the composite-coherence gate.
+4. **DA yield (TH, P1) is unreliable in both assays.** This supports the A0-2 decision.
+
+Caveats:
+- Within-line variance comes from one control line throughout.
+- Day 25 is a progenitor stage.
+- E5b is not composition-adjusted, by design.
+- All results are exploratory.
+
+### Disclosure
+A file listing printed one scRNA run directory name (PATNO and CDI) into the local chat. Nothing went to this log.
+
+### For the planning session
+- E4 and E5 together give a concrete, data-based design recommendation for iPSC cell-to-clinic studies:
+  1. single-cell composition adjustment;
+  2. replicate differentiations across batches, not within;
+  3. lysosomal and SNCA phenotypes in preference to DA yield;
+  4. about 150–300 donors for effects of r ≈ 0.3.
+
+  This would make a strong second contribution alongside the gated-framework result.
+- A possible follow-up (exploratory, post hoc; only on request): composition-adjusting bulk SNCA using the bulk TH/neuronal markers, to test point 2 directly in the bulk data.
+
+---
+
 ## 2026-11-12 (local session): **EXPLORATORY** analyses E1–E4 (frozen as `explore-v0.1.0` before running)
 
 Code: `scripts/exploratory.py`, commit `2db113d`, tag `explore-v0.1.0`; synthetic tests in `tests/test_exploratory.py` (Cox with delayed entry recovers planted hazard ratios). Same data and sample as the confirmatory run (47 PD donors). **Everything below is exploratory and hypothesis-generating.**
