@@ -127,7 +127,7 @@ def to_symbols(raw, h5_path):
     with h5py.File(h5_path, "r") as f:
         ft = f["matrix/features"]
         ids = [x.decode() for x in ft["id"][:]]; names = [x.decode() for x in ft["name"][:]]
-    mp = dict(zip(ids, names))
+    mp = dict(zip([re.sub(r"\.\d+$", "", x) for x in ids], names))  # v0.2.1: strip versions on both sides
     sym = raw.index.astype(str).str.replace(r"\.\d+$", "", regex=True).map(mp)
     out = raw[sym.notna()].copy()
     out.index = sym[sym.notna()]

@@ -11,7 +11,7 @@ TMP = pathlib.Path(sys.argv[1]); assert TMP.exists() and not any(TMP.iterdir())
 rng = np.random.default_rng(3)
 cfg = load_config()
 genes = sorted(set(read_geneset(cfg["gene_sets"]["P3"])) | set(read_geneset(cfg["gene_sets"]["P4"])) | {"SNCA", "TH"} | {f"F{i}" for i in range(200)})
-ids = [f"ENSG{i:011d}" for i in range(len(genes))]
+ids = [f"ENSG{i:011d}.{i % 7 + 1}" for i in range(len(genes))]  # versioned, as in Cell Ranger
 with h5py.File(TMP / "f.h5", "w") as f:
     g = f.create_group("matrix/features")
     g["id"] = np.array([x.encode() for x in ids]); g["name"] = np.array([x.encode() for x in genes])
@@ -31,7 +31,7 @@ for day in (65, 25):
     for j, b in enumerate(reps):
         be = b1 if b == "B1" else rng.normal(0, 0.3)
         sample(f"RNAB_PPMI9999{b}_0001_da{day}_v{j+1}", 0.2, be + rng.normal(0, 0.05))
-ct = pd.DataFrame(np.array(data).T, index=[f"{x}.{rng.integers(1,9)}" for x in ids], columns=cols)
+ct = pd.DataFrame(np.array(data).T, index=ids, columns=cols)
 ct.index.name = "Geneid"
 ct.to_csv(TMP / "counts.tsv", sep="\t")
 res = ex.e5b_e5c(TMP / "counts.tsv", [str(3000 + i) for i in range(50)], cfg, TMP / "f.h5")
@@ -46,6 +46,7 @@ assert c["n_batch1_runs"] == 9 and c["between_batch_share"] > 0.5 and c["icc_wit
 
 # E5a with small B on synthetic clinical data
 ex.B, ex.B_LAMBDA = 200, 15
+assert res["bulk_id_mapping"]["n_mapped"] == res["bulk_id_mapping"]["n_ids"]
 n = 40
 d = pd.DataFrame({"age_onset": rng.normal(60, 8, n), "sex_female": rng.integers(0, 2, n).astype(float),
                   "genetic_pd": rng.integers(0, 2, n).astype(float), "prs": rng.normal(size=n),
