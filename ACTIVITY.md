@@ -8,6 +8,78 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **CONFIRMATORY RESULTS**: H1–H3 on P2–P4. No hypothesis supported; A0-5 drops P3 and P4 from H1
+
+Run at `prereg-v1.0.1` (analysis code identical to `prereg-v1.0.0`), PPMI Study Data 2026-11-12 plus Curated Cut v.2026-08-10. Output `data/derived/models.json` (local only). No model needed a random-effects fallback in the primary analyses; all df are Satterthwaite. Classes: **supported** (q < 0.05), **equivalent** (90% CI of partial r inside ±0.40), **inconclusive**. Phenotypes are per SD.
+
+### Gate A0-5: do the composites move with their genes? (H1 model, ≥ 80% of genes share the composite's sign)
+| Composite | Genes | Same sign as composite | Result |
+|---|---|---|---|
+| P3 OXPHOS | 189 | 75.1% | **FAIL**: dropped from H1; components exploratory |
+| P4 Lysosome | 85 | 62.4% | **FAIL**: dropped from H1; components exploratory |
+
+### H1 (primary): phenotype × time on OFF-state MDS-UPDRS III (n = 47 donors, 527 visits)
+| | β₃ (points/year per SD) | SE | df | p | q | partial r [90% CI] | Class |
+|---|---|---|---|---|---|---|---|
+| **P2 SNCA** | −0.27 | 0.28 | 30.7 | 0.33 | 0.33 | −0.18 [−0.44, 0.13] | **inconclusive** |
+| P3 OXPHOS (dropped by A0-5; reported only) | −0.49 | 0.26 | 29.3 | 0.069 | n/a | −0.33 [−0.55, −0.04] | not tested |
+| P4 Lysosome (dropped by A0-5; reported only) | −0.18 | 0.26 | 27.3 | 0.51 | n/a | −0.13 [−0.41, 0.19] | not tested |
+
+After A0-2 (P1 dropped) and A0-5 (P3, P4 dropped), the confirmatory H1 family is the single test on P2.
+
+### H2: phenotype × time on putamen SBR (n = 38, 135 scans)
+| | β₃ (SBR/year per SD) | p | q | partial r [90% CI] | Class |
+|---|---|---|---|---|---|
+| P2 | +0.002 | 0.65 | 0.88 | +0.08 [−0.21, 0.34] | **equivalent** |
+| P3 | +0.003 | 0.50 | 0.88 | +0.12 [−0.17, 0.38] | **equivalent** |
+| P4 | +0.001 | 0.88 | 0.88 | +0.03 [−0.29, 0.34] | **equivalent** |
+
+### H3: phenotype by SAA status (n = 45; 7 negative) and by NSD-ISS stage (n = 39)
+| | SAA: β (SD), q, r [90% CI] | Class | NSD-ISS: β (SD per stage), q, r [90% CI] | Class |
+|---|---|---|---|---|
+| P2 | +0.69, 0.36, +0.25 [−0.02, 0.47] | inconclusive | −0.06, 0.90, −0.03 [−0.32, 0.26] | **equivalent** |
+| P3 | −0.45, 0.36, −0.16 [−0.40, 0.11] | inconclusive | −0.04, 0.90, −0.02 [−0.31, 0.27] | **equivalent** |
+| P4 | −0.40, 0.36, −0.15 [−0.40, 0.12] | **equivalent** | +0.23, 0.90, +0.14 [−0.17, 0.40] | inconclusive |
+
+### Sensitivity analyses (registered); nothing reaches q < 0.05 anywhere
+- **1 Idiopathic only:**
+  - H1 n = 28; H2 n = 22. All classes inconclusive or equivalent.
+  - SAA is descriptive only, because idiopathic donors have < 5 SAA-negatives.
+- **2 Five-level batch:** the same pattern as the primary analysis (H1 P2 r −0.15; P3 r −0.32, q 0.25).
+- **3 Alternatives to P1** (all failed A0-2, so exploratory):
+  - H1: %TH+ r −0.28 and −0.32 (q 0.21); totalDopa r +0.02 (*equivalent*).
+  - Nothing supported in H2 or H3.
+- **4 Marker-label residualisation:** the same as the primary analysis (H1 P2 r −0.22, P3 r −0.31), so composition residualisation doesn't drive the results.
+- **5 Leave one donor out, H1:** no change of sign for P2, P3 or P4. The largest shift is 1.16 SE, for P3.
+- **6 ON-state with LEDD** (n = 42): all inconclusive (|r| ≤ 0.18).
+- **7 First 5 years after diagnosis:**
+  - H1 n = 44: |r| ≤ 0.16.
+  - H2 n = 35: inconclusive.
+- **8 Part II slope** (n = 47, 913 visits): r −0.09 / −0.14 / +0.21; P2 *equivalent*.
+- **9 Time from PPMI baseline:** the same as the primary analysis.
+
+### Plain-language summary
+- **No pre-registered hypothesis is supported.**
+- **The day-65 phenotypes don't track the rate of DaTscan decline:** all three are *equivalent* to a negligible effect.
+- **NSD-ISS stage:** SNCA and OXPHOS are *equivalent* (negligible association).
+- **Motor progression (H1), SAA status and the remaining tests:** the data can neither show an effect nor rule one out (*inconclusive*), as the power simulation predicted.
+- **The only consistent pattern is exploratory:** higher OXPHOS score goes with slower OFF-state motor progression (r ≈ −0.3) in the primary, batch, marker-residualised and baseline-time models. It is not significant, and the composite failed A0-5.
+
+### Not yet done (exploratory, to be labelled as such)
+- Gene-level P3/P4 components (A0-5 sends them there).
+- Milestone time-to-event analyses.
+- Any batch-adjusted P1.
+- The archived DaTscan file for the 9 donors without Xing scans.
+
+None of these will be run without a request here.
+
+### For the planning session
+1. Please review how to present these results: the gates removed 3 of 4 phenotypes before or during H1, and the 9 confirmatory tests gave 0 supported, 5 equivalent and 4 inconclusive (H1 1; H2 3; H3 SAA 3; H3 NSD-ISS 3, counting P4-SAA as equivalent).
+2. Decide which exploratory analyses (if any) to run, and in what order.
+3. Paper outline: the gated-framework results (A0-2, A0-4, A0-5 decisions), the equivalence results for DaTscan, and the power discrepancy.
+
+---
+
 ## 2026-11-12 (local session): PPMI data checked; name-only fixes (`prereg-v1.0.1`); **A0-1 PASSES**; donor counts per analysis
 
 ### Data
