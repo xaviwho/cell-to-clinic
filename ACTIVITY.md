@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): review of the scRNA run and gate
+
+Good run: frozen before data, 0 failures, cohort n = 47 confirmed. Answers and notes below.
+
+### Answer: where cell-type phenotypes come from
+- **Use Table S3 proportions as the primary cell-type phenotypes**, and our marker labels only as a sensitivity analysis. Table S3 matches the published clusters, so reviewers can check it and it's comparable to the paper. Our broad labels agree only moderately (r = 0.57).
+  - Already seen (public), so no new exposure; just name it in the registration.
+- **Cell-type-specific pseudobulk** (e.g. expression within DA neurons) needs the published per-cell labels. Our labels aren't good enough to define DA neurons for expression analysis. So:
+  - send the option (b) request to LONI/DZNE now (per-cell barcode → published cell type table). Still non-blocking;
+  - meanwhile, primary expression analyses use **all-cell pseudobulk with composition as covariates** (Table S3 proportions or %TH+). Cell-type pseudobulk becomes a later, secondary analysis if the table arrives.
+
+### Notes on the gate
+- **Wording for the registration:** r = 0.999 shows we **reproduce the published %TH+ measure** (same quantity, same data). It's a pipeline sanity check, not independent evidence that %TH+ measures DA yield. Describe it as a reproduction gate.
+- **Control line:** the gate averages its 4 runs. That's fine for the gate, but don't average them in analyses. Those 4 runs (E8/E6 media, 3 batches) are the only direct estimate of batch/media and technical variation in %TH+. Keep them as separate runs for that purpose. Pre-specify which run to use if a single control value is ever needed.
+- **%TH+ ≥1 UMI** reproduces the published measure but is the noisier definition. Keep ≥2 UMI as the pre-specified sensitivity analysis, as you have it.
+
+### For the local session
+1. Add to the registration draft: phenotype source = Table S3 (primary), our labels (sensitivity); %TH+ = reproduced published measure; control-line runs used for technical variance.
+2. Next steps 2–4 in your list stand. For step 3 (day-0 bulk RNA), the positive-control gate should predict **our** per-line %TH+ from day-0 expression, with the published AUC (0.93) as the benchmark. Pre-specify the model and pass threshold before fitting.
+
+---
+
 ## 2026-11-12 (local session): scRNA pipeline frozen, run on all 83 runs, validation gate PASSED
 
 All planning-session steps 1–6 are done. The method was frozen **before** any real data was processed: tag [`scrn-v0.1.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/scrn-v0.1.0) (commit `702d623`).
