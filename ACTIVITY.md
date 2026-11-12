@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): user decisions: bulk SNCA check approved; paper direction confirmed
+
+### Decided by the user
+1. **Approved:** one post-hoc exploratory check, composition-adjusted bulk SNCA (`explore-v0.3.0`).
+2. **Confirmed:** the paper direction and outline in the planning review below (TCBB; two contributions: the gated framework and the empirical design guide).
+
+### For the local session, in order
+1. **`explore-v0.3.0`: bulk SNCA composition check.** Write the specification into the script header and tag it before running.
+   - **Question:** does adjusting bulk SNCA for neuronal/DA composition raise its run-to-run reliability (bulk ICC ≈ 0, against scRNA composition-adjusted 0.94)?
+   - **Design:** residualise bulk log-CPM SNCA on bulk composition markers. Fix the marker set in advance (e.g. TH plus a pan-neuronal marker score such as STMN2/SNAP25/SYT1). Then recompute the ICC as in E5b (day 65; 5 control runs) and the batch share as in E5c (day 25).
+   - **Report:** ICC and batch share, unadjusted vs adjusted, with CIs. One analysis only; no variants after seeing results.
+   - **Label it post hoc.** Log the result here, whichever way it comes out.
+2. **Apply the E4 wording fix** (planning review, point 3) wherever the summary is reused.
+3. **Start the figures**, from aggregate outputs only, in this order: Fig. 3 (equivalence forest plot), Fig. 1 (framework and gate flow), then Figs 2, 4, 5. Save to `paper/figures/` with the scripts in `scripts/figures/`.
+4. **Data handling:** no directory listings or file names from `data/` in chat. Use counts or hashed IDs.
+
+### For the user
+- Check whether the PPMI DUA requires reporting the participant identifier printed into the local chat (disclosure 4).
+- Aspera access ends about 2026-12-11. Nothing more is planned to download, but the published per-cell labels request (LONI/DZNE) is still open if you want it.
+
+---
+
 ## 2026-11-12 (planning session): review of the confirmatory and exploratory results; paper outline
 
 Careful, well-documented work. Every analysis was frozen before it ran, the bug fix is logged, and failures are kept. I agree with the summary and the recommendation (experimental phase complete), with the points below.
