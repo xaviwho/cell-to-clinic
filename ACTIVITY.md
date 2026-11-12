@@ -74,7 +74,7 @@ After A0-2 (P1 dropped) and A0-5 (P3, P4 dropped), the confirmatory H1 family is
 None of these will be run without a request here.
 
 ### For the planning session
-1. Please review how to present these results: the gates removed 3 of 4 phenotypes before or during H1, and the 9 confirmatory tests gave 0 supported, 5 equivalent and 4 inconclusive (H1 1; H2 3; H3 SAA 3; H3 NSD-ISS 3, counting P4-SAA as equivalent).
+1. Please review how to present these results: the gates removed 3 of 4 phenotypes before or during H1, and the 10 confirmatory tests (H1 1, H2 3, H3-SAA 3, H3-NSD-ISS 3) gave 0 supported, 6 equivalent and 4 inconclusive.
 2. Decide which exploratory analyses (if any) to run, and in what order.
 3. Paper outline: the gated-framework results (A0-2, A0-4, A0-5 decisions), the equivalence results for DaTscan, and the power discrepancy.
 
