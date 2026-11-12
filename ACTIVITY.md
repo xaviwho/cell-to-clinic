@@ -8,6 +8,56 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): Phase 2 progress: C1 genotype QC done; B0 DA labels; `cell2clinic` package built locally
+
+The user accepted the Phase 2 recommendations: a second OSF registration, a separate `cell2clinic` repo (MIT), and about 20 GB for the Jerber data. No clinical data used in anything below.
+
+### C1: genotype QC (`scripts/geno_qc.py`)
+- NeuroChip PLINK set: 187 samples, 487,374 variants, **95 lines** (covers all 80 scRNA lines). Each line was genotyped at day 0 and day 65.
+- **Identity check:** day-0 vs day-65 concordance ≥ **0.9986** for all 102 within-line pairs. No sample swaps.
+- **After QC** (autosomes; call ≥ 0.95; MAF ≥ 0.05; HWE p ≥ 1e-6): **249,458 SNPs**; no line below 95% call rate.
+- 10 genotype PCs from 42,181 thinned SNPs. Outputs are local in `data/derived/geno/`.
+
+### B0: DA-neuron labels (`scripts/da_relabel.py`, tag `da-labels-v1.0.0`, frozen before running)
+- **Problem found:** the `scrn-v0.1.0` label ("neuron with ≥ 1 TH UMI") is **not DA-specific**. Apart from TH, DA markers are not enriched against other neurons (median log2 ratio: SLC6A3 0.00, KCNJ6 −0.26, SLC18A2 −0.11, FOXA2 −0.21), while GAD1 (+0.38) and SLC17A6 (+0.49) are.
+- **New rule:** a 9-marker DA module score among neurons (TH, DDC, SLC6A3, KCNJ6, SLC18A2, NR4A2, LMX1B, FOXA2, EN1). The one threshold is calibrated only on public Table S3.
+
+| | Old rule (TH ≥ 1) | New rule (score > t) |
+|---|---|---|
+| Agreement with Table S3 "Dopaminergic Neurons" (logit, 79 donor lines) | **r = 0.79** | r = 0.59 |
+| Calibrated threshold | n/a | t = −0.10, **at the lower edge of the pre-set grid** |
+| DA markers in DA vs other neurons, median log2 (share of runs > 0) | not enriched | DDC +2.9 (100%), KCNJ6 +4.6 (100%), SLC18A2 +3.7 (100%), NR4A2 +4.2 (100%), FOXA2 +3.8 (100%), LMX1B +1.7 (100%), EN1 +0.4 (75%), SLC6A3 +0.1 (61%) |
+| GAD1 / SLC17A6 | +0.38 / +0.49 (wrong direction) | −0.42 / −0.02 |
+| DA cells per run | n/a | median 1,119; 0 runs < 100 |
+
+**Interpretation:**
+- **Correction to earlier entries.** The "r = 0.57" quoted for our labels vs Table S3 was the raw-scale correlation with **totalDopa** (the A0-6 secondary statistic). Against the "Dopaminergic Neurons" column on the logit scale, the old rule agrees at r = 0.79.
+- **Agreement with S3 keeps rising as the rule broadens.** The calibration hit the grid edge, where about 86% of neurons count as DA. The S3 DA fraction therefore mainly tracks how many neurons a run makes, not DA identity.
+- **The new rule is the only one whose cells carry the DA programme.** It excludes a clearly GABAergic/glutamatergic minority. *Proposal for Cell-to-Clinic II:* new rule primary for DA-only phenotypes, old rule as sensitivity. Both are reported, together with the grid-edge result.
+
+### F: `cell2clinic` package (local repo `D:\cell2clinic`, not yet public)
+- **Modules:**
+  - `gates`: stability ICC with F-CI (pooled across several reference lines), reproduction, positive control, coherence, linkage;
+  - `lmm`;
+  - `equivalence`;
+  - `design`: attenuation, N, runs per line, uncertainty, slope reliability;
+  - `survival`: Cox with delayed entry;
+  - a `cell2clinic-design` CLI.
+- **Tests, all passing:**
+  - LMM agrees with statsmodels (fixed effects within 1e-5); exact balanced Satterthwaite df; type I error 0.05; fallbacks;
+  - ICC recovers truth, and its 95% CI has correct coverage;
+  - the Fisher-z donor count matches simulated power;
+  - Cox with delayed entry recovers known HRs.
+- CI workflow, README, MIT licence. The CLI reproduces the E4 numbers.
+- **Awaiting the user's OK** to create the public GitHub repo; then a release and a Zenodo DOI.
+
+### Still running / next
+- **A1:** Jerber day-52 download in progress, then the go/no-go replicate check.
+- **C2:** after A1, use Jerber's DA-neuron eQTL statistics (9.7 GB) for the positive control.
+- **Cell-to-Clinic II registration:** draft once A1 and B0 are settled. Planning session: please draft it from the Phase 2 plan, including the B0 label decision above.
+
+---
+
 ## 2026-11-12 (local session): decision: **no LONI/DZNE request**; our own DA-neuron labels become primary for Workstream B
 
 - **The user decided not to request** the published per-cell labels (waited long enough). This replaces Phase 2 steps B1 and B2 and decision 4.
