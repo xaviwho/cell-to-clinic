@@ -8,6 +8,41 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **EXPLORATORY, POST HOC**: bulk SNCA composition check (`explore-v0.3.0`)
+
+Approved by the user. One analysis, specified in the header of `scripts/exploratory3.py` and frozen as tag `explore-v0.3.0` (commit `f6e3267`) before running. A synthetic test plants a batch → composition → SNCA effect, and adjustment recovers it.
+
+**Design:**
+- Bulk log2(CPM + 1) SNCA, residualised across donor lines on TH and a pan-neuronal score (mean z of STMN2, SNAP25, SYT1). Markers fixed in advance.
+- Day 65: ICC with the control line's 5 runs; F-based 95% CI.
+- Day 25: between-batch share of control-run variance (9 batch-1 runs + 4 others); stratified bootstrap 95% CI.
+
+| | Unadjusted bulk SNCA | Composition-adjusted bulk SNCA | scRNA SNCA (P2, single-cell composition) |
+|---|---|---|---|
+| Composition R² across donor lines | n/a | **0.82** at day 65; 0.48 at day 25 | n/a |
+| Day-65 ICC, 79 scRNA lines (95% CI) | −0.15 (−8.6 to 0.61) | **0.36** (−4.4 to 0.78) | 0.94 |
+| Day-65 ICC, all 91 lines | 0.02 | **0.39** (−4.1 to 0.79) | n/a |
+| Day-25 between-batch share of run variance | 0.97 (0.72–0.99) | **0.71** (0.26–0.93) | n/a |
+| Day-25 ICC, all 13 control runs | 0.54 (−0.28 to 0.78) | **0.87** (0.62 to 0.94) | n/a |
+
+### Interpretation (post hoc)
+- **Composition explains most of the variation in bulk SNCA:** 82% of between-line variance at day 65.
+- **Adjusting for it moves reliability in the predicted direction at both time points:**
+  - day 65: ≈ 0 → 0.36–0.39;
+  - day 25: 0.54 → 0.87, with the batch share falling 0.97 → 0.71.
+- **Bulk marker adjustment recovers only part of the reliability.** The day-65 ICC stays below 0.5 and far below the single-cell-adjusted 0.94; the CIs are very wide (4 df). The likely reason is that three pan-neuronal genes and TH approximate composition far more crudely than single-cell cluster proportions.
+- **Wording for the paper:** "composition is the main route by which batch affects SNCA, and **single-cell composition** adjustment is needed to make it a reliable donor trait; marker-based bulk adjustment helps but is not sufficient." This is post hoc, from one control line.
+- No variants were run, and none will be.
+
+### Also done
+- **E4 wording fix applied** in the E4 entry and the status summary: "given the measured reliabilities, the smallest detectable true correlation was 0.55 (SNCA) to 0.92 (DA yield)"; separately, n = 47 alone limits detection to about r ≥ 0.43.
+- **Data handling from now on:** no `data/` listings or file names in chat; counts or hashed IDs only.
+
+### Next
+Figures, from aggregate outputs only, in the planned order: Fig. 3 (equivalence forest plot), then Fig. 1, 2, 4, 5. Saved to `paper/figures/`; scripts in `scripts/figures/`.
+
+---
+
 ## 2026-11-12 (planning session): user decisions: bulk SNCA check approved; paper direction confirmed
 
 ### Decided by the user
@@ -137,7 +172,7 @@ A single overview of everything so far; the detailed entries are below. Aggregat
 - **E3, carriers:** manifesting (19) vs non-manifesting (21) carriers don't differ in P2, P3 or P4 (all **equivalent**).
 - **E4, design:**
   - Reliability of each patient's progression rate is λ = 0.64 (motor) and 0.54 (DaTscan).
-  - With 47 donors, only true r ≥ 0.55 (SNCA) to ≥ 0.9 (DA yield) was detectable.
+  - Given the measured reliabilities, the smallest detectable true correlation was 0.55 (SNCA) to 0.92 (DA yield). *(Wording corrected 2026-11-12.)* Separately, n = 47 alone limits detection to about r ≥ 0.43.
   - Plausible effects (r 0.2–0.4) were out of reach.
 - **E5a, design uncertainty:** SNCA needs about **164 donors (141–234)** for r = 0.3. For DA yield, OXPHOS and lysosome the upper bound is unbounded, because 4 control runs can't exclude zero line signal (P = 43%, 26%, 23%).
 - **E5b, bulk RNA replicates (5 control runs):** lysosome is reliable (ICC **0.89**). Unadjusted SNCA, TH and OXPHOS are not (ICC ≈ 0–0.2).
@@ -322,7 +357,7 @@ Code: `scripts/exploratory.py`, commit `2db113d`, tag `explore-v0.1.0`; syntheti
 | 0.4 | 85 → 81 | 142 → 96 | 235 → 119 |
 
 **Interpretation:**
-1. **Even a perfectly measured study of 47 donors could only have detected large effects** (r ≥ 0.55 even for the most reliable phenotype). After attenuation from measurement error, plausible biological effects (r 0.2–0.4) were out of reach. The null results are expected, not evidence against cell-to-clinic links.
+1. **Given the measured reliabilities, the smallest detectable true correlation was 0.55 (SNCA) to 0.92 (DA yield).** *(Wording corrected 2026-11-12: 0.55 already includes attenuation. Separately, n = 47 alone limits detection to about r ≥ 0.43.)* Plausible biological effects (r 0.2–0.4) were out of reach. The null results are expected, not evidence against cell-to-clinic links.
 2. **For noisy phenotypes (DA yield, OXPHOS), repeating differentiations helps more than recruiting donors.** Four runs per line roughly halves the donors needed for DA yield (416 → 209 at r = 0.3).
 3. **For reliable phenotypes (SNCA), the limit is the clinical slope.** Here λ = 0.64, so more visits per donor or longer follow-up help, and extra runs do not.
 4. **A realistic target is about 150–250 donors with 2–4 runs per line, for effects of r ≈ 0.3.** That is 3–5 times FOUNDIN-PD's PD arm.
