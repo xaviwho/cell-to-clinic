@@ -8,6 +8,47 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): PPMI clinical data download checklist (for the user)
+
+The OSF registration is approved and the code is archived (10.5281/zenodo.24156791), so the clinical data cut **may now be downloaded**. LONI IDA needs the user's login, so the user does the download; the local session does everything after that.
+
+### Where to save
+- On the analysis machine only: **`D:\ST-DT4\data\ppmi6-11-12\`**, or whatever the actual download date is.
+- `data/` is git-ignored. Never put these files in cloud storage, email or the repo.
+- Unzip into that folder. Keep the original zip files there too, for provenance.
+
+### What to download
+From LONI IDA → PPMI → **Download → Study Data**. Download the **whole file** for each item; the loader keeps only the FOUNDIN-PD PD donors and drops everyone else when it reads each file.
+
+| # | Needed for | PPMI study-data file (usual name) | Must contain |
+|---|---|---|---|
+| 1 | Sex, age at onset | **Demographics** | PATNO, SEX, BIRTHDT |
+| 2 | Time since diagnosis, onset, duration | **PD Diagnosis History** | PATNO, PDDXDT (diagnosis date), SXDT (symptom onset date) |
+| 3 | **H1 primary outcome**, A0-1, sensitivity 6 | **MDS-UPDRS Part III** (Motor Examination) | PATNO, EVENT_ID, INFODT, NP3TOT, PDTRTMNT, PDSTATE |
+| 4 | Sensitivity 8 | **MDS-UPDRS Part II: Patient Questionnaire** | PATNO, EVENT_ID, INFODT, NP2PTOT |
+| 5 | **H2 outcome** | **DaTScan Analysis** (SBR results) | PATNO, INFODT or scan date, DATSCAN_PUTAMEN_L, DATSCAN_PUTAMEN_R |
+| 6 | Sensitivity 6 (LEDD) | **LEDD Concomitant Medication Log**, or a per-visit LEDD table | PATNO, EVENT_ID, LEDD |
+| 7 | **H3 outcome** | **α-synuclein SAA results** (CSF; e.g. "SAA Biospecimen Analysis Results") | PATNO, assay or collection date, result (Positive/Negative) |
+| 8 | **H3 outcome** | **NSD-ISS staging**, often in the **Curated Data Cut** (`PPMI_Curated_Data_Cut_*.xlsx`) | PATNO, visit date, NSD-ISS stage |
+| 9 | Name checks | **Data dictionaries / codebooks** for the files above, and for the Curated Data Cut if used | |
+
+**Also useful:** the **PPMI Curated Data Cut** spreadsheet and its dictionary. It often has per-visit LEDD and NSD-ISS already derived, and is the easiest source for items 6 and 8.
+
+**Do not download** imaging (raw DaTscan/MRI), genetics, biospecimen inventories beyond the SAA result, or any other cohort's data. They are not needed and not in scope.
+
+### What to record (reply here or tell the local session)
+- The **download date**.
+- The **data-cut version or label** shown on IDA (e.g. the date stamp in the file names, or the Curated Data Cut version).
+- Anything that wasn't available.
+
+### What the local session does next
+1. Lists the file names and **column headers only**, and compares them with `config/ppmi_columns.json`. File and column-name fixes are logged here as name-only changes. **The analysis logic in `scripts/ppmi_load.py` and `scripts/models.py` stays exactly as tagged in `prereg-v1.0.0`.**
+2. If a needed item is missing or structured differently (e.g. LEDD only as a medication log), it reports here **before** running any model, and asks how to proceed.
+3. Runs A0-1, the linkage gate (≥ 30 PD donors with ≥ 3 OFF-state UPDRS III visits spanning ≥ 2 years). If it fails, it stops with a data audit only.
+4. Runs H1–H3 on P2–P4 (P1 was dropped by A0-2), A0-5, and sensitivity analyses 1–9. Then it logs aggregate results here: no PATNOs, no per-donor values.
+
+---
+
 ## 2026-11-12 (local session): OSF approved; pre-linkage gates run. **A0-2 FAILS for P1**; P2–P4 pass
 
 - **OSF registration osf.io/s6w9c approved**, as reported by the user on 2026-11-12. The code archive (DOI 10.5281/zenodo.24156791) was finished before this.
