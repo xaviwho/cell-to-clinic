@@ -1,0 +1,34 @@
+{
+  "_comment": "Frozen phenotype definitions for the OSF pre-registration osf.io/s6w9c (Part 3). Column names are from Bressan et al. 2023 Table S3 (mmc4.xlsx, header row 2); values there are percentages and are divided by 100.",
+  "table_s3": {
+    "id_column": "FOUNDIN_ID",
+    "P1_da_column": "Dopaminergic Neurons",
+    "totaldopa_column": "totalDopa",
+    "progenitor_columns": [
+      "Neuroepithelial-like Cells",
+      "Proliferating Floor Plate Progenitors",
+      "Early neuron Progenitor",
+      "Late neuron Progenitor"
+    ],
+    "not_progenitor_columns": [
+      "Ependymal-like Cells",
+      "Immature Dopaminergic Neurons",
+      "Dopaminergic Neurons"
+    ],
+    "_progenitor_rationale": "The progenitor set is every Table S3 cluster named as a progenitor or neuroepithelial precursor. Ependymal-like cells are a differentiated non-neuronal type, and the two dopaminergic clusters are neurons."
+  },
+  "logit_clip": [0.005, 0.995],
+  "gene_sets": {
+    "P3": "config/genesets/HALLMARK_OXIDATIVE_PHOSPHORYLATION.v2023.2.Hs.txt",
+    "P4": "config/genesets/KEGG_LYSOSOME.v2023.2.Hs.txt"
+  },
+  "P2_gene": "SNCA",
+  "min_mean_cpm": 10,
+  "pseudobulk_column": "All_QC_pass",
+  "marker_label_columns_for_sensitivity_4": {
+    "da": "frac_DA_neuron",
+    "progenitor": ["frac_Progenitor", "frac_Proliferating"]
+  },
+  "a0_3_min_qc_cells": 1000,
+  "a0_2_min_icc": 0.5
+}

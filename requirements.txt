@@ -5,3 +5,6 @@ scipy
 pandas
 h5py
 openpyxl
+# tests only: tests/test_lmm.py cross-checks scripts/lmm.py against statsmodels MixedLM, imported
+# from its submodule because statsmodels.api is blocked by Application Control on this machine.
+statsmodels

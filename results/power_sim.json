@@ -1,0 +1,143 @@
+{
+ "seed": 20261112,
+ "nsim": 300,
+ "assumptions": "(set before any clinical data is seen; the real visit structure is\nunknown until linkage):\n  - donors n in {47, 30}; each has 3-9 annual OFF-state UPDRS III visits starting 0-3 years after\n    diagnosis (uniform), visit times jittered by +/- 0.1 y;\n  - intercept 20 (SD 6), mean slope 2.0 points/y (SD 1.5), residual SD 5;\n  - 6 covariates (3 continuous, 3 binary), each with main effect 0.5 and slope effect 0.1;\n  - 4 independent standard-normal phenotypes; phenotype 1 has P:t effect beta3 (grid), the others 0.",
+ "cells": [
+  {
+   "n": 47,
+   "beta3": 0.0,
+   "mean_partial_r": -0.0027820265757630626,
+   "power_p05": 0.056666666666666664,
+   "power_bh4": 0.023333333333333334,
+   "equivalent_rate": 0.5833333333333334,
+   "type1_null_phenotypes": 0.04555555555555556,
+   "fallback_rate": 0.03666666666666667,
+   "median_df": 32.81511103778141
+  },
+  {
+   "n": 47,
+   "beta3": 0.4,
+   "mean_partial_r": 0.2125647399947761,
+   "power_p05": 0.22666666666666666,
+   "power_bh4": 0.13666666666666666,
+   "equivalent_rate": 0.32666666666666666,
+   "type1_null_phenotypes": 0.06222222222222222,
+   "fallback_rate": 0.03,
+   "median_df": 32.922960843664725
+  },
+  {
+   "n": 47,
+   "beta3": 0.6,
+   "mean_partial_r": 0.3076748794160099,
+   "power_p05": 0.4766666666666667,
+   "power_bh4": 0.2633333333333333,
+   "equivalent_rate": 0.16666666666666666,
+   "type1_null_phenotypes": 0.05333333333333334,
+   "fallback_rate": 0.02666666666666667,
+   "median_df": 33.769882275143374
+  },
+  {
+   "n": 47,
+   "beta3": 0.8,
+   "mean_partial_r": 0.380038730845266,
+   "power_p05": 0.6233333333333333,
+   "power_bh4": 0.38333333333333336,
+   "equivalent_rate": 0.06666666666666667,
+   "type1_null_phenotypes": 0.043333333333333335,
+   "fallback_rate": 0.05333333333333334,
+   "median_df": 32.94252307687536
+  },
+  {
+   "n": 47,
+   "beta3": 1.0,
+   "mean_partial_r": 0.47093929126908063,
+   "power_p05": 0.8433333333333334,
+   "power_bh4": 0.65,
+   "equivalent_rate": 0.006666666666666667,
+   "type1_null_phenotypes": 0.04111111111111111,
+   "fallback_rate": 0.02666666666666667,
+   "median_df": 33.37180713520408
+  },
+  {
+   "n": 47,
+   "beta3": 1.2,
+   "mean_partial_r": 0.5371610019194897,
+   "power_p05": 0.9533333333333334,
+   "power_bh4": 0.81,
+   "equivalent_rate": 0.006666666666666667,
+   "type1_null_phenotypes": 0.052222222222222225,
+   "fallback_rate": 0.03,
+   "median_df": 34.05794570620253
+  },
+  {
+   "n": 30,
+   "beta3": 0.0,
+   "mean_partial_r": -0.005940080850089543,
+   "power_p05": 0.07,
+   "power_bh4": 0.016666666666666666,
+   "equivalent_rate": 0.16,
+   "type1_null_phenotypes": 0.06666666666666667,
+   "fallback_rate": 0.2,
+   "median_df": 19.09299052331924
+  },
+  {
+   "n": 30,
+   "beta3": 0.4,
+   "mean_partial_r": 0.20345958009338708,
+   "power_p05": 0.14666666666666667,
+   "power_bh4": 0.03666666666666667,
+   "equivalent_rate": 0.11333333333333333,
+   "type1_null_phenotypes": 0.044444444444444446,
+   "fallback_rate": 0.18333333333333332,
+   "median_df": 18.73036278683023
+  },
+  {
+   "n": 30,
+   "beta3": 0.6,
+   "mean_partial_r": 0.2780517568054468,
+   "power_p05": 0.23,
+   "power_bh4": 0.10666666666666667,
+   "equivalent_rate": 0.07666666666666666,
+   "type1_null_phenotypes": 0.05,
+   "fallback_rate": 0.15666666666666668,
+   "median_df": 19.3622456964831
+  },
+  {
+   "n": 30,
+   "beta3": 0.8,
+   "mean_partial_r": 0.3968064580582111,
+   "power_p05": 0.49,
+   "power_bh4": 0.22,
+   "equivalent_rate": 0.04666666666666667,
+   "type1_null_phenotypes": 0.05,
+   "fallback_rate": 0.16333333333333333,
+   "median_df": 19.570810763454258
+  },
+  {
+   "n": 30,
+   "beta3": 1.0,
+   "mean_partial_r": 0.4547958417003917,
+   "power_p05": 0.5666666666666667,
+   "power_bh4": 0.3433333333333333,
+   "equivalent_rate": 0.016666666666666666,
+   "type1_null_phenotypes": 0.042222222222222223,
+   "fallback_rate": 0.12,
+   "median_df": 18.707206954950642
+  },
+  {
+   "n": 30,
+   "beta3": 1.2,
+   "mean_partial_r": 0.519854331354061,
+   "power_p05": 0.74,
+   "power_bh4": 0.53,
+   "equivalent_rate": 0.013333333333333334,
+   "type1_null_phenotypes": 0.042222222222222223,
+   "fallback_rate": 0.13333333333333333,
+   "median_df": 19.320662861626246
+  }
+ ],
+ "r_at_80pct_power_p05_n47": 0.45303463542802624,
+ "r_at_80pct_power_bh4_n47": 0.5330221450038392,
+ "r_at_80pct_power_p05_n30": null,
+ "r_at_80pct_power_bh4_n30": null
+}
