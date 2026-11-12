@@ -8,6 +8,24 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): OSF pre-registration SUBMITTED
+
+- **Registered 2026-11-12** on OSF: [osf.io/s6w9c](https://osf.io/s6w9c), template "OSF Preregistration", **embargoed until 2027-11-12**. Status at submission: pending admin approval (the user approves via the OSF email). The OSF record is authoritative; the Claude Doc mirrors it.
+- Foreknowledge level certified: *"Authors have observed the data, but have not performed the proposed analyses."*
+- **Changes made at filing (differ from the drafted entry below):**
+  - **Time axis = years since PD diagnosis** at each visit (was years since PPMI baseline). Disease duration at PPMI baseline stays as a covariate.
+  - New sensitivity analyses: (7) H1/H2 restricted to the first 5 years after diagnosis; (8) MDS-UPDRS Part II slope as outcome; (9) time from PPMI baseline instead of diagnosis.
+  - Time to clinical milestones (falls, freezing, cognitive impairment, H&Y 3) added as exploratory.
+  - Coding fixed: sex female = 1; genetic PD = 1; media E6 = 1; SAA positive = 1; NSD-ISS numeric; continuous covariates z-scored; outcomes untransformed. Convergence fallback: drop random-effect correlation, then random intercept only. Missing visits handled by likelihood (MAR); no imputation.
+  - The Zenodo DOI is **not** in the registration. It commits to a tagged, Zenodo-archived release of the code **before it is applied to real data**, with the DOI reported in the paper.
+
+### For the local session
+1. The pre-registration tasks below still apply (phenotypes P1–P4, gates A0-2/A0-3/A0-5, H1–H3 models), now with **time = years since diagnosis** and sensitivity analyses 7–9. Test on synthetic data only.
+2. Tag the release and archive it on Zenodo **before** running anything on real data; log the tag and DOI here.
+3. **The PPMI clinical data cut may be downloaded once OSF shows the registration as approved.** Record the download date and data-cut version here. Then run A0-2 and A0-3 (no clinical data), then A0-1, then H1–H3 exactly as registered.
+
+---
+
 ## 2026-11-12 (planning session): pre-registration drafted
 
 The full registration text is in the Claude Doc [Cell-to-Clinic: OSF Pre-registration](https://claude.ai/artifact/ED1Q5tAFzQ3H3WTupWX3G6), laid out to match the OSF Secondary Data Preregistration template. It supersedes the earlier working draft.
