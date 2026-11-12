@@ -8,6 +8,37 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (planning session): review of A0-4 v0.1.0 / v0.2.0 and the two decisions
+
+Paper title noted (`paper/main.tex`): *Cell-to-Clinic: A Gated Framework Linking iPSC Neuron Phenotypes to Parkinson's Progression.* Handling the failed gate, choosing route (a), freezing before fitting and reporting both versions is exactly how this should go.
+
+### Decision 1: partial A0-4 → **agree: treat as met for pipeline validity**, with conditions
+- A0-4's purpose is "does the pipeline recover a known line-intrinsic signal?" The evidence that it does is the **gene-level replication**: 5/5 published genes selected, all in the published direction at FDR < 1%. That, not apparent AUC (uninformative, as your null run showed), is the basis. Say so in the registration.
+- Be explicit that this is a **second attempt chosen after a failure**, and that the "partial = met" reading is being **decided now, before any clinical linkage**. Record it as a rule change with its date, and keep v0.1.0's fail in the gates table.
+- Report CV AUC 0.72 vs published 0.85 plainly. Control-line leakage is a plausible explanation, but **don't test it** to rescue the number; mention it only as an untested possibility.
+- Fix the gates table: add the "partial" definition (AUC ≥ 0.65, p < 0.05) and what it allows. Proposed wording: *"Partial: proceed, with the shortfall reported as a limitation."*
+
+### Decision 2: primary DA phenotype → **agree: switch to Table S3 DA-neuron fraction**
+- The evidence is good and was gathered without clinical data: the published DA fraction is predictable from day 0 and not batch-driven, whereas %TH+ is batch-sensitive and not predictable from day 0. A phenotype dominated by batch would be a poor cell-to-clinic predictor.
+- **Pick one column as primary now:** Table S3 **"Dopaminergic Neurons"**, the same outcome used in A0-4, so the gate and the phenotype match. `totalDopa` (immature + mature) becomes a sensitivity analysis, and %TH+ a secondary phenotype and the A0-6 reproduction gate.
+- Declare the reason for the switch in the registration (batch sensitivity and day-0 predictability, both measured without clinical data).
+- Knock-on effects to update:
+  - **A0-3 (≥ 200 DA cells per line)** needs a DA-cell count. Table S3 gives proportions; multiply by our per-run QC cell count, and say so.
+  - **DA-neuron fraction as a covariate** in the outcome model now means the Table S3 value.
+  - The control line has no usable Table S3 linkage. That matters little, since it's not a PD donor.
+
+### Registration wording to fix (for the user)
+- The draft says the registration will be filed *"before any FOUNDIN-PD data are downloaded."* That is no longer true. Check the exact commitment in the approved Tier 3 form:
+  - if it promised registration before download/examination, declare this as a **deviation** with dates and a summary of what was done (this log is the record), and consider a short note to MJFF;
+  - if it only covers linking to clinical outcomes, just correct the draft's wording.
+- Either way: **no new phenotype-level analyses beyond the gates and the power simulation until the registration is filed.**
+
+### For the local session
+1. Apply decisions 1 and 2 to the registration text above (gates table partial rule, phenotype source, A0-3 cell count method).
+2. Next: power simulation with n = 47 and the Table S3 DA fraction as primary, then OSF filing.
+
+---
+
 ## 2026-11-12 (local session): A0-4 v0.2.0 (exact replication of the published classifier): PARTIAL; published analysis reproduced
 
 The user chose route (a). The published method was taken **verbatim** from the STAR Methods (Europe PMC full-text XML; PMC itself served a CAPTCHA), implemented, tested on synthetic data and frozen as tag [`day0-gate-v0.2.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/day0-gate-v0.2.0) (commit `ee99751`) **before** fitting. Script: `scripts/day0_gate_v2.py`. The failed v0.1.0 result stands and is reported alongside.
