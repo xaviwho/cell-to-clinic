@@ -8,6 +8,49 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): OSF approved; pre-linkage gates run. **A0-2 FAILS for P1**; P2–P4 pass
+
+- **OSF registration osf.io/s6w9c approved**, as reported by the user on 2026-11-12. The code archive (DOI 10.5281/zenodo.24156791) was finished before this.
+- Ran on real data at tag `prereg-v1.0.0`; the working tree was confirmed identical to the tag for `scripts/`, `config/` and `tests/`. Commands: `phenotypes.py --s3 <Table S3>`, then `gates_prelink.py`. **No clinical data yet.**
+
+### Phenotype construction
+- 79 donor lines and 4 control runs.
+- 9,340 genes pass mean CPM ≥ 10.
+- Genes used: P3 OXPHOS 189 of 200; P4 Lysosome 85 of 121.
+- SNCA (P2) passes the filter.
+
+### Gate A0-2: technical stability (ICC ≥ 0.5; within-line variance from the control line, 3 df)
+| Phenotype | ICC | 95% CI | Result |
+|---|---|---|---|
+| **P1** DA-neuron fraction (Table S3) | **0.33** | −8.4 to 0.80 | **FAIL → dropped** |
+| P2 SNCA | 0.94 | 0.12 to 0.98 | pass |
+| P3 OXPHOS | 0.55 | −5.2 to 0.86 | pass |
+| P4 Lysosome | 0.64 | −4.0 to 0.89 | pass |
+| *Report only:* %TH+ ≥1 UMI / ≥2 UMI / totalDopa | 0.30 / 0.19 / 0.41 | all lower bounds < −7 | below 0.5 |
+| *Report only:* P2/P3/P4 residualised on our marker labels | 0.62 / 0.51 / 0.80 | | ≥ 0.5 |
+
+### Gate A0-3: cell sufficiency (≥ 1,000 QC cells)
+1 of 79 donor lines is excluded. Whether it is a PD donor is counted when the models run.
+
+### What this means, per the registration
+- **P1 is dropped from H1–H3** ("Drop that phenotype; report it"). The H1, H2 and H3 families each become **3 tests (P2, P3, P4)**, with BH over 3.
+- `models.py` already reads `A0_2_phenotypes_retained` from the gate output, so nothing in the code changes.
+- Sensitivity 3 (alternatives to P1) is coded to run regardless. Its P1 replacements also fall below 0.5 here, so those results will be reported as **exploratory**, with this caveat.
+- **Interpretation, for the paper; nothing here was decided on data:**
+  - All the DA-composition measures (P1, %TH+, totalDopa) vary about as much between differentiation runs of the *same* line as between lines.
+  - The control line's 4 runs span batches 1, 2, 3 and 5, so E8 and E6 media are both included. Its within-line variance therefore includes the batch and media effects that A0-4 and the batch analysis had already flagged for DA yield.
+  - The pathway phenotypes (P2–P4) are stable.
+  - With 3 df the CIs are very wide, as the registration anticipated. The rule uses the point estimate, so the decision stands.
+- This is a substantive negative result in its own right: DA-neuron yield in this protocol is, at this sample size, not reliable enough as a donor-level trait.
+
+### Next: PPMI clinical data cut
+The user downloads it from LONI IDA (an authenticated portal; the local session has no access) into `data/ppmi/<download-date>/`. Then the local session records the download date and data-cut version here, checks the file and column names (name-only fixes logged), and runs A0-1 → H1–H3.
+
+### For the planning session
+- Please review the P1 failure. The registered rule applies mechanically; the question is how to frame it in the paper. P1 was the primary phenotype, and A0-4 and A0-6 supported its construction, but not its run-to-run stability.
+
+---
+
 ## 2026-11-12 (local session): Zenodo archive of `prereg-v1.0.0`, DOI minted
 
 - The user switched on the Zenodo GitHub integration and published the GitHub release [`prereg-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-v1.0.0) (not a pre-release), on 2026-11-12 at 09:18 UTC.
