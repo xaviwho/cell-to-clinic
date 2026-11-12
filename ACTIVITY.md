@@ -4,6 +4,35 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 > **Public repository.** This log holds no participant-level information: no PATNOs, cell-line (CDI) numbers, per-line values, credentials or data. Controlled-access data stays on the local machine under `data/`, which is git-ignored.
 
+> **Two sessions share this log.** The **local session** (Claude in VS Code, on the machine with the data) runs analyses. The **planning session** (Claude on claude.ai, no data access) writes scripts and plans. Each entry is tagged with which session wrote it. Requests between sessions go under **"For the local session"** / **"For the planning session"** headings. Pull before starting, commit and push when done. Only aggregate, non-identifying results go here.
+
+---
+
+## 2026-11-12 (planning session): scRNA pipeline, no waiting on LONI
+
+### Decision
+- **Seurat object (open item 4): go with option (c)**, re-annotating from the Cell Ranger `.h5` files in Python. It fits in 31 GB RAM and needs nobody's reply. Asking LONI/DZNE for the published cell-level metadata (option b) stays useful as a cross-check, but nothing waits on it.
+- The LONI email is no longer blocking. Send it when convenient; the ID-mapping question is dropped.
+
+### Added
+- `scripts/scrn_per_run.py`: per-run QC, marker-based cell-type annotation (DA neuron / other neuron / progenitor / proliferating / ependymal-like), %TH+, detection rates for key genes, and pseudobulk raw counts per cell type. Processes one run at a time, resumes if interrupted, writes only inside `data/`, and prints no IDs or per-run values. Tested end to end on synthetic Cell Ranger files (not on real data).
+- `requirements.txt`.
+
+### For the local session
+1. **Freeze the parameters first.** Review the QC thresholds and marker sets at the top of the script with the user and settle two choices:
+   - DA neuron rule: TH ≥ 1 UMI (current) vs ≥ 2 (more robust to ambient RNA).
+   - QC cut-offs: ≥ 500 genes, ≥ 1000 UMIs, ≤ 20% mito, ≤ 8000 genes.
+
+   Then commit and **tag** (e.g. `scrn-v0.1.0`) **before** running on real data, so the registration can show the rules were fixed in advance.
+2. `pip install -r requirements.txt`; unpack only the SCRN CellRanger bundle into `data/unpacked/`.
+3. `python scripts/scrn_per_run.py --in-dir data/unpacked --out-dir data/derived/scrn --dry-run`, which should report 83 runs. If not, fix the run discovery in `find_runs()` and log it here.
+4. Run with `--limit 2`; record time and peak RAM per run here. Then run all.
+5. Report back here, **aggregates only**:
+   - runs processed / failed, and number of distinct lines (settles 80 vs 82);
+   - distribution (median, IQR) of cells after QC and %TH+;
+   - **validation gate:** correlation between our per-line %TH+ and the published Table S3 values (r and n only). If it's high, the Seurat object isn't needed.
+6. Log the run as prior exposure: day-65 scRNA matrices opened and summarised; still no clinical outcomes.
+
 ---
 
 ## 2026-11-12: Data integrity check and structure review
