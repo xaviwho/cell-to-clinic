@@ -8,6 +8,112 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-12 (local session): **PROJECT STATUS SUMMARY AND RECOMMENDATION**: all registered and exploratory analyses complete
+
+A single overview of everything so far; the detailed entries are below. Aggregates only.
+
+### 1. Timeline and frozen versions
+| Tag | What it froze | Run on real data |
+|---|---|---|
+| `scrn-v0.1.0` | scRNA QC, %TH+, cell types, pseudobulk (83 runs, 80 lines) | yes: gate A0-6 |
+| `day0-gate-v0.1.0` | A0-4 v1 (our %TH+ outcome) | yes: **fail** (CV AUC 0.57) |
+| `day0-gate-v0.2.0` | A0-4 v2 (exact replication of the published classifier) | yes: **partial** (CV AUC 0.72 vs 0.85; 5/5 published genes replicate) |
+| `prereg-v1.0.0` | All registered code (P1–P4, gates, H1–H3, sensitivity 1–9); synthetic-tested; **Zenodo 10.5281/zenodo.24156791** | yes, after OSF approval |
+| `prereg-v1.0.1` | Name-only PPMI config fixes and an xlsx→csv helper; analysis code byte-identical | yes |
+| `explore-v0.1.0` | Exploratory E1–E4 | yes |
+| `explore-v0.2.0` / `v0.2.1` | Exploratory E5 (`v0.2.1` = ID-mapping bug fix) | yes |
+
+**Registration:** OSF [osf.io/s6w9c](https://osf.io/s6w9c), filed and approved 2026-11-12, embargoed to 2027-11-12.
+
+**Clinical data:** PPMI Study Data downloaded 2026-11-12, plus Curated Data Cut v.2026-08-10. Downloaded only after OSF approval and the Zenodo archive, as registered.
+
+### 2. Gates
+| Gate | Rule | Result |
+|---|---|---|
+| A0-6 Reproduction | r ≥ 0.80 with Table S1 %TH+ | **pass**, r = 0.999 (n = 79) |
+| A0-4 Pipeline validity | CV AUC ≥ 0.75 (partial 0.65–0.75, p < 0.05) | v0.1.0 **fail**; v0.2.0 **partial**, 0.72 (p = 0.02); proceed, reported as a limitation |
+| A0-3 Cell sufficiency | ≥ 1,000 QC cells | 1 of 79 lines excluded (not a PD donor) |
+| A0-2 Technical stability | ICC ≥ 0.5 | **P1 DA fraction fails (0.33), dropped**; P2 0.94, P3 0.55, P4 0.64 pass |
+| A0-1 Linkage | ≥ 30 PD donors with ≥ 3 OFF visits over ≥ 2 years | **pass**, 44 / 47 |
+| A0-5 Composite coherence | ≥ 80% of genes share the composite's sign | **P3 fails (75%), P4 fails (62%)**: both dropped from H1 |
+
+### 3. Confirmatory results (n = 47 PD donors; 10 tests)
+| Hypothesis | Tests | Supported | Equivalent | Inconclusive |
+|---|---|---|---|---|
+| H1 motor progression (OFF-state UPDRS III slope) | P2 only | 0 | 0 | 1 (r −0.18) |
+| H2 DaTscan putamen decline (n = 38) | P2, P3, P4 | 0 | **3** | 0 |
+| H3 SAA status (7 negative / 38 positive) | P2, P3, P4 | 0 | 1 | 2 |
+| H3 NSD-ISS stage (n = 39) | P2, P3, P4 | 0 | 2 | 1 |
+| **Total** | 10 | **0** | **6** | **4** |
+
+- **Sensitivity analyses 1–9:** nothing reaches q < 0.05; leaving out any one donor never changes a sign.
+- **Power:** the registered equivalence power was optimistic (58% by simulation vs 83% registered at n = 47). Reported as a discrepancy.
+
+### 4. Exploratory results (labelled as such)
+- **E1, genes:** no single OXPHOS or lysosome gene is significant; the nominal hits match chance. 75% of OXPHOS genes point toward "higher OXPHOS, slower progression", led by ATP-synthase and complex III subunits. This is one weak, coherent signal, not a finding.
+- **E2, milestones** (H&Y ≥ 3, freezing, cognitive impairment): no associations; HR CIs about 0.55–1.7 per SD. Falls were not available.
+- **E3, carriers:** manifesting (19) vs non-manifesting (21) carriers don't differ in P2, P3 or P4 (all **equivalent**).
+- **E4, design:**
+  - Reliability of each patient's progression rate is λ = 0.64 (motor) and 0.54 (DaTscan).
+  - With 47 donors, only true r ≥ 0.55 (SNCA) to ≥ 0.9 (DA yield) was detectable.
+  - Plausible effects (r 0.2–0.4) were out of reach.
+- **E5a, design uncertainty:** SNCA needs about **164 donors (141–234)** for r = 0.3. For DA yield, OXPHOS and lysosome the upper bound is unbounded, because 4 control runs can't exclude zero line signal (P = 43%, 26%, 23%).
+- **E5b, bulk RNA replicates (5 control runs):** lysosome is reliable (ICC **0.89**). Unadjusted SNCA, TH and OXPHOS are not (ICC ≈ 0–0.2).
+- **E5c, noise source (day 25; 9 within-batch runs):** **85–97% of run-to-run variance is between batches** for SNCA, TH and OXPHOS, against 21% for lysosome. Within one batch, replicates are near-identical (ICC 0.87–0.99).
+
+### 5. What the study shows
+1. **The gated framework worked as intended.** Of the 4 planned phenotypes, the gates removed 3 before or during the primary test, for documented, pre-specified reasons:
+   - DA yield is unstable across runs;
+   - the two pathway composites were incoherent at gene level.
+
+   Without the gates, a DA-yield × progression result would have been uninterpretable.
+2. **No evidence that day-65 iPSC neuron phenotypes track PD progression in 47 donors.** For DaTscan decline, NSD-ISS stage and carrier status, meaningful associations (|r| ≥ 0.40) are **ruled out** for several phenotypes. For motor progression the result is inconclusive.
+3. **The null results are what the measurement properties predict.** They are not evidence against cell-to-clinic links in general. Effects of a plausible size need roughly 3–5 times more donors.
+4. **The main limiter is batch, acting through cell composition.** Run noise is batch-driven. SNCA becomes reliable only after single-cell composition adjustment. Lysosomal expression is the most robust line-intrinsic trait.
+
+### 6. Recommendation
+
+**For this project:**
+1. **Treat the experimental phase as complete.** All registered analyses have run exactly as tagged, and the planned exploratory set (E1–E5) is done. Don't add more analyses to look for a positive result.
+2. **One optional, clearly post-hoc check worth doing:** composition-adjust bulk SNCA using bulk neuronal/TH markers, to test directly whether composition explains its unreliability (section 5, point 4). It is small, it is mechanistic, and it would firm up the paper's main design message. Freeze it as `explore-v0.3.0` before running.
+3. **Write the paper around two contributions:**
+   - (a) a pre-registered, gated cell-to-clinic analysis, with an honest null and equivalence result;
+   - (b) an empirical design guide for iPSC cell-to-clinic studies, from E4 and E5.
+
+   Report every failed version (A0-4 v0.1.0, explore-v0.2.0), the power discrepancy, the 9 donors without DaTscan, and the prior-exposure disclosures.
+4. **Release the analysis code and aggregate results** with the paper: tag `paper-v1.0` and archive it on Zenodo. No participant-level data.
+
+**For future iPSC cell-to-clinic studies** (the practical take-home):
+1. Measure cell-type composition per run (single-cell, or a validated deconvolution), and **adjust phenotypes for composition**.
+2. **Spread replicate differentiations across batches.** Same-batch replicates give a false sense of reliability. Balance batches across groups.
+3. **Estimate run-to-run reliability before sizing the donor cohort,** using several lines with ≥ 3 cross-batch runs each, not one control line.
+4. **Prefer composition-robust molecular phenotypes** (lysosomal programme; composition-adjusted SNCA) over DA-neuron yield as donor traits.
+5. **Plan for about 150–300 donors** to detect correlations of r ≈ 0.3 with clinical progression, with regular clinical follow-up of ≥ 5 years.
+
+### 7. Open items
+- **User:**
+  - decide on the optional bulk SNCA composition check (section 6.2);
+  - confirm the paper's direction.
+- **Planning session:**
+  - review this summary;
+  - draft the paper outline and the figure list. Candidate figures:
+    - gate flow (4 phenotypes → 1 tested);
+    - equivalence forest plot;
+    - design curves: N against runs per line, per phenotype;
+    - the batch-variance decomposition.
+- **Still open from earlier, now lower priority:**
+  - asking LONI/DZNE for the published per-cell labels (would enable cell-type-specific pseudobulk, exploratory);
+  - the LONI follow-up email.
+- **The Aspera account expires about 2026-12-11.** Any further processed-data download must happen before then.
+
+### 8. Disclosures (cumulative, all in the local chat only, none in this log)
+1. CDI numbers printed from a README (early).
+2. Public Table S1/S3 rows with IDs printed, on two occasions.
+3. One aggregate A0-3 count seen before the tag.
+4. One scRNA run directory name (PATNO and CDI) printed during E5.
+
+---
+
 ## 2026-11-12 (local session): **EXPLORATORY** E5: design-guide uncertainty, bulk-RNA replicates, batch vs within-batch noise
 
 Code: `scripts/exploratory2.py`, frozen as `explore-v0.2.0` (commit `1a52f41`) before running.
