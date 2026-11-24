@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): **EXPLORATORY**: A3 cell-sampling vs batch variance (`jerber-a3-v0.1.0`)
+
+Public Jerber data only. The code was frozen before the run; a synthetic test recovers known variance components.
+- **Method:** a bootstrap of cells within each sample (B = 200; 153 samples with ≥ 50 DA cells) measures cell-sampling noise. That noise is removed from A2's across-batch within-line variance, leaving the true batch variance. ICC is then predicted for a run with n cells.
+- **P1** uses the analytic binomial variance over all cells.
+
+| Phenotype | Share of within-line variance from cell sampling | Line var. / batch var. | ICC at 50 / 100 / 500 / ∞ cells per run |
+|---|---|---|---|
+| P1 logit DA fraction (all cells) | 1% | 0.68 / 1.11 | 0.35 / 0.36 / 0.38 / **0.38** |
+| P2da SNCA in DA neurons | 9% | 0.25 / 0.14 | 0.58 / 0.61 / 0.63 / **0.64** |
+| P3da OXPHOS in DA neurons | 6% | 0.012 / 0.053 | 0.16 / 0.17 / 0.19 / **0.19** |
+| P4da lysosome in DA neurons | 15% | 0.032 / 0.036 | 0.37 / 0.41 / 0.46 / **0.47** |
+| 1,000 random expressed genes (median) | 53% (IQR 33–79%) | n/a | 0.24 / 0.34 / 0.54 / **0.64** |
+
+**Interpretation:**
+1. **For the composite phenotypes, run-to-run variation is almost all true batch effect (85–99%), not cell sampling.** Sequencing more cells per run barely helps: the ICC ceiling with infinite cells is 0.38 (DA fraction), 0.64 (SNCA-DA), 0.47 (lysosome-DA) and 0.19 (OXPHOS-DA). The lever is **more independent differentiation runs per line**, spread across batches, as in E5c.
+2. **For single genes, cell sampling is about half the noise.** Reliability rises steeply up to about 500 DA cells per run (median gene ICC 0.24 → 0.54), then levels off near 0.64. Single-gene designs therefore need ≥ 500 target cells per run, as well as repeated runs.
+3. **This corrects how A2's ≥ 500-cell sensitivity result should be read.** The higher ICCs there (P1 0.71, P4 0.68) cannot come from cell count for the composites, so they mostly reflect **which lines** reach 500 cells, i.e. selection.
+4. **OXPHOS has almost no stable line component across batches** (line variance 0.012 vs batch 0.053). This supports keeping D3 exploratory in the Cell-to-Clinic II draft.
+
+**For A4 (design guide v2):** use the infinite-cell ceiling plus the per-cell noise term. Donors needed then depends on runs per line (batch-limited composites) and on cells per run (sampling-limited genes).
+
 ## 2026-11-24 (local session): B1 DA-only phenotypes and gates (`da-phen-v1.0.0`); **Cell-to-Clinic II registration draft ready for review**
 
 ### B1: DA-neuron-only phenotypes, no clinical data
