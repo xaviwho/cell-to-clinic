@@ -8,6 +8,53 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): **Cell-to-Clinic II results** (osf.io/4pzxa; code `models-da-v1.0.0`, commit 0ae944c): **H1-DA supported (p = 0.040), but fragile in sensitivity analyses**
+
+Run by the user's decision after G-eQTL passed. The five implementation readings in the linkage-code entry were accepted by the user **without** planning-session review; say so in the paper. Aggregates only. β = change in OFF-state UPDRS III slope (points/year) per SD of phenotype; partial r = t/√(t² + df).
+
+**Sample:** 47 PD donors; A0-3 and G-cells exclude none; no missing covariates. A0-1 passes (44/47). G-eQTL passed, so D2/D4 are reported as **DA-neuron** phenotypes.
+
+**Primary, H1-DA (D2 = SNCA in DA neurons × time, UPDRS III OFF; single test, α = 0.05)**
+- β = **−0.57** (SE 0.26, df 26.5), **p = 0.040**, partial r ≈ **−0.39** (90% CI −0.60 to −0.09). n = 47 donors, 527 visits. **Class: supported.**
+- Direction: higher SNCA in DA neurons goes with **slower** motor progression. Registration 1's all-cell P2 had the same sign (r −0.18, inconclusive).
+
+**Gate A0-5 (D4):** only 59% of the 78 lysosome genes share D4's sign (needs ≥ 80%). **H1-D4 is dropped**; its estimate is given descriptively: β +0.25, p 0.39.
+
+**Secondary family (BH over the remaining 6):** none supported.
+| Test | β | p | q | Class |
+|---|---|---|---|---|
+| H2 D2 (putamen SBR slope) | +0.007 | 0.14 | 0.42 | inconclusive |
+| H2 D4 | −0.001 | 0.80 | 0.88 | equivalent |
+| H3 D2 by SAA (7 SAA−) | +0.94 SD | 0.019 | 0.11 | inconclusive |
+| H3 D4 by SAA | −0.32 SD | 0.47 | 0.70 | equivalent |
+| H3 D2 by NSD-ISS | −0.04 | 0.88 | 0.88 | equivalent |
+| H3 D4 by NSD-ISS | +0.24 | 0.42 | 0.70 | inconclusive |
+
+**H4 (bulk day-65 OXPHOS, composition-adjusted; single test):** β +0.12, p 0.66, 90% CI of partial r within ±0.40. **Class: equivalent.** The registration-1 exploratory OXPHOS signal (all-cell r −0.33) does **not** carry over to bulk RNA of the same lines.
+
+**Not tested (failed G-icc), descriptive H1:** D1 DA fraction β +0.09 (p 0.75); D3 DA OXPHOS β −0.43 (p 0.10).
+
+**Sensitivity analyses for the primary (D2):**
+| Analysis | β | p | Class |
+|---|---|---|---|
+| 1 Old DA label | −0.50 | 0.073 | inconclusive |
+| 2 Composition-adjusted | −0.66 | 0.019 | supported |
+| 3 Idiopathic only (n = 28) | −0.54 | 0.12 | inconclusive |
+| 4 Five-level batch covariate | **−0.37** | 0.20 | inconclusive |
+| 5 Leave one donor out | range −0.75 to −0.42 | – | no sign change; max shift 0.69 SE |
+| 6 First 5 years (n = 44, 339 visits) | −0.35 | 0.48 | inconclusive |
+Secondary classes across sensitivity analyses 1–4: no test becomes supported.
+
+### Reading (local session)
+1. **The registered primary test is met, narrowly.** The direction holds in every sensitivity analysis and with each single donor left out. The effect is robust to label definition and composition adjustment, and to which donors are included.
+2. **But it weakens by a third with batch dummies (−0.57 → −0.37, p 0.20).** The A2/A3 work showed batch is the main threat to these phenotypes, so a batch-sensitive primary is the key caveat. It also halves in the first five years. Partly that is fewer visits (SE nearly doubles), so it is not decisive.
+3. **Winner's curse.** At n = 47 the design guide put the 80%-power detectable r at about 0.58–0.68. An observed |r| ≈ 0.39 at p = 0.04 is therefore likely an overestimate of the true effect. The honest framing is "a pre-registered signal that needs replication at the donor numbers in Fig. 4 (≈ 160–220 donors for r = 0.3)", not "SNCA predicts progression".
+4. Lysosome (D4) failed coherence; H4 and secondary tests show no further signal.
+
+### For the planning session
+- Please review this result and the framing above for the paper. The confirmatory status is fixed by the registration; the interpretation is open.
+- The five implementation readings were accepted by the user without review. If you think any matters, a re-run under a changed reading must be labelled a deviation or sensitivity analysis, not the primary result.
+
 ## 2026-11-24 (local session): **Gate G-eQTL PASSES** (`g-eqtl-v1.1.0`): new DA-label pseudobulk carries Jerber DA-neuron genetic regulation
 
 Run after the filing of osf.io/4pzxa and before any linkage, as decided. Aggregates only.
