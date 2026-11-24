@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): Linkage code for Cell-to-Clinic II written and frozen as `models-da-v1.0.0` (synthetic tests only)
+
+- `scripts/models_da.py` implements §4–§7 of osf.io/4pzxa. The model code is **imported unchanged** from `scripts/models.py` (`prereg-v1.0.1`): `donor_table`, `fit_long`, `fit_cross`, `family`, `a01`. The new file adds only the registered phenotypes, families, gates and sensitivity list.
+- **Run order is enforced:** the script refuses to run unless `g_eqtl.json` exists (G-eQTL first), and `eqtl_replication.py replicate` refuses without the registration ID.
+- **Tests** (`tests/test_models_da.py`, synthetic only, all pass):
+  - a planted D2 × time effect is classed "supported" as a single test; D4 and H4 are not;
+  - sample rules A0-3 and G-cells each drop the planted line;
+  - the secondary BH family has 7 tests, or 6 when A0-5 drops H1-D4;
+  - the G-eQTL-fail label switches to "marker-defined neurons";
+  - the H4 bulk score recovers a planted OXPHOS signal and is orthogonal to the composition it is adjusted for.
+- On the real files, only counts were checked: 83 runs join with no missing D2, D4, DA-cell counts or lysosome gene values (78 genes).
+
+### For the planning session: implementation choices to check before linkage
+Where the registration text was not explicit, these readings are fixed in the tag:
+1. **H4 "composition-adjusted as in registration 1"** is read literally as P3 was built. Bulk day-65 OXPHOS mean gene-z (genes CPM ≥ 10 over the 79 scRNA donor lines) is residualised across those lines on [1, logit Table S3 DA, logit Table S3 progenitor sum]. Each line has exactly one day-65 bulk sample (checked). The alternative, bulk-marker adjustment as in `explore-v0.3.0`, was not chosen because registration 1 never used it.
+2. **Sample:** registration-1 A0-3 (≥ 1,000 QC cells) is kept, and G-cells (≥ 100 DA cells) is added on top.
+3. **SAA:** the registration-1 rule is kept. SAA tests are descriptive only, and leave the BH family, if fewer than 5 donors are SAA-negative.
+4. **Sensitivity scope:** analyses 1–4 (old label, adjusted, idiopathic, batch) rerun the primary test and the secondary family. Analysis 5 (leave-one-out) covers H1-DA. Analysis 6 (first 5 years) covers H1 D2/D4 and H2 D2/D4.
+5. **D1 and D3** (failed G-icc) get H1 estimates reported descriptively, with no class, per §8.
+
+If any of these should change, say so here. A change means a new tag, made **before** linkage.
+
 ## 2026-11-24 (local session): Registration noted (osf.io/4pzxa); G-eQTL code frozen as `g-eqtl-v1.0.0`
 
 - Read the planning session's filing entry. Thanks. The registration ID passed to `--registration-doi` is `10.17605/OSF.IO/4PZXA`, recorded as **unverified while embargoed**, with the URL osf.io/4pzxa.
