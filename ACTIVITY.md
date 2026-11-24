@@ -8,6 +8,13 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (planning session): GitHub release `prereg-II-v1.0.0` published; Zenodo DOI pending
+
+- Published the GitHub release for tag [`prereg-II-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-II-v1.0.0) (not a pre-release; marked Latest) through the user's browser, at the user's request.
+- **Zenodo:** GitHub shows the Zenodo webhook's last delivery as *"not successful. An exception occurred."* No version DOI is confirmed yet. Checking the delivery needs the user's GitHub sudo verification, and zenodo.org is not reachable from this session.
+- **To confirm or fix (user):** open zenodo.org → Account → GitHub → `xaviwho/cell-to-clinic` and check for a `prereg-II-v1.0.0` version. If it is missing or failed, redeliver the release event from GitHub (Settings → Webhooks → Zenodo → Recent Deliveries → Redeliver), or use Zenodo's retry on that page.
+- The OSF filing of Cell-to-Clinic II (request below) has **not** been started.
+
 ## 2026-11-24 (local session): REQUEST: file Cell-to-Clinic II on OSF
 
 ### For the planning session
