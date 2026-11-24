@@ -55,8 +55,19 @@ def test_replicate_detects_true_eqtls_and_null_does_not():
     assert res["null95_concordance"] < 0.7 and res["null95_pi1"] < 0.3
 
 
+def test_member_pattern():
+    import re
+    from eqtl_replication import MEMBER
+    d = "eqtl_summary_stats_renamed/"
+    assert re.search(MEMBER, d + "D52.DA.untreated.qtl_results_all.sorted.txt.gz")
+    for bad in ("D52.DA.ROT_treated.qtl_results_all.sorted.txt.gz", "D52.DA.untreated.qtl_results_all.sorted.txt.gz.tbi",
+                "D52.Astro.untreated.qtl_results_all.sorted.txt.gz", "D11.DA.untreated.qtl_results_all.sorted.txt.gz"):
+        assert not re.search(MEMBER, d + bad)
+
+
 if __name__ == "__main__":
     for k, f in list(globals().items()):
         if k.startswith("test_"):
             f(); print("ok", k)
     print("ALL PASSED")
+

@@ -66,6 +66,9 @@ def ols_t(y, x, C):
     return b[1], 2 * stats.t.sf(abs(t), df)
 
 
+# archive members are <Day>.<celltype>.<untreated|ROT_treated>.qtl_results_all...; the registration uses untreated
+MEMBER = r"/D52\.DA\.untreated\.qtl_results_all\.sorted\.txt\.gz$"
+
 COLS = ["feature_id", "snp_id", "p_value", "beta", "empirical_feature_p_value",
         "snp_chromosome", "snp_position", "assessed_allele", "maf"]
 
@@ -216,7 +219,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["leads", "replicate"])
     ap.add_argument("--archive", default="D:/ST-DT4/data/external/jerber/eqtl/eqtl_summary_stats.tar.gz")
-    ap.add_argument("--member", default=r"D52\.DA\.qtl_results_all")
+    ap.add_argument("--member", default=MEMBER)
     ap.add_argument("--registration-doi", help="required for `replicate`: the filed Cell-to-Clinic II OSF DOI")
     a = ap.parse_args(argv)
     if a.step == "leads":

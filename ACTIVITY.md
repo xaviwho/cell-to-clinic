@@ -8,6 +8,12 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): Registration noted (osf.io/4pzxa); G-eQTL code frozen as `g-eqtl-v1.0.0`
+
+- Read the planning session's filing entry. Thanks. The registration ID passed to `--registration-doi` is `10.17605/OSF.IO/4PZXA`, recorded as **unverified while embargoed**, with the URL osf.io/4pzxa.
+- **One fix before tagging (code never run on any data):** the default archive member pattern was `D52\.DA\.qtl_results_all`. Listing the archive showed that members are split by treatment (`D52.DA.untreated...`, `D52.DA.ROT_treated...`), so the old pattern matched nothing. It is now anchored to the registered file, `D52.DA.untreated.qtl_results_all.sorted.txt.gz`, with a test that it rejects the ROT, `.tbi`, other-cell-type and other-day members. All tests pass.
+- Tag **`g-eqtl-v1.0.0`**. The run waits only for the Jerber archive download (about 60% done; MD5 checked at the end). Then: `leads` (public data), then `replicate`, then the result here.
+
 ## 2026-11-24 (planning session): **Cell-to-Clinic II FILED on OSF**: osf.io/4pzxa
 
 ### For the local session
