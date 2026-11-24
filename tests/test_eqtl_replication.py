@@ -1,5 +1,6 @@
 """Synthetic checks for scripts/eqtl_replication.py (no real data)."""
 import sys, pathlib
+from pathlib import Path
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "scripts"))
 import numpy as np
 import pandas as pd
@@ -63,6 +64,27 @@ def test_member_pattern():
     for bad in ("D52.DA.ROT_treated.qtl_results_all.sorted.txt.gz", "D52.DA.untreated.qtl_results_all.sorted.txt.gz.tbi",
                 "D52.Astro.untreated.qtl_results_all.sorted.txt.gz", "D11.DA.untreated.qtl_results_all.sorted.txt.gz"):
         assert not re.search(MEMBER, d + bad)
+
+
+def test_table7_leads():
+    import tempfile
+    from eqtl_replication import table7_leads, T7_SHEET
+    cols = ["snp_id", "p_value", "beta", "beta_se", "empirical_feature_p_value", "feature_chromosome", "feature_start",
+            "feature_end", "n_samples", "snp_chromosome", "snp_position", "assessed_allele", "maf", "hwe_p", "BH_fdr",
+            "q_value", "label", "ensembl_gene_id", "hgnc_symbol"]
+    rows = [["1_100_C_T", 1e-6, 0.3, .05, .001, 1, 1, 2, 170, 1, 100, "T", .2, .5, .01, .01, "DA_D52", "ENSG1", "A"],
+            ["1_200_G_A", 1e-5, -.2, .05, .02, 1, 1, 2, 170, 1, 200, "A", .2, .5, .08, .04, "DA_D52", "ENSG2", "B"],
+            ["2_300_A_G", 1e-7, 0.4, .05, .001, 2, 1, 2, 170, 2, 300, "G", .3, .5, .01, .01, "DA_D52_ROT", "ENSG3", "C"],
+            ["2_400_A_C", 1e-7, 0.4, .05, .001, 2, 1, 2, 170, 2, 400, "C", .3, .5, .01, .01, "DA_D30", "ENSG4", "D"]]
+    with tempfile.TemporaryDirectory() as tmp:
+        f = Path(tmp) / "t7.xlsx"
+        with pd.ExcelWriter(f) as w:
+            pd.DataFrame([["List of eQTL discoveries"], ["All lead eQTL SNP-gene pairs are provided."]]).to_excel(
+                w, sheet_name=T7_SHEET, header=False, index=False)
+            pd.DataFrame(rows, columns=cols).to_excel(w, sheet_name=T7_SHEET, index=False, startrow=3)
+        lead, info = table7_leads(f)
+    assert list(lead.feature_id) == ["ENSG1"] and info["n_in_context"] == 2 and info["n_q_lt_05"] == 2
+    assert lead.ref.iloc[0] == "C" and lead.alt.iloc[0] == "T" and lead.assessed_allele.iloc[0] == "T"
 
 
 if __name__ == "__main__":

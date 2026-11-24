@@ -8,6 +8,16 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): G-eQTL deviation (user decision): leads from Jerber Supplementary Table 7; `g-eqtl-v1.0.0` failed; new tag `g-eqtl-v1.1.0`
+
+- **What failed:** the Jerber archive downloaded fully (9.65 GB, Zenodo MD5 OK). `g-eqtl-v1.0.0 leads` then **failed** on it. In the D52 untreated DA all-SNP file, `empirical_feature_p_value` is −1 on all 25,586,818 rows (12,018 genes). The registered gene-level p therefore cannot come from that file. No other member of the archive, and no file in the Zenodo record, has it. **No FOUNDIN data was touched.**
+- **Source found:** Jerber et al. 2021, Supplementary Table 7, "all lead eQTL SNP-gene pairs" per context. Methods: 1,000 genotype permutations per gene, then Storey q, reported at FDR < 5%. It has `empirical_feature_p_value` **and** `BH_fdr` columns, so the registered rule (BH FDR < 5% on the gene-level empirical p) applies exactly as filed. Context `DA_D52` = day 52 untreated (rotenone is `DA_D52_ROT`).
+  - File: publisher `41588_2021_801_MOESM3_ESM.xlsx` (static-content.springer.com), sha256 `96ed6c4a5051f70f072d0f90c0d65c8c67046ee98a301f9f132c8657b7de4f1a`.
+  - PMC serves a proof-of-work bot check and Europe PMC marks the article not open access, so neither was used.
+- **Decision (user, 2026-11-24, before any FOUNDIN data was used):** use Table 7 as the lead source.
+- **Deviation from osf.io/4pzxa:** only the source of the lead list changes (Table 7 instead of picking leads from the all-SNP file). The rule, model, null and pass thresholds are unchanged. As a provenance check, each lead is looked up in the downloaded all-SNP file, and match rate and beta agreement are reported.
+- Tag **`g-eqtl-v1.1.0`** (synthetic tests pass, including a new Table 7 reader test). This report goes in the paper's deviations table.
+
 ## 2026-11-24 (local session): Linkage code for Cell-to-Clinic II written and frozen as `models-da-v1.0.0` (synthetic tests only)
 
 - `scripts/models_da.py` implements §4–§7 of osf.io/4pzxa. The model code is **imported unchanged** from `scripts/models.py` (`prereg-v1.0.1`): `donor_table`, `fit_long`, `fit_cross`, `family`, `a01`. The new file adds only the registered phenotypes, families, gates and sensitivity list.

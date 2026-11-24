@@ -1,9 +1,15 @@
 """C2 / gate G-eQTL (Cell-to-Clinic II draft, section 4): do Jerber DA-neuron lead eQTLs replicate in
 FOUNDIN DA-neuron pseudobulk? NO clinical data. Freeze with a tag before running on FOUNDIN data.
 
-Step `leads` (public data only): from Jerber's D52 untreated DA file (qtl_results_all), take per gene
-  the SNP with the smallest p; gene-level p = empirical_feature_p_value of that gene; BH over genes;
-  leads = FDR < 5%. -> data/derived/eqtl/jerber_leads.tsv
+Step `leads` (public data only). DEVIATION from osf.io/4pzxa, decided by the user 2026-11-24 before any
+  FOUNDIN data was used: the released qtl_results_all files carry empirical_feature_p_value = -1 on every
+  row, so the gene-level p cannot be taken from them. Leads therefore come from Jerber et al. 2021
+  Supplementary Table 7 (publisher file 41588_2021_801_MOESM3_ESM.xlsx: "all lead eQTL SNP-gene pairs"),
+  context label DA_D52 (day 52, untreated), and the registered rule is applied to its columns:
+  BH_fdr (BH over the gene-level empirical p) < 0.05. Cross-check: every lead is looked up in the D52
+  untreated DA qtl_results_all file (same SNP-gene pair; beta and p agreement reported).
+  The original all-SNP route (`--source allsnp`) is kept for the record; it cannot produce leads.
+  -> data/derived/eqtl/jerber_leads.tsv, jerber_leads.json
 Step `replicate` (FOUNDIN, aggregates only):
   expression  log2(CPM+1) of the new-rule DA pseudobulk (da-labels-v1.0.0), 79 donor lines;
               genes with mean CPM >= 10; symbols mapped to Ensembl via the Cell Ranger features.
@@ -87,6 +93,7 @@ def lead_table(chunks):
 
 
 def leads(archive, pattern):
+    """Original registered route (all-SNP file). Kept for the record: the file has no gene-level p."""
     OUT.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive, "r|gz") as t:
         for m in t:
@@ -97,11 +104,58 @@ def leads(archive, pattern):
                 break
         else:
             raise SystemExit(f"no archive member matches {pattern}")
+    if L.empty:
+        raise SystemExit("no gene-level empirical p in this file (all -1): use --source table7")
     lead = L[L.q < 0.05].copy()
     al = lead.snp_id.str.split("_", expand=True)
     lead["ref"], lead["alt"] = al[2], al[3]
     lead.to_csv(OUT / "jerber_leads.tsv", sep="\t", index=False)
     info.update({"n_genes_tested": int(len(L)), "n_lead_fdr05": int(len(lead))})
+    json.dump(info, open(OUT / "jerber_leads.json", "w"), indent=1)
+    print(info)
+
+
+T7_SHEET, T7_LABEL = "SupplementaryTable7", "DA_D52"
+
+
+def table7_leads(xlsx, label=T7_LABEL):
+    T = pd.read_excel(xlsx, T7_SHEET, header=3)
+    ctx = T[T.label == label]
+    if ctx.ensembl_gene_id.duplicated().any():
+        raise SystemExit("Table 7: more than one lead per gene in this context")
+    lead = ctx[ctx.BH_fdr < 0.05].rename(columns={"ensembl_gene_id": "feature_id"}).copy()
+    al = lead.snp_id.str.split("_", expand=True)
+    lead["ref"], lead["alt"] = al[2], al[3]
+    info = {"source": "Jerber 2021 Supplementary Table 7", "label": label, "n_in_context": int(len(ctx)),
+            "n_q_lt_05": int((ctx.q_value < 0.05).sum()), "n_lead_bh_fdr05": int(len(lead))}
+    return lead[["feature_id", "snp_id", "p_value", "beta", "empirical_feature_p_value", "BH_fdr", "q_value",
+                 "snp_chromosome", "snp_position", "assessed_allele", "maf", "ref", "alt", "hgnc_symbol"]], info
+
+
+def crosscheck(lead, archive, pattern):
+    """Look the Table 7 pairs up in the all-SNP file of the same context."""
+    want = set(zip(lead.feature_id, lead.snp_id))
+    hits = []
+    with tarfile.open(archive, "r|gz") as t:
+        for m in t:
+            if m.isfile() and re.search(pattern, m.name):
+                for ch in pd.read_csv(gzip.GzipFile(fileobj=t.extractfile(m)), sep="\t", chunksize=2_000_000,
+                                      usecols=["feature_id", "snp_id", "p_value", "beta"]):
+                    k = pd.Series(list(zip(ch.feature_id, ch.snp_id)), index=ch.index).isin(want)
+                    hits.append(ch[k])
+                break
+    H = pd.concat(hits).merge(lead[["feature_id", "snp_id", "beta", "p_value"]], on=["feature_id", "snp_id"], suffixes=("_all", "_t7"))
+    return {"n_pairs_found_in_allsnp_file": int(len(H)), "share_found": float(len(H) / len(lead)),
+            "beta_max_abs_diff": float((H.beta_all - H.beta_t7).abs().max()),
+            "beta_corr": float(np.corrcoef(H.beta_all, H.beta_t7)[0, 1]) if len(H) > 2 else None}
+
+
+def leads_t7(xlsx, archive, pattern):
+    OUT.mkdir(parents=True, exist_ok=True)
+    lead, info = table7_leads(xlsx)
+    info["crosscheck_member"] = pattern
+    info.update(crosscheck(lead, archive, pattern))
+    lead.to_csv(OUT / "jerber_leads.tsv", sep="\t", index=False)
     json.dump(info, open(OUT / "jerber_leads.json", "w"), indent=1)
     print(info)
 
@@ -220,10 +274,15 @@ def main(argv=None):
     ap.add_argument("step", choices=["leads", "replicate"])
     ap.add_argument("--archive", default="D:/ST-DT4/data/external/jerber/eqtl/eqtl_summary_stats.tar.gz")
     ap.add_argument("--member", default=MEMBER)
+    ap.add_argument("--source", choices=["table7", "allsnp"], default="table7")
+    ap.add_argument("--table7", default="D:/ST-DT4/data/external/jerber/supp/esm3.xlsx")
     ap.add_argument("--registration-doi", help="required for `replicate`: the filed Cell-to-Clinic II OSF DOI")
     a = ap.parse_args(argv)
     if a.step == "leads":
-        leads(a.archive, a.member)
+        if a.source == "table7":
+            leads_t7(a.table7, a.archive, a.member)
+        else:
+            leads(a.archive, a.member)
         return
     if not a.registration_doi:
         raise SystemExit("replicate is held until the Cell-to-Clinic II registration is filed: pass --registration-doi")
