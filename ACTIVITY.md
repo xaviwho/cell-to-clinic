@@ -8,6 +8,49 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): B1 DA-only phenotypes and gates (`da-phen-v1.0.0`); **Cell-to-Clinic II registration draft ready for review**
+
+### B1: DA-neuron-only phenotypes, no clinical data
+- **Code:** `scripts/phenotypes_da.py`, frozen and tagged before the run; synthetic test passes.
+- **Inputs:** new DA labels (B0) for 83 runs (79 donor lines, 4 control runs).
+- **G-cells (≥ 100 DA cells per run):** 0 lines excluded. The old TH rule would have excluded 1.
+- **Genes kept** (mean CPM ≥ 10 in the DA pseudobulk): 9,568. OXPHOS 187 and lysosome 78 set genes are retained.
+
+| Phenotype | FOUNDIN ICC (4 control runs, 3 df) [95% CI] | Jerber across-batch (A2) | Retention (FOUNDIN ≥ 0.5 and Jerber ≥ 0.40) |
+|---|---|---|---|
+| D1 logit DA fraction (new rule) | −0.24 [−16.3, 0.62] | 0.38 (P1) | fail |
+| **D2 SNCA in DA neurons** | **0.83** [−1.35, 0.95] | **0.62** | **retain (primary)** |
+| D3 OXPHOS in DA neurons | 0.46 [−6.5, 0.84] | 0.18 | fail (exploratory only) |
+| D4 lysosome in DA neurons | 0.88 [−0.74, 0.96] | 0.43 | retain (secondary) |
+| D2/D3/D4 old label | 0.78 / 0.72 / 0.97 | n/a | sensitivity |
+| D2/D3/D4 composition-adjusted | 0.92 / 0.58 / 0.96 | n/a | sensitivity |
+
+**Notes:**
+- **The FOUNDIN CIs are uninformative,** with only 3 within-line df. This is why the retention rule also requires the Jerber across-batch value.
+- **D1 (new-rule DA fraction) is less stable than the published Table S3 P1 (0.33).** The 4 control runs vary a lot in how many neurons pass the broad threshold.
+
+### Cell-to-Clinic II registration: draft at `prereg/cell-to-clinic-II_draft.md`
+**What it registers:**
+- **Primary (single test):** H1-DA, D2 (SNCA in DA neurons) × time on OFF-state UPDRS III.
+- **Secondary:** a BH family of 7 tests: D4 on H1, plus D2 and D4 on SBR, SAA and NSD-ISS.
+- **H4:** bulk day-65 OXPHOS on UPDRS III. This tests the registration-1 exploratory signal in a different assay of the same lines.
+- **Model code:** frozen from `prereg-v1.0.1`.
+- **New gate G-eQTL:** do Jerber DA-neuron lead eQTLs replicate in FOUNDIN DA pseudobulk? Pass: sign concordance ≥ 70% and π1 ≥ 0.3, both above the 95th percentile of a matched null.
+
+**Honest framing built in:**
+- **Power:** at n = 47 the smallest detectable true r is about 0.58–0.68 for D2, so the tests mainly bound effect sizes.
+- **Prior exposure:** the all-cell SNCA, OXPHOS and lysosome phenotypes were linked to clinical data in registration 1. Phenotype selection used reliability values already known at drafting; this is disclosed. **No DA-only phenotype has been linked to any clinical, imaging or SAA variable.**
+
+**For the user and the planning session:**
+1. Review and edit the draft.
+2. Decide whether G-eQTL must pass **before** filing. I recommend running it after filing but before linkage; the draft says this.
+3. File on OSF linked to osf.io/s6w9c, and record the registration DOI here.
+- Linkage stays blocked until then.
+
+### Running
+- **A3** (`jerber-a3-v0.1.0`): splits Jerber's across-batch within-line variance into cell-sampling noise and true batch variance.
+- **Jerber eQTL summary statistics download (9.7 GB):** for C2 and G-eQTL.
+
 ## 2026-11-13 (local session): **EXPLORATORY**: A2 across-batch reliability atlas on Jerber (`jerber-a2-v0.1.0`)
 
 Public data only (Jerber et al. 2021, day 52, untreated). The code was frozen and tagged before the run; synthetic tests pass (`tests/test_jerber_reliability.py`).
