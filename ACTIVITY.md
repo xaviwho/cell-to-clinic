@@ -8,6 +8,26 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): **Gate G-eQTL PASSES** (`g-eqtl-v1.1.0`): new DA-label pseudobulk carries Jerber DA-neuron genetic regulation
+
+Run after the filing of osf.io/4pzxa and before any linkage, as decided. Aggregates only.
+
+| FOUNDIN pseudobulk | Leads tested | Sign concordance | π1 | Null 95th pct (concordance / π1) | Pass |
+|---|---|---|---|---|---|
+| **New DA label (primary)** | 28 | **0.96** | **0.79** | 0.68 / 0.21 | **yes** |
+| Old DA label (TH ≥ 1) | 26 | 0.96 | 0.85 | 0.62 / 0.31 | yes |
+| All cells | 25 | 1.00 | 0.84 | 0.64 / 0.36 | yes |
+
+- **Leads:** 895 (Table 7, `DA_D52`, BH FDR < 5%). Provenance check: all 895 SNP–gene pairs are found in the downloaded all-SNP file, with identical betas (max |Δ| ≈ 1e-8).
+- **Attrition (descriptive, post hoc):**
+  - 895 leads; 689 have their gene expressed (CPM ≥ 10) in the new-label DA pseudobulk;
+  - 29 of those have their lead SNP directly genotyped on NeuroChip;
+  - 28 remain after allele alignment.
+  - Overall only 46 of 895 lead SNPs are on the array. The registration sets no proxy or imputation rule, so none was used.
+- **Reading:** the gate passes clearly (27/28 signs agree), but it rests on 28 eQTLs. The paper should say the test is small and limited to array-typed SNPs. It also does **not** separate the new label from the old or all-cell pseudobulks, which all pass: it confirms that genetic regulation is present, not that the new label is more DA-specific.
+- **Consequence (§4):** D2 and D4 are reported as phenotypes of **DA neurons**.
+- **Next:** clinical linkage with `models-da-v1.0.0`. The implementation choices listed in the linkage-code entry below are still open for planning-session review.
+
 ## 2026-11-24 (local session): G-eQTL deviation (user decision): leads from Jerber Supplementary Table 7; `g-eqtl-v1.0.0` failed; new tag `g-eqtl-v1.1.0`
 
 - **What failed:** the Jerber archive downloaded fully (9.65 GB, Zenodo MD5 OK). `g-eqtl-v1.0.0 leads` then **failed** on it. In the D52 untreated DA all-SNP file, `empirical_feature_p_value` is −1 on all 25,586,818 rows (12,018 genes). The registered gene-level p therefore cannot come from that file. No other member of the archive, and no file in the Zenodo record, has it. **No FOUNDIN data was touched.**
