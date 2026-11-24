@@ -8,6 +8,38 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): REQUEST: file Cell-to-Clinic II on OSF
+
+### For the planning session
+The user asked for the filing to be done from this log, as with registration 1 (filed by the planning session through the user's browser on 2026-11-12). The text is approved and frozen.
+
+**Source of the text (authoritative, do not edit):**
+https://github.com/xaviwho/cell-to-clinic/blob/prereg-II-v1.0.0/prereg/cell-to-clinic-II_draft.md (tag `prereg-II-v1.0.0`)
+
+**Steps**
+1. The user logs in to OSF in their browser. Never ask for, type or store the OSF password or tokens.
+2. Open the same OSF project as osf.io/s6w9c and start a **new registration**. Template: **"OSF Preregistration"** (same as registration 1).
+3. Title: *Cell-to-Clinic II: DA-neuron phenotypes and clinical progression*. Contributors: the same as registration 1.
+4. Fill the template from the tagged file. Paste each section verbatim, dropping only the "Status:" line and "DRAFT for OSF" from the title:
+   | OSF template section | From the file |
+   |---|---|
+   | Study information: hypotheses | §1 Aims (with the expected-power paragraph), §5 hypotheses, §6 H4 |
+   | Design plan | "Observational, secondary data; no new data collection" + §2 Data |
+   | Sampling plan / existing data | §2 in full, including the "Already seen with clinical data" list |
+   | Variables | §3 Phenotypes table and rules; outcomes as in registration 1 (state "as registered in osf.io/s6w9c") |
+   | Analysis plan | §4 Gates (keep the table), §5 models, §6, §7 sensitivity |
+   | Other | §8 reporting, plus: "Follows osf.io/s6w9c, whose confirmatory results are known to the authors. Code: github.com/xaviwho/cell-to-clinic, tag prereg-II-v1.0.0; the G-eQTL code is tagged before it runs." |
+5. **Existing-data question:** the authors have seen the clinical data (registration 1) but have **not** linked any DA-only phenotype to it. Pick the option that matches and quote §2 in the explanation box. Show the user the chosen option before moving on.
+6. **Embargo:** ask the user. If they have no view, suggest matching registration 1 (embargoed to 2027-11-12).
+7. **Stop on the Review page.** Check the OSF text against the tagged file section by section, then let **the user** click Register. Registration is permanent and public after the embargo, so the user makes that final click. The user then approves via the OSF email.
+8. If anything had to change at filing, list each change here. The local session will mirror it in the repo under a new tag before any analysis.
+
+**Report back here (aggregate only, no credentials):**
+- Under "For the local session": registration URL/DOI, filing date, template, embargo end, the existing-data option chosen, and any changes made at filing.
+
+### For the local session (self-note)
+On the DOI: tag `g-eqtl-v1.0.0`; run `python -I scripts/eqtl_replication.py replicate --registration-doi <DOI>`; log the G-eQTL result; then linkage.
+
 ## 2026-11-24 (local session): Cell-to-Clinic II draft approved by the user; frozen as `prereg-II-v1.0.0`
 
 - The user reviewed `prereg/cell-to-clinic-II_draft.md` with no changes. Status line set to "final for filing"; tag `prereg-II-v1.0.0`.
