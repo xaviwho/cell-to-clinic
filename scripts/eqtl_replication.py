@@ -1,0 +1,168 @@
+"""C2 / gate G-eQTL (Cell-to-Clinic II draft, section 4): do Jerber DA-neuron lead eQTLs replicate in
+FOUNDIN DA-neuron pseudobulk? NO clinical data. Freeze with a tag before running on FOUNDIN data.
+
+Step `leads` (public data only): from Jerber's D52 untreated DA file (qtl_results_all), take per gene
+  the SNP with the smallest p; gene-level p = empirical_feature_p_value of that gene; BH over genes;
+  leads = FDR < 5%. -> data/derived/eqtl/jerber_leads.tsv
+Step `replicate` (FOUNDIN, aggregates only):
+  expression  log2(CPM+1) of the new-rule DA pseudobulk (da-labels-v1.0.0), 79 donor lines;
+              genes with mean CPM >= 10; symbols mapped to Ensembl via the Cell Ranger features.
+  genotype    data/derived/geno dosage (count of a1), matched on chr:pos (GRCh37) and alleles;
+              strand-ambiguous A/T and C/G SNPs dropped; aligned to Jerber's assessed allele.
+  model       OLS: expression ~ dosage + 3 genotype PCs + 5 expression PCs (top-2,000-variance genes).
+  statistics  sign concordance with Jerber beta; pi1 = 1 - pi0 (Storey, lambda = 0.5).
+  null        200 sets: each lead gene paired with a random FOUNDIN SNP on another chromosome in the
+              same MAF bin (0.05-0.1-0.2-0.3-0.5), compared with the lead's Jerber sign.
+  PASS        concordance >= 0.70 AND pi1 >= 0.30 AND both above the null's 95th percentile.
+  sensitivity the same with the old-label DA pseudobulk and the all-cell pseudobulk (report only).
+Output: data/derived/eqtl/g_eqtl.json (aggregates only).
+"""
+from __future__ import annotations
+
+import argparse, gzip, json, re, subprocess, sys, tarfile
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "data" / "derived" / "eqtl"
+MAF_BINS = [0.05, 0.1, 0.2, 0.3, 0.5]
+COMP = {"A": "T", "T": "A", "C": "G", "G": "C"}
+N_NULL, SEED = 200, 0
+
+
+def bh(p):
+    p = np.asarray(p, float); n = len(p); o = np.argsort(p)
+    q = np.empty(n); q[o] = np.minimum.accumulate((p[o] * n / np.arange(1, n + 1))[::-1])[::-1]
+    return np.minimum(q, 1)
+
+
+def pi1(p, lam=0.5):
+    p = np.asarray(p, float); p = p[np.isfinite(p)]
+    return float(1 - min(1.0, np.mean(p > lam) / (1 - lam))) if len(p) else np.nan
+
+
+def align(jref, jalt, jassessed, a1, a2):
+    """+1 if FOUNDIN dosage (count of a1) counts Jerber's assessed allele, -1 if it counts the other
+    allele, 0 if the alleles do not match or the SNP is strand-ambiguous."""
+    if {jref, jalt} in ({"A", "T"}, {"C", "G"}):
+        return 0
+    for flip in (False, True):
+        b1, b2 = (COMP.get(a1, "?"), COMP.get(a2, "?")) if flip else (a1, a2)
+        if {b1, b2} == {jref, jalt}:
+            return 1 if b1 == jassessed else -1
+    return 0
+
+
+def ols_t(y, x, C):
+    X = np.c_[np.ones(len(y)), x, C]
+    b, *_ = np.linalg.lstsq(X, y, rcond=None)
+    r = y - X @ b; df = len(y) - X.shape[1]
+    s2 = r @ r / df
+    se = np.sqrt(s2 * np.linalg.inv(X.T @ X)[1, 1])
+    t = b[1] / se
+    return b[1], 2 * stats.t.sf(abs(t), df)
+
+
+COLS = ["feature_id", "snp_id", "p_value", "beta", "empirical_feature_p_value",
+        "snp_chromosome", "snp_position", "assessed_allele", "maf"]
+
+
+def lead_table(chunks):
+    """per gene: the min-p SNP row, with the gene's empirical p (the value that is not -1)."""
+    tops, emps = [], []
+    for ch in chunks:
+        tops.append(ch.sort_values("p_value").drop_duplicates("feature_id"))
+        emps.append(ch.groupby("feature_id").empirical_feature_p_value.max())
+    T = pd.concat(tops).sort_values("p_value").drop_duplicates("feature_id").set_index("feature_id")
+    T["empirical_feature_p_value"] = pd.concat(emps).groupby(level=0).max()
+    T = T[T.empirical_feature_p_value >= 0].reset_index()
+    T["q"] = bh(T.empirical_feature_p_value)
+    return T
+
+
+def leads(archive, pattern):
+    OUT.mkdir(parents=True, exist_ok=True)
+    with tarfile.open(archive, "r|gz") as t:
+        for m in t:
+            if m.isfile() and re.search(pattern, m.name):
+                src = gzip.GzipFile(fileobj=t.extractfile(m))
+                L = lead_table(pd.read_csv(src, sep="\t", chunksize=2_000_000, usecols=COLS))
+                info = {"member": m.name}
+                break
+        else:
+            raise SystemExit(f"no archive member matches {pattern}")
+    lead = L[L.q < 0.05].copy()
+    al = lead.snp_id.str.split("_", expand=True)
+    lead["ref"], lead["alt"] = al[2], al[3]
+    lead.to_csv(OUT / "jerber_leads.tsv", sep="\t", index=False)
+    info.update({"n_genes_tested": int(len(L)), "n_lead_fdr05": int(len(lead))})
+    json.dump(info, open(OUT / "jerber_leads.json", "w"), indent=1)
+    print(info)
+
+
+def expression_pcs(L, k=5, top=2000):
+    v = L.var(0).sort_values(ascending=False).index[:top]
+    Z = (L[v] - L[v].mean()) / L[v].std().replace(0, 1)
+    U, s, _ = np.linalg.svd(Z.to_numpy(), full_matrices=False)
+    return U[:, :k] * s[:k]
+
+
+def replicate_one(lead, expr, G, snps, gpcs, rng):
+    """expr: lines x Ensembl log2CPM (donor lines aligned to G rows)."""
+    C = np.c_[gpcs[:, :3], expression_pcs(expr)]
+    key = {(c, p): j for j, (c, p) in enumerate(zip(snps.chr, snps.pos))}
+    G = G.astype(float); G[G < 0] = np.nan
+    af = np.nanmean(G, 0) / 2; maf = np.minimum(af, 1 - af)
+    mbin = np.digitize(maf, MAF_BINS[1:-1])
+    obs, tested = [], []
+    for r in lead.itertuples(index=False):
+        if r.feature_id not in expr.columns:
+            continue
+        j = key.get((int(r.snp_chromosome), int(r.snp_position)))
+        if j is None:
+            continue
+        s = align(r.ref, r.alt, r.assessed_allele, snps.a1[j], snps.a2[j])
+        if s == 0:
+            continue
+        x = G[:, j] if s == 1 else 2 - G[:, j]
+        ok = np.isfinite(x)
+        if ok.sum() < 30 or np.nanstd(x[ok]) == 0:
+            continue
+        b, p = ols_t(expr[r.feature_id].to_numpy()[ok], x[ok], C[ok])
+        obs.append((np.sign(b) == np.sign(r.beta), p)); tested.append((r.feature_id, int(r.snp_chromosome), mbin[j], np.sign(r.beta)))
+    if not obs:
+        return {"n_tested": 0}
+    conc = float(np.mean([o[0] for o in obs])); p1 = pi1([o[1] for o in obs])
+    null_c, null_p = [], []
+    chrom = snps.chr.to_numpy()
+    for _ in range(N_NULL):
+        cc, pp = [], []
+        for gene, ch, b_, sg in tested:
+            cand = np.flatnonzero((chrom != ch) & (mbin == b_))
+            j = rng.choice(cand); x = G[:, j]; ok = np.isfinite(x)
+            b, p = ols_t(expr[gene].to_numpy()[ok], x[ok], C[ok])
+            cc.append(np.sign(b) == sg); pp.append(p)
+        null_c.append(np.mean(cc)); null_p.append(pi1(pp))
+    c95, p95 = float(np.percentile(null_c, 95)), float(np.percentile(null_p, 95))
+    return {"n_tested": len(obs), "sign_concordance": conc, "pi1": p1,
+            "null95_concordance": c95, "null95_pi1": p95,
+            "pass": bool(conc >= 0.70 and p1 >= 0.30 and conc > c95 and p1 > p95)}
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("step", choices=["leads", "replicate"])
+    ap.add_argument("--archive", default="D:/ST-DT4/data/external/jerber/eqtl/eqtl_summary_stats.tar.gz")
+    ap.add_argument("--member", default=r"D52\.DA\.qtl_results_all")
+    a = ap.parse_args(argv)
+    if a.step == "leads":
+        leads(a.archive, a.member)
+        return
+    raise SystemExit("replicate: held until the Cell-to-Clinic II registration is filed (see draft, section 4)")
+
+
+if __name__ == "__main__":
+    main()
