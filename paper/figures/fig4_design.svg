@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+<rect width="760" height="470" fill="#fcfcfb"/>
+<text x="18" y="26" font-size="14" fill="#0b0b0b">Repeating differentiations cuts the donors needed, but every phenotype still needs 150+ donors</text>
+<line x1="78" x2="500" y1="372.0" y2="372.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="376.0" font-size="11" fill="#52514e" text-anchor="end">30</text>
+<line x1="78" x2="500" y1="326.8" y2="326.8" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="330.8" font-size="11" fill="#52514e" text-anchor="end">50</text>
+<line x1="78" x2="500" y1="265.6" y2="265.6" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="269.6" font-size="11" fill="#52514e" text-anchor="end">100</text>
+<line x1="78" x2="500" y1="204.3" y2="204.3" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="208.3" font-size="11" fill="#52514e" text-anchor="end">200</text>
+<line x1="78" x2="500" y1="123.3" y2="123.3" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="127.3" font-size="11" fill="#52514e" text-anchor="end">500</text>
+<line x1="78" x2="500" y1="62.0" y2="62.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="70" y="66.0" font-size="11" fill="#52514e" text-anchor="end">1,000</text>
+<text x="78.0" y="390" font-size="11" fill="#52514e" text-anchor="middle">1</text>
+<text x="162.4" y="390" font-size="11" fill="#52514e" text-anchor="middle">2</text>
+<text x="246.8" y="390" font-size="11" fill="#52514e" text-anchor="middle">3</text>
+<text x="331.2" y="390" font-size="11" fill="#52514e" text-anchor="middle">4</text>
+<text x="415.6" y="390" font-size="11" fill="#52514e" text-anchor="middle">5</text>
+<text x="500.0" y="390" font-size="11" fill="#52514e" text-anchor="middle">6</text>
+<line x1="78" x2="500" y1="372" y2="372" stroke="#8a8984" stroke-width="1"/>
+<text x="289.0" y="412" font-size="11.5" fill="#52514e" text-anchor="middle">Independent differentiation runs per line (each in its own batch)</text>
+<text transform="translate(26,217.0) rotate(-90)" font-size="11.5" fill="#52514e" text-anchor="middle">Donors needed (80% power, true r = 0.3)</text>
+<line x1="78" x2="500" y1="332.3" y2="332.3" stroke="#52514e" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="82" y="347.3" font-size="10.5" fill="#52514e">FOUNDIN-PD with PPMI follow-up: 47 PD donors</text>
+<path d="M78.0,196.1 L162.4,213.8 L246.8,220.5 L331.2,224.1 L415.6,226.3 L500.0,227.8" fill="none" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="78.0" cy="196.1" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="162.4" cy="213.8" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="246.8" cy="220.5" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="331.2" cy="224.1" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="415.6" cy="226.3" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="500.0" cy="227.8" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<path d="M78.0,167.6 L162.4,195.3 L246.8,206.8 L331.2,213.2 L415.6,217.3 L500.0,220.1" fill="none" stroke="#eb6834" stroke-width="2"/>
+<polygon points="78.0,161.6 84.0,167.6 78.0,173.6 72.0,167.6" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="162.4,189.3 168.4,195.3 162.4,201.3 156.4,195.3" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="246.8,200.8 252.8,206.8 246.8,212.8 240.8,206.8" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="331.2,207.2 337.2,213.2 331.2,219.2 325.2,213.2" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="415.6,211.3 421.6,217.3 415.6,223.3 409.6,217.3" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="500.0,214.1 506.0,220.1 500.0,226.1 494.0,220.1" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<path d="M78.0,151.2 L162.4,183.8 L246.8,198.0 L331.2,206.0 L415.6,211.2 L500.0,214.9" fill="none" stroke="#1baf7a" stroke-width="2"/>
+<rect x="73.0" y="146.2" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<rect x="157.4" y="178.8" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<rect x="241.8" y="193.0" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<rect x="326.2" y="201.0" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<rect x="410.6" y="206.2" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<rect x="495.0" y="209.9" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<path d="M78.0,182.4 L162.4,205.1 L246.8,214.2 L331.2,219.2 L415.6,222.2 L500.0,224.4" fill="none" stroke="#eda100" stroke-width="2"/>
+<polygon points="78.0,176.4 84.0,187.4 72.0,187.4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="162.4,199.1 168.4,210.1 156.4,210.1" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="246.8,208.2 252.8,219.2 240.8,219.2" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="331.2,213.2 337.2,224.2 325.2,224.2" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="415.6,216.2 421.6,227.2 409.6,227.2" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="500.0,218.4 506.0,229.4 494.0,229.4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<path d="M78.0,89.1 L162.4,135.0 L246.8,157.8 L331.2,171.8 L415.6,181.4 L500.0,188.4" fill="none" stroke="#e87ba4" stroke-width="2"/>
+<polygon points="78.0,95.1 84.0,84.1 72.0,84.1" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="162.4,141.0 168.4,130.0 156.4,130.0" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="246.8,163.8 252.8,152.8 240.8,152.8" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="331.2,177.8 337.2,166.8 325.2,166.8" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="415.6,187.4 421.6,176.4 409.6,176.4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<polygon points="500.0,194.4 506.0,183.4 494.0,183.4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<line x1="506" x2="522" y1="188.4" y2="188.4" stroke="#8a8984" stroke-width="0.8"/>
+<polygon points="532.0,194.4 538.0,183.4 526.0,183.4" fill="#e87ba4" stroke="#fcfcfb" stroke-width="2"/>
+<text x="544" y="186.4" font-size="11" fill="#0b0b0b">OXPHOS score in DA neurons</text>
+<text x="544" y="200.4" font-size="10" fill="#52514e">736 donors (1 run) → 239 (6 runs)</text>
+<line x1="506" x2="522" y1="214.9" y2="218.4" stroke="#8a8984" stroke-width="0.8"/>
+<rect x="527.0" y="213.4" width="10" height="10" rx="1.5" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<text x="544" y="216.4" font-size="11" fill="#0b0b0b">DA-neuron fraction</text>
+<text x="544" y="230.4" font-size="10" fill="#52514e">364 donors (1 run) → 177 (6 runs)</text>
+<line x1="506" x2="522" y1="220.1" y2="248.4" stroke="#8a8984" stroke-width="0.8"/>
+<polygon points="532.0,242.4 538.0,248.4 532.0,254.4 526.0,248.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="544" y="246.4" font-size="11" fill="#0b0b0b">Lysosome score in DA neurons</text>
+<text x="544" y="260.4" font-size="10" fill="#52514e">303 donors (1 run) → 167 (6 runs)</text>
+<line x1="506" x2="522" y1="224.4" y2="278.4" stroke="#8a8984" stroke-width="0.8"/>
+<polygon points="532.0,272.4 538.0,283.4 526.0,283.4" fill="#eda100" stroke="#fcfcfb" stroke-width="2"/>
+<text x="544" y="276.4" font-size="11" fill="#0b0b0b">Typical single gene, DA neurons</text>
+<text x="544" y="290.4" font-size="10" fill="#52514e">256 donors (1 run) → 159 (6 runs)</text>
+<line x1="506" x2="522" y1="227.8" y2="308.4" stroke="#8a8984" stroke-width="0.8"/>
+<circle cx="532.0" cy="308.4" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="544" y="306.4" font-size="11" fill="#0b0b0b">SNCA in DA neurons</text>
+<text x="544" y="320.4" font-size="10" fill="#52514e">219 donors (1 run) → 153 (6 runs)</text>
+<text x="18" y="440" font-size="9.5" fill="#8a8984">Across-batch variance components from Jerber et al. 2021 (199 lines, 16 pools; A3). Slope reliability λ = 0.64 (OFF-state UPDRS III, PPMI; E4).</text>
+<text x="18" y="455" font-size="9.5" fill="#8a8984">500 DA cells per run (DA fraction: 3,000 cells). α = 0.05 two-sided, 6 covariates. Log scale.</text>
+</svg>

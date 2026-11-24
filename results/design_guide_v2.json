@@ -1,0 +1,876 @@
+{
+ "components_line_batch_cell": {
+  "P1": [
+   0.6745426604130419,
+   1.1088125049760282,
+   6.658808389939136
+  ],
+  "P2da": [
+   0.24939992404897993,
+   0.14080609587800635,
+   2.167893243306348
+  ],
+  "P3da": [
+   0.012302611729393675,
+   0.05269709979697157,
+   0.5375041373287119
+  ],
+  "P4da": [
+   0.03153128857248324,
+   0.03589432463361063,
+   0.9105387520235746
+  ],
+  "gene": [
+   1.0,
+   0.5612974378989495,
+   145.33874953472613
+  ]
+ },
+ "lambda": {
+  "UPDRS III (OFF)": 0.64,
+  "Putamen SBR": 0.54
+ },
+ "table": [
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 3000,
+   "reliability": 0.378,
+   "N_r0.2": 816,
+   "N_r0.3": 365,
+   "N_r0.4": 207
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.378,
+   "N_r0.2": 815,
+   "N_r0.3": 365,
+   "N_r0.4": 207
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 3000,
+   "reliability": 0.548,
+   "N_r0.2": 563,
+   "N_r0.3": 253,
+   "N_r0.4": 144
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.549,
+   "N_r0.2": 563,
+   "N_r0.3": 253,
+   "N_r0.4": 144
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 3000,
+   "reliability": 0.708,
+   "N_r0.2": 437,
+   "N_r0.3": 197,
+   "N_r0.4": 112
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.709,
+   "N_r0.2": 437,
+   "N_r0.3": 197,
+   "N_r0.4": 112
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 3000,
+   "reliability": 0.378,
+   "N_r0.2": 966,
+   "N_r0.3": 432,
+   "N_r0.4": 245
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.378,
+   "N_r0.2": 965,
+   "N_r0.3": 431,
+   "N_r0.4": 244
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 3000,
+   "reliability": 0.548,
+   "N_r0.2": 667,
+   "N_r0.3": 299,
+   "N_r0.4": 170
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.549,
+   "N_r0.2": 666,
+   "N_r0.3": 298,
+   "N_r0.4": 170
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 3000,
+   "reliability": 0.708,
+   "N_r0.2": 517,
+   "N_r0.3": 232,
+   "N_r0.4": 132
+  },
+  {
+   "phenotype": "P1",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.709,
+   "N_r0.2": 517,
+   "N_r0.3": 232,
+   "N_r0.4": 132
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.606,
+   "N_r0.2": 511,
+   "N_r0.3": 229,
+   "N_r0.4": 131
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.632,
+   "N_r0.2": 489,
+   "N_r0.3": 220,
+   "N_r0.4": 125
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.639,
+   "N_r0.2": 484,
+   "N_r0.3": 217,
+   "N_r0.4": 124
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.754,
+   "N_r0.2": 411,
+   "N_r0.3": 185,
+   "N_r0.4": 106
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.775,
+   "N_r0.2": 400,
+   "N_r0.3": 180,
+   "N_r0.4": 103
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.78,
+   "N_r0.2": 397,
+   "N_r0.3": 179,
+   "N_r0.4": 103
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.86,
+   "N_r0.2": 361,
+   "N_r0.3": 163,
+   "N_r0.4": 93
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.873,
+   "N_r0.2": 355,
+   "N_r0.3": 160,
+   "N_r0.4": 92
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.876,
+   "N_r0.2": 354,
+   "N_r0.3": 160,
+   "N_r0.4": 92
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.606,
+   "N_r0.2": 604,
+   "N_r0.3": 271,
+   "N_r0.4": 154
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.632,
+   "N_r0.2": 579,
+   "N_r0.3": 260,
+   "N_r0.4": 148
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.639,
+   "N_r0.2": 573,
+   "N_r0.3": 257,
+   "N_r0.4": 146
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.754,
+   "N_r0.2": 486,
+   "N_r0.3": 218,
+   "N_r0.4": 125
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.775,
+   "N_r0.2": 473,
+   "N_r0.3": 213,
+   "N_r0.4": 122
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.78,
+   "N_r0.2": 470,
+   "N_r0.3": 211,
+   "N_r0.4": 121
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.86,
+   "N_r0.2": 427,
+   "N_r0.3": 192,
+   "N_r0.4": 110
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.873,
+   "N_r0.2": 420,
+   "N_r0.3": 189,
+   "N_r0.4": 108
+  },
+  {
+   "phenotype": "P2da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.876,
+   "N_r0.2": 419,
+   "N_r0.3": 189,
+   "N_r0.4": 108
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.175,
+   "N_r0.2": 1758,
+   "N_r0.3": 784,
+   "N_r0.4": 443
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.186,
+   "N_r0.2": 1651,
+   "N_r0.3": 736,
+   "N_r0.4": 416
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.189,
+   "N_r0.2": 1624,
+   "N_r0.3": 724,
+   "N_r0.4": 409
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.298,
+   "N_r0.2": 1034,
+   "N_r0.3": 462,
+   "N_r0.4": 262
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.314,
+   "N_r0.2": 981,
+   "N_r0.3": 438,
+   "N_r0.4": 248
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.318,
+   "N_r0.2": 967,
+   "N_r0.3": 432,
+   "N_r0.4": 245
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.459,
+   "N_r0.2": 673,
+   "N_r0.3": 301,
+   "N_r0.4": 171
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.478,
+   "N_r0.2": 646,
+   "N_r0.3": 289,
+   "N_r0.4": 165
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.483,
+   "N_r0.2": 639,
+   "N_r0.3": 286,
+   "N_r0.4": 163
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.175,
+   "N_r0.2": 2083,
+   "N_r0.3": 928,
+   "N_r0.4": 524
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.186,
+   "N_r0.2": 1956,
+   "N_r0.3": 872,
+   "N_r0.4": 492
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.189,
+   "N_r0.2": 1924,
+   "N_r0.3": 858,
+   "N_r0.4": 484
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.298,
+   "N_r0.2": 1225,
+   "N_r0.3": 547,
+   "N_r0.4": 310
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.314,
+   "N_r0.2": 1162,
+   "N_r0.3": 519,
+   "N_r0.4": 294
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.318,
+   "N_r0.2": 1146,
+   "N_r0.3": 512,
+   "N_r0.4": 290
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.459,
+   "N_r0.2": 796,
+   "N_r0.3": 356,
+   "N_r0.4": 202
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.478,
+   "N_r0.2": 765,
+   "N_r0.3": 342,
+   "N_r0.4": 194
+  },
+  {
+   "phenotype": "P3da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.483,
+   "N_r0.2": 757,
+   "N_r0.3": 339,
+   "N_r0.4": 192
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.412,
+   "N_r0.2": 748,
+   "N_r0.3": 335,
+   "N_r0.4": 190
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.455,
+   "N_r0.2": 678,
+   "N_r0.3": 304,
+   "N_r0.4": 173
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.468,
+   "N_r0.2": 660,
+   "N_r0.3": 296,
+   "N_r0.4": 168
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.584,
+   "N_r0.2": 530,
+   "N_r0.3": 238,
+   "N_r0.4": 136
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.626,
+   "N_r0.2": 494,
+   "N_r0.3": 222,
+   "N_r0.4": 127
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.637,
+   "N_r0.2": 485,
+   "N_r0.3": 218,
+   "N_r0.4": 125
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.737,
+   "N_r0.2": 420,
+   "N_r0.3": 189,
+   "N_r0.4": 108
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.77,
+   "N_r0.2": 403,
+   "N_r0.3": 181,
+   "N_r0.4": 104
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.778,
+   "N_r0.2": 398,
+   "N_r0.3": 179,
+   "N_r0.4": 103
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.412,
+   "N_r0.2": 886,
+   "N_r0.3": 396,
+   "N_r0.4": 225
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.455,
+   "N_r0.2": 802,
+   "N_r0.3": 359,
+   "N_r0.4": 204
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.468,
+   "N_r0.2": 781,
+   "N_r0.3": 350,
+   "N_r0.4": 199
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.584,
+   "N_r0.2": 627,
+   "N_r0.3": 281,
+   "N_r0.4": 160
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.626,
+   "N_r0.2": 585,
+   "N_r0.3": 262,
+   "N_r0.4": 149
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.637,
+   "N_r0.2": 574,
+   "N_r0.3": 258,
+   "N_r0.4": 147
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.737,
+   "N_r0.2": 497,
+   "N_r0.3": 223,
+   "N_r0.4": 127
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.77,
+   "N_r0.2": 476,
+   "N_r0.3": 214,
+   "N_r0.4": 122
+  },
+  {
+   "phenotype": "P4da",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.778,
+   "N_r0.2": 471,
+   "N_r0.3": 212,
+   "N_r0.4": 121
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.332,
+   "N_r0.2": 929,
+   "N_r0.3": 415,
+   "N_r0.4": 235
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.54,
+   "N_r0.2": 572,
+   "N_r0.3": 257,
+   "N_r0.4": 146
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.64,
+   "N_r0.2": 483,
+   "N_r0.3": 217,
+   "N_r0.4": 124
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.498,
+   "N_r0.2": 620,
+   "N_r0.3": 278,
+   "N_r0.4": 158
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.701,
+   "N_r0.2": 441,
+   "N_r0.3": 199,
+   "N_r0.4": 114
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.781,
+   "N_r0.2": 397,
+   "N_r0.3": 179,
+   "N_r0.4": 102
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.665,
+   "N_r0.2": 465,
+   "N_r0.3": 209,
+   "N_r0.4": 119
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.824,
+   "N_r0.2": 376,
+   "N_r0.3": 170,
+   "N_r0.4": 97
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "UPDRS III (OFF)",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.877,
+   "N_r0.2": 354,
+   "N_r0.3": 160,
+   "N_r0.4": 92
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 100,
+   "reliability": 0.332,
+   "N_r0.2": 1100,
+   "N_r0.3": 491,
+   "N_r0.4": 278
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": 500,
+   "reliability": 0.54,
+   "N_r0.2": 677,
+   "N_r0.3": 303,
+   "N_r0.4": 172
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 1,
+   "cells": "inf",
+   "reliability": 0.64,
+   "N_r0.2": 572,
+   "N_r0.3": 256,
+   "N_r0.4": 146
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 100,
+   "reliability": 0.498,
+   "N_r0.2": 734,
+   "N_r0.3": 328,
+   "N_r0.4": 187
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": 500,
+   "reliability": 0.701,
+   "N_r0.2": 522,
+   "N_r0.3": 235,
+   "N_r0.4": 134
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 2,
+   "cells": "inf",
+   "reliability": 0.781,
+   "N_r0.2": 470,
+   "N_r0.3": 211,
+   "N_r0.4": 121
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 100,
+   "reliability": 0.665,
+   "N_r0.2": 551,
+   "N_r0.3": 247,
+   "N_r0.4": 141
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": 500,
+   "reliability": 0.824,
+   "N_r0.2": 445,
+   "N_r0.3": 200,
+   "N_r0.4": 114
+  },
+  {
+   "phenotype": "gene",
+   "outcome": "Putamen SBR",
+   "runs": 4,
+   "cells": "inf",
+   "reliability": 0.877,
+   "N_r0.2": 419,
+   "N_r0.3": 188,
+   "N_r0.4": 108
+  }
+ ],
+ "source": "jerber-a3-v0.1.0 + E4 lambda"
+}

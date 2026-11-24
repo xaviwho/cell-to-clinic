@@ -8,6 +8,33 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): **EXPLORATORY**: A4 design guide v2 and Fig. 4
+
+**Code:** `scripts/design_guide_v2.py`. It combines Jerber's **across-batch** variance components (A3: line, batch, per-cell noise) with the PPMI slope reliabilities λ (E4: 0.64 for UPDRS III, 0.54 for SBR), using `cell2clinic.design`.
+
+**Outputs:**
+- the full table, `results/design_guide_v2.json`: r 0.2/0.3/0.4 × runs 1/2/4 × cells 100/500/∞ × both outcomes;
+- `paper/figures/fig4_design.svg`.
+
+**Donors needed for 80% power, true r = 0.3, OFF-state UPDRS III, 500 DA cells per run:**
+
+| Phenotype | 1 run | 2 runs | 4 runs |
+|---|---|---|---|
+| SNCA in DA neurons | 220 | 180 | 160 |
+| Typical single gene, DA neurons | 257 | 199 | 170 |
+| Lysosome score in DA neurons | 304 | 222 | 181 |
+| DA-neuron fraction (3,000 cells) | 365 | 253 | 197 |
+| OXPHOS score in DA neurons | 736 | 438 | 289 |
+
+**Take-home for the paper:**
+- **No phenotype gets below about 150 donors, even with 6 runs per line.** The floor comes from slope reliability (λ = 0.64), not from the cells.
+- **Repeat runs help most for noisy phenotypes:** OXPHOS goes from 736 to 289 donors with 4 runs.
+- FOUNDIN-PD with PPMI follow-up (47 PD donors) is a factor of 3–15 short.
+
+**`cell2clinic` updated** (commit `187f357`). New `reliability_from_components()` and CLI options `--components LINE BATCH CELL --cells ...` let users plan both runs per line and cells per run. A test checks it against Spearman-Brown.
+
+**Environment note:** Windows App Control now also blocks **matplotlib** (the ft2font DLL), which worked on 2026-11-12. The policy was not bypassed. Fig. 4 is therefore hand-built SVG, checked by rendering. Figs 1 and 3 already exist as PNG/PDF, and later figures will be SVG. An SVG → PDF conversion for LaTeX can be done on another machine, or with `\includesvg`.
+
 ## 2026-11-24 (local session): **EXPLORATORY**: A3 cell-sampling vs batch variance (`jerber-a3-v0.1.0`)
 
 Public Jerber data only. The code was frozen before the run; a synthetic test recovers known variance components.
