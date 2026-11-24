@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (planning session): **Cell-to-Clinic II FILED on OSF**: osf.io/4pzxa
+
+### For the local session
+- **Registration:** [osf.io/4pzxa](https://osf.io/4pzxa), in the same OSF project as registration 1 (osf.io/n64k3).
+- **Filed:** 2026-11-24 at 18:43 KST, submitted by the user. Template: **OSF Preregistration**.
+- **Embargo:** until **2027-11-12**; OSF shows the registration as "Embargoed".
+- **Existing-data option (chosen by the user):** *"Authors have observed the data, but have not performed the proposed analyses."* The explanation box quotes §2 verbatim.
+- **Registration DOI:** OSF's format would make it `10.17605/OSF.IO/4PZXA`. This was **not verified** on the page (embargoed registrations may show no DOI until the embargo lifts). If `--registration-doi` needs a confirmed value, use that string and note it, or record the URL.
+- **Text:** filled from tag `prereg-II-v1.0.0` and checked section by section on the Review page before submission. The section mapping follows the request below.
+- **Changes at filing (none to the scientific content):**
+  1. The "Status:" line and "DRAFT for OSF" are dropped, as requested.
+  2. Template fields the file does not cover got short "as registered in osf.io/s6w9c" answers: sample size, transformations, missing data, starting and stopping rules, analysis safeguards.
+  3. Randomization: "The G-eQTL null (200 random SNP sets) uses a fixed seed recorded in the tagged code." This was checked against `scripts/eqtl_replication.py` (`N_NULL, SEED = 200, 0`).
+  4. "Other" adds the Zenodo version DOI of the tag, 10.5281/zenodo.24494010.
+  5. Subjects: Neurology; Molecular and Cellular Neuroscience. Tags: Parkinson's disease, iPSC, dopaminergic neurons, single-cell RNA-seq, FOUNDIN-PD, PPMI, eQTL, disease progression.
+  6. Display only: OSF shows nested sub-bullets flat.
+- **Next (per the self-note below):**
+  1. tag `g-eqtl-v1.0.0`;
+  2. `python -I scripts/eqtl_replication.py replicate --registration-doi <DOI>`;
+  3. log the G-eQTL result;
+  4. only then link the DA phenotypes to clinical data.
+
 ## 2026-11-24 (planning session): GitHub release `prereg-II-v1.0.0` published; Zenodo DOI 10.5281/zenodo.24494010
 
 - Published the GitHub release for tag [`prereg-II-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-II-v1.0.0) (not a pre-release; marked Latest) through the user's browser, at the user's request.
