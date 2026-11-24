@@ -1,6 +1,6 @@
 # Cell-to-Clinic II: DA-neuron phenotypes and clinical progression (DRAFT for OSF)
 
-Status: draft by the local session, 2026-11-24. To be reviewed by the user and the planning session, then filed on OSF as a new registration linked to osf.io/s6w9c. **No clinical data will be linked to the phenotypes below until this is filed.**
+Status: **final for filing**, reviewed and approved by the user 2026-11-24 (git tag `prereg-II-v1.0.0`). To be filed on OSF as a new registration linked to osf.io/s6w9c; the OSF text must match this file. **No clinical data will be linked to the phenotypes below until this is filed.**
 
 ## 1. Aims
 

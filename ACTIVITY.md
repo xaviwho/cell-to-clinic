@@ -8,6 +8,12 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): Cell-to-Clinic II draft approved by the user; frozen as `prereg-II-v1.0.0`
+
+- The user reviewed `prereg/cell-to-clinic-II_draft.md` with no changes. Status line set to "final for filing"; tag `prereg-II-v1.0.0`.
+- Next: the user files it on OSF (linked to osf.io/s6w9c). On receipt of the DOI: tag `g-eqtl-v1.0.0`, run G-eQTL, log the result, then linkage.
+- No DA-only phenotype has been linked to clinical data.
+
 ## 2026-11-24 (local session): decision: G-eQTL runs **after filing**; C2 code ready (`scripts/eqtl_replication.py`)
 
 - **User decision:** the G-eQTL gate runs **after** the Cell-to-Clinic II registration is filed and **before** any clinical linkage, as recommended. The draft (§4) now states this, and its G-eQTL row gives the exact model and null used by the code.
