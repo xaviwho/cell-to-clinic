@@ -8,6 +8,24 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-24 (local session): decision: G-eQTL runs **after filing**; C2 code ready (`scripts/eqtl_replication.py`)
+
+- **User decision:** the G-eQTL gate runs **after** the Cell-to-Clinic II registration is filed and **before** any clinical linkage, as recommended. The draft (§4) now states this, and its G-eQTL row gives the exact model and null used by the code.
+- **Code** (tests on synthetic data pass: planted eQTLs recovered; the null stays below both thresholds):
+  - `leads` step (public Jerber data): per gene the min-p SNP from the D52 untreated DA `qtl_results_all` file, gene-level empirical p, BH FDR < 5%.
+  - `replicate` step (FOUNDIN): new-label DA pseudobulk primary; old-label and all-cell pseudobulks for sensitivity. **It refuses to run without `--registration-doi`.**
+- **Structure checks only, no tests run:**
+  - all 79 donor lines have genotypes and genotype PCs;
+  - Jerber files list Ensembl gene IDs and GRCh37 `chr_pos_ref_alt` SNP IDs;
+  - FOUNDIN genotypes are GRCh37;
+  - gene symbols map to Ensembl through the Cell Ranger features (SNCA maps correctly).
+- **Jerber eQTL archive:** still downloading, very slowly (about 0.6 of 9.7 GB). It contains one all-tests file per day × cell type. Lead extraction (public data) runs as soon as it lands.
+- **Order after filing:**
+  1. tag `g-eqtl-v1.0.0`;
+  2. `replicate --registration-doi <DOI>`;
+  3. log the gate result;
+  4. only then link the DA phenotypes to clinical data.
+
 ## 2026-11-24 (local session): **EXPLORATORY**: A4 design guide v2 and Fig. 4
 
 **Code:** `scripts/design_guide_v2.py`. It combines Jerber's **across-batch** variance components (A3: line, batch, per-cell noise) with the PPMI slope reliabilities λ (E4: 0.64 for UPDRS III, 0.54 for SBR), using `cell2clinic.design`.

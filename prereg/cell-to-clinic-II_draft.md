@@ -57,7 +57,7 @@ Aims:
 |---|---|---|---|
 | G-cells | Enough DA cells per run? | ≥ 100 new-rule DA cells | Pass (0 lines excluded) |
 | G-icc | Reliable across batches? | As in §3 | D2 and D4 pass; D1 and D3 fail |
-| **G-eQTL** (new) | Do the new DA-neuron pseudobulks carry known DA-neuron genetic regulation? | Lead eQTLs from Jerber DA neurons (day 52, untreated, FDR < 5%), tested in FOUNDIN DA pseudobulk (n ≈ 79 lines). Pass: sign concordance ≥ 70% **and** π1 ≥ 0.3, both above the 95th percentile of a MAF- and expression-matched null of random SNP-gene pairs. | **Not yet run.** It is run before linkage, but after filing. |
+| **G-eQTL** (new) | Do the new DA-neuron pseudobulks carry known DA-neuron genetic regulation? | Lead eQTLs from Jerber DA neurons (day 52, untreated; per gene the min-p SNP, gene-level empirical p, BH FDR < 5%), tested in FOUNDIN DA pseudobulk (79 donor lines; log2 CPM ~ dosage + 3 genotype PCs + 5 expression PCs; SNPs matched on GRCh37 position and alleles, strand-ambiguous SNPs dropped). Pass: sign concordance ≥ 70% **and** π1 ≥ 0.3 (Storey, λ = 0.5), both above the 95th percentile of a null of 200 sets pairing the same lead genes with random SNPs on other chromosomes in the same MAF bin. Code: `scripts/eqtl_replication.py`, tagged before the run. | **Decided 2026-11-24: run after filing and before any linkage.** The FOUNDIN step refuses to run without the filed registration DOI. |
 | A0-1 | Linkage | As registration 1 | Pass (44/47) |
 | A0-5 | Coherence (D4 only) | ≥ 80% of member genes share the composite's sign in the H1 model | Evaluated at linkage |
 

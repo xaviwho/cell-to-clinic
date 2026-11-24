@@ -152,16 +152,79 @@ def replicate_one(lead, expr, G, snps, gpcs, rng):
             "pass": bool(conc >= 0.70 and p1 >= 0.30 and conc > c95 and p1 > p95)}
 
 
+def symbol_to_ensembl():
+    """Map the unique gene symbols used by scrn-v0.1.0 / da-labels-v1.0.0 to Ensembl IDs, from the
+    Cell Ranger features of one run (same reference for all runs)."""
+    import h5py
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from scrn_per_run import find_runs
+    h5 = sorted(find_runs(ROOT / "data" / "unpacked").values())[0]
+    with h5py.File(h5, "r") as f:
+        ids = f["matrix/features/id"][:].astype(str); names = f["matrix/features/name"][:].astype(str)
+        ft = f["matrix/features/feature_type"][:].astype(str)
+    ids, names = ids[ft == "Gene Expression"], names[ft == "Gene Expression"]
+    seen, uniq = {}, []
+    for nm, d in zip(names, pd.Index(names).duplicated(keep="first")):
+        if d:
+            seen[nm] = seen.get(nm, 0) + 1; uniq.append(f"{nm}-{seen[nm]}")
+        else:
+            uniq.append(nm)
+    return dict(zip(uniq, [i.split(".")[0] for i in ids]))
+
+
+def foundin_inputs(kind, sym2ens):
+    """lines x Ensembl log2(CPM+1) for donor lines, with matching dosage rows and genotype PCs."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import phenotypes_da as pdz
+    d = pd.read_csv(ROOT / "data/derived/phenotypes_da/lines_da.csv")
+    d = d[~d.is_control]
+    runs = d.run.tolist()
+    if kind in ("new", "old"):
+        C = pdz.load_counts(runs, kind)
+    else:
+        C = pd.DataFrame({r: pd.read_csv(pdz.SCRN / "runs" / r / "pseudobulk.csv.gz", usecols=["gene", "All_QC_pass"])
+                          .set_index("gene")["All_QC_pass"] for r in runs}).fillna(0.0).T.loc[runs]
+    cpm = C.div(C.sum(1), axis=0) * 1e6
+    L = np.log2(cpm.loc[:, cpm.mean(0) >= 10] + 1)
+    L = L[[g for g in L.columns if g in sym2ens]]
+    L.columns = [sym2ens[g] for g in L.columns]
+    L = L.loc[:, ~L.columns.duplicated()].reset_index(drop=True)
+    glines = [x.strip() for x in open(ROOT / "data/derived/geno/lines.txt") if x.strip()]
+    gi = {l: i for i, l in enumerate(glines)}
+    G = np.load(ROOT / "data/derived/geno/dosage.npz")["G"][[gi[l] for l in d.line]]
+    pcs = pd.read_csv(ROOT / "data/derived/geno/pcs.tsv", sep="\t", index_col=0)
+    pcs.index = pcs.index.astype(str)
+    return L, G, pcs.loc[d.line.astype(str)].to_numpy()
+
+
+def replicate(doi):
+    lead = pd.read_csv(OUT / "jerber_leads.tsv", sep="\t")
+    snps = pd.read_csv(ROOT / "data/derived/geno/snps.tsv", sep="\t")
+    sym2ens = symbol_to_ensembl()
+    res = {"registration_doi": doi, "n_jerber_leads": int(len(lead)),
+           "rule": "PASS if concordance >= 0.70 and pi1 >= 0.30 and both above the null 95th percentile (primary: new label)"}
+    for kind in ("new", "old", "all"):
+        expr, G, gpcs = foundin_inputs(kind, sym2ens)
+        res[kind] = replicate_one(lead, expr, G, snps, gpcs, np.random.default_rng(SEED))
+        print(kind, res[kind], flush=True)
+    res["G_eQTL_pass"] = res["new"].get("pass")
+    res["git_commit"] = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+    json.dump(res, open(OUT / "g_eqtl.json", "w"), indent=1, default=float)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["leads", "replicate"])
     ap.add_argument("--archive", default="D:/ST-DT4/data/external/jerber/eqtl/eqtl_summary_stats.tar.gz")
     ap.add_argument("--member", default=r"D52\.DA\.qtl_results_all")
+    ap.add_argument("--registration-doi", help="required for `replicate`: the filed Cell-to-Clinic II OSF DOI")
     a = ap.parse_args(argv)
     if a.step == "leads":
         leads(a.archive, a.member)
         return
-    raise SystemExit("replicate: held until the Cell-to-Clinic II registration is filed (see draft, section 4)")
+    if not a.registration_doi:
+        raise SystemExit("replicate is held until the Cell-to-Clinic II registration is filed: pass --registration-doi")
+    replicate(a.registration_doi)
 
 
 if __name__ == "__main__":
