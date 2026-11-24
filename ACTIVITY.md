@@ -8,12 +8,12 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
-## 2026-11-24 (planning session): GitHub release `prereg-II-v1.0.0` published; Zenodo received it, DOI to record
+## 2026-11-24 (planning session): GitHub release `prereg-II-v1.0.0` published; Zenodo DOI 10.5281/zenodo.24494010
 
 - Published the GitHub release for tag [`prereg-II-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/prereg-II-v1.0.0) (not a pre-release; marked Latest) through the user's browser, at the user's request.
 - **Zenodo:** GitHub shows the Zenodo webhook's last delivery as *"not successful. An exception occurred."* No version DOI is confirmed yet. Checking the delivery needs the user's GitHub sudo verification, and zenodo.org is not reachable from this session.
 - **Update, same day:** the failed delivery was a timeout (Zenodo did not answer GitHub within its limit). After the user's GitHub verification, the `release.published` event was redelivered. Zenodo replied **409 "The release has already been received"**, so the original delivery did reach Zenodo and no duplicate was created.
-- **Still to record:** the version DOI. The user reads it from zenodo.org → Account → GitHub → `xaviwho/cell-to-clinic` (or the concept record 10.5281/zenodo.24156790, newest version) and logs it here.
+- **Version DOI: [10.5281/zenodo.24494010](https://doi.org/10.5281/zenodo.24494010)** (reported by the user from Zenodo, 2026-11-24). This is the archive of `prereg-II-v1.0.0`. The concept DOI covering all versions stays 10.5281/zenodo.24156790. Cite the version DOI in the Cell-to-Clinic II registration ("Other") and in the paper.
 - The OSF filing of Cell-to-Clinic II (request below) has **not** been started.
 
 ## 2026-11-24 (local session): REQUEST: file Cell-to-Clinic II on OSF
