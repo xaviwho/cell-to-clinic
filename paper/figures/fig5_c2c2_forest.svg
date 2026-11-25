@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="627" viewBox="0 0 820 627" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+<rect width="820" height="627" fill="#fcfcfb"/>
+<rect x="387.0" y="30" width="116.0" height="508" fill="#f0efec"/>
+<line x1="387.0" x2="387.0" y1="30" y2="538" stroke="#8a8984" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="503.0" x2="503.0" y1="30" y2="538" stroke="#8a8984" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="445.0" x2="445.0" y1="30" y2="538" stroke="#52514e" stroke-width="1"/>
+<text x="16" y="51" font-size="11.5" font-weight="bold" fill="#0b0b0b">Primary  H1-DA: motor progression (OFF-state UPDRS III slope)</text>
+<text x="290" y="75.0" font-size="10.5" fill="#0b0b0b" text-anchor="end" font-weight="bold">SNCA in DA neurons (D2)</text>
+<line x1="357.9" x2="432.1" y1="71.0" y2="71.0" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round"/>
+<rect x="382.3" y="64.5" width="13.0" height="13.0" rx="1.5" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="75.0" font-size="10" fill="#52514e">n = 47 · supported, p = 0.040</text>
+<text x="16" y="103" font-size="11.5" font-weight="bold" fill="#0b0b0b">Sensitivity analyses of the primary</text>
+<text x="290" y="127.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Old DA label (TH ≥ 1 UMI)</text>
+<line x1="363.6" x2="440.5" y1="123.0" y2="123.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="396.5,116.5 403.0,123.0 396.5,129.5 390.0,123.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="127.0" font-size="10" fill="#52514e">n = 47 · inconclusive, p = 0.073</text>
+<text x="290" y="149.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Composition-adjusted</text>
+<line x1="353.7" x2="423.2" y1="145.0" y2="145.0" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round"/>
+<rect x="377.1" y="140.0" width="10" height="10" rx="1.5" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="149.0" font-size="10" fill="#52514e">n = 47 · supported, p = 0.019</text>
+<text x="290" y="171.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Idiopathic PD only</text>
+<line x1="355.9" x2="448.1" y1="167.0" y2="167.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="393.7,160.5 400.2,167.0 393.7,173.5 387.2,167.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="171.0" font-size="10" fill="#52514e">n = 28 · inconclusive, p = 0.12</text>
+<text x="290" y="193.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Five-level batch covariate</text>
+<line x1="369.7" x2="456.5" y1="189.0" y2="189.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="408.0,182.5 414.5,189.0 408.0,195.5 401.5,189.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="193.0" font-size="10" fill="#52514e">n = 47 · inconclusive, p = 0.20</text>
+<text x="290" y="215.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">First 5 years after diagnosis</text>
+<line x1="382.0" x2="473.1" y1="211.0" y2="211.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="424.5,204.5 431.0,211.0 424.5,217.5 418.0,211.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="215.0" font-size="10" fill="#52514e">n = 44 · inconclusive, p = 0.48</text>
+<text x="16" y="243" font-size="11.5" font-weight="bold" fill="#0b0b0b">Secondary family (BH over 6 tests)</text>
+<text x="290" y="267.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Lysosome (D4): UPDRS III slope</text>
+<line x1="424.0" x2="505.4" y1="263.0" y2="263.0" stroke="#8a8984" stroke-width="2" stroke-linecap="round"/>
+<circle cx="467.3" cy="263.0" r="4.5" fill="#fcfcfb" stroke="#8a8984" stroke-width="2"/>
+<text x="604" y="267.0" font-size="10" fill="#52514e">n = 47 · not tested (A0-5)</text>
+<text x="290" y="289.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">SNCA (D2): putamen SBR slope</text>
+<line x1="440.6" x2="513.8" y1="285.0" y2="285.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="480.7,278.5 487.2,285.0 480.7,291.5 474.2,285.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="289.0" font-size="10" fill="#52514e">n = 38 · inconclusive, q = 0.42</text>
+<text x="290" y="311.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Lysosome (D4): putamen SBR slope</text>
+<line x1="394.6" x2="483.2" y1="307.0" y2="307.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="437.9" cy="307.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="311.0" font-size="10" fill="#52514e">n = 38 · equivalent, q = 0.88</text>
+<text x="290" y="333.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">SNCA (D2): SAA status</text>
+<line x1="463.2" x2="526.6" y1="329.0" y2="329.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="499.3,322.5 505.8,329.0 499.3,335.5 492.8,329.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="333.0" font-size="10" fill="#52514e">n = 45 · inconclusive, q = 0.11</text>
+<text x="290" y="355.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Lysosome (D4): SAA status</text>
+<line x1="391.4" x2="467.5" y1="351.0" y2="351.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="427.6" cy="351.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="355.0" font-size="10" fill="#52514e">n = 45 · equivalent, q = 0.70</text>
+<text x="290" y="377.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">SNCA (D2): NSD-ISS stage</text>
+<line x1="399.4" x2="483.8" y1="373.0" y2="373.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="441.1" cy="373.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="377.0" font-size="10" fill="#52514e">n = 39 · equivalent, q = 0.88</text>
+<text x="290" y="399.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">Lysosome (D4): NSD-ISS stage</text>
+<line x1="422.4" x2="504.6" y1="395.0" y2="395.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<polygon points="466.0,388.5 472.5,395.0 466.0,401.5 459.5,395.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="399.0" font-size="10" fill="#52514e">n = 39 · inconclusive, q = 0.70</text>
+<text x="16" y="427" font-size="11.5" font-weight="bold" fill="#0b0b0b">H4  Bulk RNA, day 65 (single test)</text>
+<text x="290" y="451.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">OXPHOS, composition-adjusted: UPDRS III slope</text>
+<line x1="408.8" x2="503.0" y1="447.0" y2="447.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="457.9" cy="447.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="604" y="451.0" font-size="10" fill="#52514e">n = 47 · equivalent, p = 0.66</text>
+<text x="16" y="479" font-size="11.5" font-weight="bold" fill="#0b0b0b">Not tested: failed the reliability gate (descriptive)</text>
+<text x="290" y="503.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">DA fraction (D1): UPDRS III slope</text>
+<line x1="408.6" x2="496.7" y1="499.0" y2="499.0" stroke="#8a8984" stroke-width="2" stroke-linecap="round"/>
+<circle cx="453.8" cy="499.0" r="4.5" fill="#fcfcfb" stroke="#8a8984" stroke-width="2"/>
+<text x="604" y="503.0" font-size="10" fill="#52514e">n = 47 · not tested (G-icc)</text>
+<text x="290" y="525.0" font-size="10.5" fill="#0b0b0b" text-anchor="end">OXPHOS in DA neurons (D3): UPDRS III slope</text>
+<line x1="364.0" x2="445.4" y1="521.0" y2="521.0" stroke="#8a8984" stroke-width="2" stroke-linecap="round"/>
+<circle cx="398.9" cy="521.0" r="4.5" fill="#fcfcfb" stroke="#8a8984" stroke-width="2"/>
+<text x="604" y="525.0" font-size="10" fill="#52514e">n = 47 · not tested (G-icc)</text>
+<line x1="300" x2="590" y1="538" y2="538" stroke="#8a8984" stroke-width="1"/>
+<text x="329.0" y="554" font-size="10" fill="#52514e" text-anchor="middle">−0.8</text>
+<text x="387.0" y="554" font-size="10" fill="#52514e" text-anchor="middle">−0.4</text>
+<text x="445.0" y="554" font-size="10" fill="#52514e" text-anchor="middle">0.0</text>
+<text x="503.0" y="554" font-size="10" fill="#52514e" text-anchor="middle">0.4</text>
+<text x="561.0" y="554" font-size="10" fill="#52514e" text-anchor="middle">0.8</text>
+<text x="445.0" y="572" font-size="10.5" fill="#52514e" text-anchor="middle">Partial correlation r with 90% CI (phenotype per SD)</text>
+<rect x="17.0" y="591.0" width="10" height="10" rx="1.5" fill="#0b0b0b" stroke="#fcfcfb" stroke-width="2"/>
+<text x="34" y="600" font-size="10" fill="#0b0b0b">Supported</text>
+<circle cx="125.0" cy="596.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="137" y="600" font-size="10" fill="#0b0b0b">Equivalent</text>
+<polygon points="235.0,589.5 241.5,596.0 235.0,602.5 228.5,596.0" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<text x="247" y="600" font-size="10" fill="#0b0b0b">Inconclusive</text>
+<circle cx="359.0" cy="596.0" r="4.5" fill="#fcfcfb" stroke="#8a8984" stroke-width="2"/>
+<text x="371" y="600" font-size="10" fill="#0b0b0b">Not tested</text>
+<rect x="463" y="591" width="16" height="10" fill="#f0efec" stroke="#8a8984" stroke-width="0.6" stroke-dasharray="2 2"/>
+<text x="485" y="600" font-size="10" fill="#0b0b0b">Equivalence region (±0.40)</text>
+<text x="16" y="617" font-size="9" fill="#8a8984">Cell-to-Clinic II (osf.io/4pzxa), 47 PD donors. Primary and H4 are single tests (p); secondary q = BH. Sensitivity rows re-estimate the primary.</text>
+</svg>

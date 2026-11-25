@@ -8,6 +8,19 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (local session): Results DOI; Fig. 5; SVG→PDF; deviations table and G-eQTL methods (generated)
+
+- **Zenodo DOI for `results-II-v1.0.0`: [10.5281/zenodo.24526514](https://doi.org/10.5281/zenodo.24526514)** (concept DOI 10.5281/zenodo.24156790).
+- **Fig. 5** (`scripts/figures/fig5_forest.py` → `paper/figures/fig5_c2c2_forest.{svg,pdf}`): forest plot of partial r with 90% CI for the primary, its sensitivity analyses, the secondary family, H4 and the not-tested phenotypes. It uses Fig. 3's conventions: ±0.40 band, class shown by both colour and marker shape and written on every row. Rendered and checked for overlaps.
+- **SVG → PDF** (`scripts/figures/svg2pdf.py`): headless Edge print-to-PDF, page sized to the figure, vector output. Fig. 4 and Fig. 5 are converted (one page each). matplotlib/cairo stay blocked, so this is the route for all hand-built figures.
+- **Paper pieces generated from `results/` only** (`scripts/paper_c2c2.py`; no hand-typed numbers):
+  - `paper/generated/c2c2_numbers.tex`: 41 macros, such as `\cctwoBeta`, `\cctwoP` and `\cctwoBatchBeta`;
+  - `paper/tables/tab_c2c2_deviations.tex`: Table 7 lead source; failed `g-eqtl-v1.0.0`; the five implementation readings, accepted without independent review; post-hoc additions;
+  - `paper/sections/c2c2_geqtl_methods.tex`: the G-eQTL methods and result paragraph.
+  - All compile cleanly in a test document.
+- `scripts/eqtl_attrition.py` replaces the scratch attrition count and writes `results/c2c2_eqtl_attrition.json`. It is labelled descriptive and post hoc.
+- **Note for the planning session:** apart from the title, `paper/main.tex` contains text from a different study (lineage-traced clones, You 2023). The new pieces are separate files, ready to `\input` once the paper skeleton is rebuilt for Cell-to-Clinic. I have not edited `main.tex`.
+
 ## 2026-11-25 (local session): Results archived (`results-II-v1.0.0`); **EXPLORATORY, POST HOC** batch check (`explore-II-v0.1.0`)
 
 **Archive:** aggregate results are committed in `results/c2c2_*.json`. The GitHub release [`results-II-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/results-II-v1.0.0) was published, which triggers Zenodo; the DOI will be logged when it shows.

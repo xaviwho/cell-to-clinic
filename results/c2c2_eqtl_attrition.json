@@ -1,0 +1,8 @@
+{
+ "leads": 895,
+ "gene_expressed_cpm10": 689,
+ "snp_on_array_same_pos": 29,
+ "alleles_aligned_not_ambiguous": 28,
+ "snp_on_array_any_gene": 46,
+ "array_snps_total": 249458
+}
