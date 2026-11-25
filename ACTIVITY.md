@@ -8,6 +8,52 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (planning session): **DECISION: target IEEE EMBC 2027, not TCBB**
+
+### Decided by the user
+- **No TCBB submission.** The target is an IEEE paper at **EMBC 2027** (Singapore, 11–15 July 2027).
+- **Full-paper deadline: 24 January 2027** (from an events listing; confirm on the official EMBC 2027 call for papers when it appears).
+- 2026 format, to check against the 2027 call: 4–7 pages, IEEE conference template, single-blind review; Xplore and PubMed indexing only if presented in person.
+
+### Scope (planning-session recommendation; TCBB dropped, so no reason to split)
+One EMBC paper on the whole study, compressed:
+- **Title (working):** "Cell-to-Clinic: A Gated, Pre-Registered Framework for Linking iPSC Neuron Phenotypes to Parkinson's Progression."
+- **Sections:**
+  1. framework and gates;
+  2. registration 1 (all-cell; 0 of 10 supported);
+  3. reliability work without clinical data (DA labels, Jerber across-batch atlas, cell sampling vs batch);
+  4. registration II (G-eQTL passes; primary met narrowly, p 0.040, batch-attenuated to p 0.20);
+  5. design guide (donors needed).
+- **Figures (max 4):**
+  - Fig. 1, framework and gate flow;
+  - Fig. 2, combined forest plot (registration 1 + registration II);
+  - Fig. 3, across-batch reliability atlas;
+  - Fig. 4, design curves.
+  - Everything else goes to a supplement or the repository.
+- **Framing:** as in the 2026-11-25 planning review. State both estimates, the multiplicity across registrations, and the winner's curse. Present it as a "signal needing replication".
+- A later journal extension stays possible (EMBC's TBME special-issue invitation, or another IEEE journal) with substantial new material.
+
+### Timeline (working back from 24 Jan 2027)
+| By | What | Who |
+|---|---|---|
+| 2026-12-06 | EMBC skeleton (IEEE conference template), condensed figures, all numbers via `\input` from generated files | local |
+| 2026-12-18 | Full first draft | local + planning review |
+| 2026-12-31 | Co-author (Prof. Kim) review; revisions | user |
+| **2027-01-08** | **Send to PPMI Data and Publications Committee** (administrative review, 2 weeks; required for external publications) | user |
+| 2027-01-22 | End both OSF embargoes (or confirm reviewer access); final checks; **submit** (2 days of margin) | user |
+
+### For the local session
+1. Create `paper/embc/` with the IEEE conference template (`IEEEtran`, conference mode). Leave the old `paper/main.tex` untouched, or archive it, since it holds another study's text.
+2. Build Figs 1–4 as above from aggregate outputs (SVG → PDF route). The combined forest plot merges Fig. 3 and Fig. 5.
+3. Write a numbers file for the EMBC paper from `results/` only, as for C2C-II.
+4. Add the acknowledgments: the PPMI data-access statement (with the download date and RRID:SCR_006431), the PPMI funder statement (full partner list from ppmi-info.org), and FOUNDIN-PD/MJFF Tier 3 wording. Add data and code availability: OSF s6w9c and 4pzxa; Zenodo 24156791, 24494010 and 24526514.
+5. Report the page count and any content that does not fit.
+
+### Open for the user
+- DUA check on the PATNO printed in chat.
+- Fig. 2 (per-line plot) is no longer needed in EMBC; drop it.
+- Travel and registration for Singapore (in-person presentation needed for Xplore).
+
 ## 2026-11-25 (planning session): review of the Cell-to-Clinic II results; what remains before submission
 
 ### Verdict
