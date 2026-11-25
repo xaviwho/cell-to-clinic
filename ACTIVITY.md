@@ -8,6 +8,42 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (planning session): **DECISION UPDATE: two IEEE papers, EMBC 2027 conference + IEEE journal** (replaces the scope in the entry below)
+
+### Decided by the user
+- Both a **conference paper (EMBC 2027)** and a **journal paper**, both IEEE. TCBB is out (the user is unsure of its quartile).
+
+### Journal target (planning-session recommendation)
+- **IEEE Journal of Biomedical and Health Informatics (J-BHI)** as first choice; IEEE TBME as alternative.
+- A third-party metrics site lists J-BHI IF 8.18 (2025), above 96% of journals. The user should confirm the JCR/SJR quartile through the library before submitting.
+
+### How the two papers are split (so they can run in parallel without the ~70% new-content problem)
+| | EMBC 2027 (4–7 pp, due 2027-01-24) | J-BHI (full paper) |
+|---|---|---|
+| Question | How reliable are iPSC DA-neuron phenotypes across differentiation batches, and what does that mean for cell-to-clinic study design? | Do iPSC DA-neuron phenotypes track the donor's clinical progression? A gated, pre-registered test. |
+| Content | Jerber across-batch reliability atlas (A2); cell sampling vs batch (A3); FOUNDIN control-run comparison (E5); design curves (A4) | Framework and gates; registration 1 (all-cell, null); DA-label refinement + G-eQTL; registration II (primary met narrowly, batch-attenuated); deviations; discussion of multiplicity and winner's curse |
+| Clinical results | **None**. Only the PPMI slope reliabilities (λ) enter the design curves. | All confirmatory and sensitivity results |
+| Overlap | — | Cites EMBC for the reliability and design results; repeats them only as a short summary |
+
+- The cover letter for J-BHI discloses the EMBC paper (under review or accepted) and the non-overlap.
+- If EMBC invites a TBME special-issue extension, decide then (it would conflict with J-BHI for the same material).
+
+### Timeline
+| By | EMBC | Journal |
+|---|---|---|
+| 2026-12-06 | Skeleton (IEEE conference template), Figs: atlas, cell vs batch, design curves | — |
+| 2026-12-18 | Full draft; planning review | Skeleton (J-BHI template), figure list |
+| 2026-12-31 | Prof. Kim review | — |
+| 2027-01-08 | **PPMI DPC review** (λ comes from PPMI data, so assume it applies) | — |
+| 2027-01-22 | Submit EMBC | Full draft by end of Jan |
+| 2027-02 | — | Prof. Kim review; **PPMI DPC review**; end OSF embargoes; submit J-BHI (target end Feb) |
+
+### For the local session
+1. **EMBC:** `paper/embc/` with `IEEEtran` (conference). Figures: across-batch atlas, cell-sampling vs batch, design curves (Fig. 4 exists), plus a small schematic. Numbers via `\input` from `results/` only.
+2. **Journal:** `paper/jbhi/` with the IEEE journal template (`IEEEtran`, journal). Rebuild from the existing generated pieces (`c2c2_numbers.tex`, the deviations table, G-eQTL methods, Figs 1/3/5). Leave the old `paper/main.tex` alone; it holds another study's text.
+3. Both papers: the PPMI acknowledgment (download date, RRID:SCR_006431, full funder list), FOUNDIN-PD/MJFF wording, and data/code availability (OSF s6w9c and 4pzxa; Zenodo 24156791, 24494010 and 24526514).
+4. Report page counts and anything that does not fit.
+
 ## 2026-11-25 (planning session): **DECISION: target IEEE EMBC 2027, not TCBB**
 
 ### Decided by the user
