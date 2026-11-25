@@ -1,0 +1,12 @@
+{
+ "source": "Jerber 2021 Supplementary Table 7",
+ "label": "DA_D52",
+ "n_in_context": 1024,
+ "n_q_lt_05": 1024,
+ "n_lead_bh_fdr05": 895,
+ "crosscheck_member": "/D52\\.DA\\.untreated\\.qtl_results_all\\.sorted\\.txt\\.gz$",
+ "n_pairs_found_in_allsnp_file": 898,
+ "share_found": 1.0033519553072625,
+ "beta_max_abs_diff": 1.2752089495471353e-08,
+ "beta_corr": 1.0
+}

@@ -1,0 +1,1369 @@
+{
+ "version": "1.0.0",
+ "registration": "osf.io/4pzxa",
+ "sample": {
+  "n_pd_with_scrna": 47,
+  "n_after_A0_3": 47,
+  "n_after_G_cells": 47,
+  "n_missing_covariate": 0
+ },
+ "G_eQTL": {
+  "pass": true,
+  "label": "DA neurons"
+ },
+ "A0_1": {
+  "n_pd_donors": 47,
+  "n_meeting_rule": 44,
+  "pass": true,
+  "rule": ">= 30 donors with >= 3 OFF visits spanning >= 2.0 y"
+ },
+ "H1_DA_primary": {
+  "estimate": -0.5659020623760488,
+  "se": 0.2615189986322751,
+  "t": -2.1639042109203324,
+  "df": 26.523337633345463,
+  "p": 0.039651299580876896,
+  "df_method": "satterthwaite",
+  "r": -0.3873648761087716,
+  "ci90": [
+   -0.6005681401484678,
+   -0.08887425819747434
+  ],
+  "equivalent": false,
+  "n_donors": 47,
+  "n_obs": 527,
+  "re": "slope_corr",
+  "fallback_log": [
+   {
+    "re": "slope_corr",
+    "converged": true,
+    "singular": false,
+    "hess_pd": true,
+    "opt_success": true
+   }
+  ],
+  "covariates": [
+   "age_onset",
+   "sex_female",
+   "genetic_pd",
+   "prs",
+   "media_e6",
+   "dur_baseline"
+  ],
+  "class": "supported"
+ },
+ "A0_5_D4": {
+  "n_genes": 78,
+  "share_same_sign": 0.5897435897435898,
+  "pass": false,
+  "rule": ">= 80% of member genes share the sign of D4's beta3"
+ },
+ "secondary": {
+  "H1_D4": {
+   "estimate": 0.24662417939870013,
+   "se": 0.2825479779430538,
+   "t": 0.8728577043591728,
+   "df": 31.388910078027948,
+   "p": 0.3893692157996855,
+   "df_method": "satterthwaite",
+   "r": 0.15393863130037466,
+   "ci90": [
+    -0.1451665006964672,
+    0.4166386690393491
+   ],
+   "equivalent": false,
+   "n_donors": 47,
+   "n_obs": 527,
+   "re": "slope_corr",
+   "fallback_log": [
+    {
+     "re": "slope_corr",
+     "converged": true,
+     "singular": false,
+     "hess_pd": true,
+     "opt_success": true
+    }
+   ],
+   "covariates": [
+    "age_onset",
+    "sex_female",
+    "genetic_pd",
+    "prs",
+    "media_e6",
+    "dur_baseline"
+   ],
+   "class": "dropped_by_A0-5"
+  },
+  "H2_D2": {
+   "estimate": 0.0071376548234295175,
+   "se": 0.0047343651709547165,
+   "t": 1.5076265910409614,
+   "df": 35.220981284928335,
+   "p": 0.14056829312764985,
+   "df_method": "satterthwaite",
+   "r": 0.24621435451741927,
+   "ci90": [
+    -0.030594961471985954,
+    0.47424803957257095
+   ],
+   "equivalent": false,
+   "n_donors": 38,
+   "n_obs": 135,
+   "re": "slope_corr",
+   "fallback_log": [
+    {
+     "re": "slope_corr",
+     "converged": true,
+     "singular": false,
+     "hess_pd": true,
+     "opt_success": true
+    }
+   ],
+   "covariates": [
+    "age_onset",
+    "sex_female",
+    "genetic_pd",
+    "prs",
+    "media_e6",
+    "dur_baseline"
+   ],
+   "q": 0.42170487938294954,
+   "class": "inconclusive"
+  },
+  "H3_SAA_D2": {
+   "estimate": 0.9353307512336941,
+   "se": 0.3808882112853383,
+   "t": 2.455656866032541,
+   "df": 37.0,
+   "p": 0.018881739133608137,
+   "n_donors": 45,
+   "r": 0.3743525053292045,
+   "ci90": [
+    0.12535436651727017,
+    0.5629112141304281
+   ],
+   "equivalent": false,
+   "n_saa_neg": 7,
+   "n_saa_pos": 38,
+   "q": 0.11329043480164883,
+   "class": "inconclusive"
+  },
+  "H3_NSDISS_D2": {
+   "estimate": -0.04241631905950277,
+   "se": 0.28613787894170944,
+   "t": -0.1482373435365529,
+   "df": 31.0,
+   "p": 0.8831155106629907,
+   "n_donors": 39,
+   "r": -0.026614781601760232,
+   "ci90": [
+    -0.31436038439143,
+    0.267753141585093
+   ],
+   "equivalent": true,
+   "q": 0.8831155106629907,
+   "class": "equivalent"
+  },
+  "H2_D4": {
+   "estimate": -0.0012333749469281654,
+   "se": 0.004770287415434923,
+   "t": -0.25855359216667123,
+   "df": 27.93358635261978,
+   "p": 0.7978753573894861,
+   "df_method": "satterthwaite",
+   "r": -0.048861655409764324,
+   "ci90": [
+    -0.34767824128766717,
+    0.26333674947808117
+   ],
+   "equivalent": true,
+   "n_donors": 38,
+   "n_obs": 135,
+   "re": "slope_corr",
+   "fallback_log": [
+    {
+     "re": "slope_corr",
+     "converged": true,
+     "singular": false,
+     "hess_pd": true,
+     "opt_success": true
+    }
+   ],
+   "covariates": [
+    "age_onset",
+    "sex_female",
+    "genetic_pd",
+    "prs",
+    "media_e6",
+    "dur_baseline"
+   ],
+   "q": 0.8831155106629907,
+   "class": "equivalent"
+  },
+  "H3_SAA_D4": {
+   "estimate": -0.31778831072936703,
+   "se": 0.4333712222528276,
+   "t": -0.7332935239155548,
+   "df": 37.0,
+   "p": 0.468000352172303,
+   "n_donors": 45,
+   "r": -0.11968615296147461,
+   "ci90": [
+    -0.3697153645555449,
+    0.1549109044304077
+   ],
+   "equivalent": true,
+   "n_saa_neg": 7,
+   "n_saa_pos": 38,
+   "q": 0.7020005282584545,
+   "class": "equivalent"
+  },
+  "H3_NSDISS_D4": {
+   "estimate": 0.24195385807310427,
+   "se": 0.2966408445516092,
+   "t": 0.8156457969866973,
+   "df": 31.0,
+   "p": 0.42092581902407655,
+   "n_donors": 39,
+   "r": 0.14494723979061433,
+   "ci90": [
+    -0.1560927860572221,
+    0.4111365992916806
+   ],
+   "equivalent": false,
+   "q": 0.7020005282584545,
+   "class": "inconclusive"
+  }
+ },
+ "secondary_n_in_BH": 6,
+ "H4_bulk_oxphos": {
+  "estimate": 0.11717688596631215,
+  "se": 0.26604602760191837,
+  "t": 0.4404383971545051,
+  "df": 24.31432910673327,
+  "p": 0.6635105068135839,
+  "df_method": "satterthwaite",
+  "r": 0.08896689750322673,
+  "ci90": [
+   -0.24933514564807444,
+   0.3997482476946091
+  ],
+  "equivalent": true,
+  "n_donors": 47,
+  "n_obs": 527,
+  "re": "slope_corr",
+  "fallback_log": [
+   {
+    "re": "slope_corr",
+    "converged": true,
+    "singular": false,
+    "hess_pd": true,
+    "opt_success": true
+   }
+  ],
+  "covariates": [
+   "age_onset",
+   "sex_female",
+   "genetic_pd",
+   "prs",
+   "media_e6",
+   "dur_baseline"
+  ],
+  "class": "equivalent"
+ },
+ "not_tested_descriptive_H1": {
+  "D1": {
+   "estimate": 0.09233336974755764,
+   "se": 0.28476302177300916,
+   "t": 0.32424634762149207,
+   "df": 28.13980966616147,
+   "p": 0.7481494951615097,
+   "df_method": "satterthwaite",
+   "r": 0.06101051954805035,
+   "ci90": [
+    -0.25118506575950833,
+    0.35664907779254934
+   ],
+   "equivalent": true,
+   "n_donors": 47,
+   "n_obs": 527,
+   "re": "slope_corr",
+   "fallback_log": [
+    {
+     "re": "slope_corr",
+     "converged": true,
+     "singular": false,
+     "hess_pd": true,
+     "opt_success": true
+    }
+   ],
+   "covariates": [
+    "age_onset",
+    "sex_female",
+    "genetic_pd",
+    "prs",
+    "media_e6",
+    "dur_baseline"
+   ]
+  },
+  "D3": {
+   "estimate": -0.4312509488501888,
+   "se": 0.2548771593818722,
+   "t": -1.6919952729230743,
+   "df": 25.455302456082396,
+   "p": 0.10285451787241905,
+   "df_method": "satterthwaite",
+   "r": -0.31795576436981987,
+   "ci90": [
+    -0.5587236485792997,
+    0.0029673571165174713
+   ],
+   "equivalent": false,
+   "n_donors": 47,
+   "n_obs": 527,
+   "re": "slope_corr",
+   "fallback_log": [
+    {
+     "re": "slope_corr",
+     "converged": true,
+     "singular": false,
+     "hess_pd": true,
+     "opt_success": true
+    }
+   ],
+   "covariates": [
+    "age_onset",
+    "sex_female",
+    "genetic_pd",
+    "prs",
+    "media_e6",
+    "dur_baseline"
+   ]
+  }
+ },
+ "sensitivity": {
+  "S1_old_label": {
+   "H1_DA_primary": {
+    "estimate": -0.5028293300412103,
+    "se": 0.2694294507631718,
+    "t": -1.8662745613626208,
+    "df": 27.64993214790951,
+    "p": 0.07264320269148575,
+    "df_method": "satterthwaite",
+    "r": -0.33447653703029556,
+    "ci90": [
+     -0.5615010425115373,
+     -0.031250741449212235
+    ],
+    "equivalent": false,
+    "n_donors": 47,
+    "n_obs": 527,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "genetic_pd",
+     "prs",
+     "media_e6",
+     "dur_baseline"
+    ],
+    "class": "inconclusive"
+   },
+   "secondary": {
+    "H1_D4": {
+     "estimate": 0.19558489872981927,
+     "se": 0.2875097732345318,
+     "t": 0.6802721748532485,
+     "df": 31.005533923013694,
+     "p": 0.5013805838687005,
+     "df_method": "satterthwaite",
+     "r": 0.12126795050362733,
+     "ci90": [
+      -0.17936875220473014,
+      0.39243730860041387
+     ],
+     "equivalent": true,
+     "n_donors": 47,
+     "n_obs": 527,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "class": "dropped_by_A0-5"
+    },
+    "H2_D2": {
+     "estimate": 0.004797599559833441,
+     "se": 0.004891460322090549,
+     "t": 0.980811300495842,
+     "df": 34.97149148825688,
+     "p": 0.33342276658395525,
+     "df_method": "satterthwaite",
+     "r": 0.1636197812544578,
+     "ci90": [
+      -0.11900589085333796,
+      0.4115523613487387
+     ],
+     "equivalent": false,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.5001341498759329,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D2": {
+     "estimate": 0.8666808518765527,
+     "se": 0.3969192875576882,
+     "t": 2.1835191159628127,
+     "df": 37.0,
+     "p": 0.03541460890615026,
+     "n_donors": 45,
+     "r": 0.33785972809472736,
+     "ci90": [
+      0.08134141145312254,
+      0.5368521791827561
+     ],
+     "equivalent": false,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.21248765343690157,
+     "class": "inconclusive"
+    },
+    "H3_NSDISS_D2": {
+     "estimate": -0.012140939482865744,
+     "se": 0.2996918148611358,
+     "t": -0.04051141499640666,
+     "df": 31.0,
+     "p": 0.9679451980810919,
+     "n_donors": 39,
+     "r": -0.007275872332092583,
+     "ci90": [
+      -0.29766631631323376,
+      0.2849269377032696
+     ],
+     "equivalent": true,
+     "q": 0.9719128525445774,
+     "class": "equivalent"
+    },
+    "H2_D4": {
+     "estimate": -0.005247545695780483,
+     "se": 0.004707187275249775,
+     "t": -1.1147943323546725,
+     "df": 24.845352008121605,
+     "p": 0.27560632683781083,
+     "df_method": "satterthwaite",
+     "r": -0.2182596093597612,
+     "ci90": [
+      -0.49285237933672044,
+      0.11828384110772305
+     ],
+     "equivalent": false,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.5001341498759329,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D4": {
+     "estimate": -0.4245619040647326,
+     "se": 0.4195559325530112,
+     "t": -1.0119315951064256,
+     "df": 37.0,
+     "p": 0.318142816306781,
+     "n_donors": 45,
+     "r": -0.16410515495765182,
+     "ci90": [
+      -0.40558315232603165,
+      0.11031846602772592
+     ],
+     "equivalent": false,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.5001341498759329,
+     "class": "inconclusive"
+    },
+    "H3_NSDISS_D4": {
+     "estimate": 0.010215891028017121,
+     "se": 0.28781457679277117,
+     "t": 0.035494696418286856,
+     "df": 31.0,
+     "p": 0.9719128525445775,
+     "n_donors": 39,
+     "r": 0.006374906130336863,
+     "ci90": [
+      -0.2857202089878336,
+      0.29688204674218416
+     ],
+     "equivalent": true,
+     "q": 0.9719128525445774,
+     "class": "equivalent"
+    }
+   }
+  },
+  "S2_composition_adjusted": {
+   "H1_DA_primary": {
+    "estimate": -0.6593959033545506,
+    "se": 0.26484741700284636,
+    "t": -2.489719970904847,
+    "df": 26.76573910907251,
+    "p": 0.019299967998718033,
+    "df_method": "satterthwaite",
+    "r": -0.43363828802987037,
+    "ci90": [
+     -0.6296894596994261,
+     -0.15018440841970443
+    ],
+    "equivalent": false,
+    "n_donors": 47,
+    "n_obs": 527,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "genetic_pd",
+     "prs",
+     "media_e6",
+     "dur_baseline"
+    ],
+    "class": "supported"
+   },
+   "secondary": {
+    "H1_D4": {
+     "estimate": 0.286750874017611,
+     "se": 0.2845848172998961,
+     "t": 1.0076112869908738,
+     "df": 31.712759470471234,
+     "p": 0.32126781877529076,
+     "df_method": "satterthwaite",
+     "r": 0.1761298743281275,
+     "ci90": [
+      -0.1210505070918368,
+      0.4325855122613561
+     ],
+     "equivalent": false,
+     "n_donors": 47,
+     "n_obs": 527,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "class": "dropped_by_A0-5"
+    },
+    "H2_D2": {
+     "estimate": 0.005793344834992501,
+     "se": 0.0049088328927455694,
+     "t": 1.1801878290772725,
+     "df": 34.83072157542629,
+     "p": 0.24592306816807327,
+     "df_method": "satterthwaite",
+     "r": 0.19609004099703586,
+     "ci90": [
+      -0.0860283947005397,
+      0.43732513088177644
+     ],
+     "equivalent": false,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.7377692045042198,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D2": {
+     "estimate": 0.7774536530206481,
+     "se": 0.39035561102034344,
+     "t": 1.9916548682071613,
+     "df": 37.0,
+     "p": 0.05382912431795414,
+     "n_donors": 45,
+     "r": 0.3111706657953006,
+     "ci90": [
+      0.05000691738679874,
+      0.5175016482215453
+     ],
+     "equivalent": false,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.32297474590772485,
+     "class": "inconclusive"
+    },
+    "H3_NSDISS_D2": {
+     "estimate": 0.01737434906837878,
+     "se": 0.28878463432602863,
+     "t": 0.06016368948759127,
+     "df": 31.0,
+     "p": 0.9524114601948592,
+     "n_donors": 39,
+     "r": 0.010805086819819624,
+     "ci90": [
+      -0.28181377864115453,
+      0.3007327705753722
+     ],
+     "equivalent": true,
+     "q": 0.9524114601948592,
+     "class": "equivalent"
+    },
+    "H2_D4": {
+     "estimate": -0.001208487246735015,
+     "se": 0.004846320273951931,
+     "t": -0.2493618206024082,
+     "df": 28.276665662596304,
+     "p": 0.8048834450373866,
+     "df_method": "satterthwaite",
+     "r": -0.04684237127451227,
+     "ci90": [
+      -0.34427706974225636,
+      0.26327794443318725
+     ],
+     "equivalent": true,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.9524114601948592,
+     "class": "equivalent"
+    },
+    "H3_SAA_D4": {
+     "estimate": -0.25632171075314675,
+     "se": 0.42902962814244133,
+     "t": -0.5974452437304536,
+     "df": 37.0,
+     "p": 0.553849232096458,
+     "n_donors": 45,
+     "r": -0.09774902987233977,
+     "ci90": [
+      -0.35159603859116667,
+      0.1763302033606922
+     ],
+     "equivalent": true,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.8307738481446869,
+     "class": "equivalent"
+    },
+    "H3_NSDISS_D4": {
+     "estimate": 0.18975545177687705,
+     "se": 0.29253950918462135,
+     "t": 0.6486489715723239,
+     "df": 31.0,
+     "p": 0.5213418124484269,
+     "n_donors": 39,
+     "r": 0.11571815252973511,
+     "ci90": [
+      -0.18478539841692504,
+      0.3880353351252695
+     ],
+     "equivalent": true,
+     "q": 0.8307738481446869,
+     "class": "equivalent"
+    }
+   }
+  },
+  "S3_idiopathic": {
+   "H1_DA_primary": {
+    "estimate": -0.5430848448622186,
+    "se": 0.33146316580042395,
+    "t": -1.6384470459960954,
+    "df": 18.724541639962272,
+    "p": 0.11802285936053493,
+    "df_method": "satterthwaite",
+    "r": -0.35410634430089716,
+    "ci90": [
+     -0.6143147463081706,
+     0.021253537672373507
+    ],
+    "equivalent": false,
+    "n_donors": 28,
+    "n_obs": 377,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "prs",
+     "media_e6",
+     "dur_baseline"
+    ],
+    "class": "inconclusive"
+   },
+   "secondary": {
+    "H1_D4": {
+     "estimate": 0.48049021699040506,
+     "se": 0.3714173004359327,
+     "t": 1.2936667635741617,
+     "df": 22.191295736040978,
+     "p": 0.2090843414071778,
+     "df_method": "satterthwaite",
+     "r": 0.26481518774725255,
+     "ci90": [
+      -0.08939839445680885,
+      0.538453629745061
+     ],
+     "equivalent": false,
+     "n_donors": 28,
+     "n_obs": 377,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "class": "dropped_by_A0-5"
+    },
+    "H2_D2": {
+     "estimate": 0.013655065287475706,
+     "se": 0.005475053385500577,
+     "t": 2.494051532655008,
+     "df": 27.364114066157395,
+     "p": 0.01895936826907966,
+     "df_method": "satterthwaite",
+     "r": 0.43036463858494245,
+     "ci90": [
+      0.14961707292787055,
+      0.6257562545801946
+     ],
+     "equivalent": false,
+     "n_donors": 22,
+     "n_obs": 91,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.07583747307631863,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D2": {
+     "estimate": 1.3049269640749757,
+     "se": 0.5841973951771515,
+     "t": 2.233708973795186,
+     "df": 20.0,
+     "p": 0.0370837590386798,
+     "n_donors": 27,
+     "r": 0.4468360354497227,
+     "ci90": [
+      0.1130837246043184,
+      0.6627905506529892
+     ],
+     "equivalent": false,
+     "n_saa_neg": 3,
+     "n_saa_pos": 24,
+     "descriptive_only": true,
+     "mean_by_group": {
+      "neg": -1.2308969000135461,
+      "pos": 0.15386211250169432
+     }
+    },
+    "H3_NSDISS_D2": {
+     "estimate": 0.0924266503862108,
+     "se": 0.335755939070817,
+     "t": 0.275279271729327,
+     "df": 18.0,
+     "p": 0.7862367663743436,
+     "n_donors": 25,
+     "r": 0.06474779799393524,
+     "ci90": [
+      -0.3251548385222255,
+      0.4280290992840071
+     ],
+     "equivalent": false,
+     "q": 0.8555495669274811,
+     "class": "inconclusive"
+    },
+    "H2_D4": {
+     "estimate": -0.0012300498191915785,
+     "se": 0.006652525274372971,
+     "t": -0.1848996837231131,
+     "df": 16.587557440116257,
+     "p": 0.8555495669274811,
+     "df_method": "satterthwaite",
+     "r": -0.045352147479002514,
+     "ci90": [
+      -0.42768489823775074,
+      0.357129190124925
+     ],
+     "equivalent": false,
+     "n_donors": 22,
+     "n_obs": 91,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ],
+     "q": 0.8555495669274811,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D4": {
+     "estimate": -0.4169110350931435,
+     "se": 0.6331500520204835,
+     "t": -0.6584711377069519,
+     "df": 20.0,
+     "p": 0.5177445785825232,
+     "n_donors": 27,
+     "r": -0.1456681039249623,
+     "ci90": [
+      -0.4702886510491557,
+      0.23191956860554583
+     ],
+     "equivalent": false,
+     "n_saa_neg": 3,
+     "n_saa_pos": 24,
+     "descriptive_only": true,
+     "mean_by_group": {
+      "neg": 0.5494934140417792,
+      "pos": -0.06868667675522237
+     }
+    },
+    "H3_NSDISS_D4": {
+     "estimate": 0.2041719794545847,
+     "se": 0.31242194295442227,
+     "t": 0.6535135705380668,
+     "df": 18.0,
+     "p": 0.5216867142008357,
+     "n_donors": 25,
+     "r": 0.15223914978030176,
+     "ci90": [
+      -0.24680908670413557,
+      0.49043159137450476
+     ],
+     "equivalent": false,
+     "q": 0.8555495669274811,
+     "class": "inconclusive"
+    }
+   }
+  },
+  "S4_batch": {
+   "H1_DA_primary": {
+    "estimate": -0.37032355553540186,
+    "se": 0.2819144495203388,
+    "t": -1.313602605916391,
+    "df": 24.705509948113768,
+    "p": 0.20104878372311533,
+    "df_method": "satterthwaite",
+    "r": -0.25550929086072,
+    "ci90": [
+     -0.519574005905061,
+     0.07928376471046754
+    ],
+    "equivalent": false,
+    "n_donors": 47,
+    "n_obs": 527,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "genetic_pd",
+     "prs",
+     "dur_baseline",
+     "batch2",
+     "batch3",
+     "batch4",
+     "batch5"
+    ],
+    "class": "inconclusive"
+   },
+   "secondary": {
+    "H1_D4": {
+     "estimate": 0.09601676830606931,
+     "se": 0.3259900571152728,
+     "t": 0.29453894746279635,
+     "df": 28.89532961049473,
+     "p": 0.7704518234125259,
+     "df_method": "satterthwaite",
+     "r": 0.054711413363712616,
+     "ci90": [
+      -0.2528436823491079,
+      0.347769268154331
+     ],
+     "equivalent": true,
+     "n_donors": 47,
+     "n_obs": 527,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "dur_baseline",
+      "batch2",
+      "batch3",
+      "batch4",
+      "batch5"
+     ],
+     "class": "dropped_by_A0-5"
+    },
+    "H2_D2": {
+     "estimate": 0.01148399840966363,
+     "se": 0.0048060294606373935,
+     "t": 2.389498130155153,
+     "df": 34.01835301901445,
+     "p": 0.022558296443687825,
+     "df_method": "satterthwaite",
+     "r": 0.37910372079939214,
+     "ci90": [
+      0.11892644346479586,
+      0.5732387740422742
+     ],
+     "equivalent": false,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "dur_baseline",
+      "batch2",
+      "batch3",
+      "batch4",
+      "batch5"
+     ],
+     "q": 0.06767488933106347,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D2": {
+     "estimate": 0.9005312980466307,
+     "se": 0.3701532464114901,
+     "t": 2.432860732080498,
+     "df": 34.0,
+     "p": 0.020392355858174224,
+     "n_donors": 45,
+     "r": 0.38506003701040736,
+     "ci90": [
+      0.12622336250999538,
+      0.5774136837375259
+     ],
+     "equivalent": false,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.06767488933106347,
+     "class": "inconclusive"
+    },
+    "H3_NSDISS_D2": {
+     "estimate": 0.0010755967104271076,
+     "se": 0.28899603114157785,
+     "t": 0.003721839037644699,
+     "df": 28.0,
+     "p": 0.997056799804987,
+     "n_donors": 39,
+     "r": 0.0007033612912617783,
+     "ci90": [
+      -0.3054495273986041,
+      0.3066633007169703
+     ],
+     "equivalent": true,
+     "q": 0.997056799804987,
+     "class": "equivalent"
+    },
+    "H2_D4": {
+     "estimate": -0.0060903202649450665,
+     "se": 0.00566533343634287,
+     "t": -1.0750153249367327,
+     "df": 19.656079062096282,
+     "p": 0.29538731291347664,
+     "df_method": "satterthwaite",
+     "r": -0.23564622712726174,
+     "ci90": [
+      -0.5341405109175988,
+      0.1453149104077536
+     ],
+     "equivalent": false,
+     "n_donors": 38,
+     "n_obs": 135,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "dur_baseline",
+      "batch2",
+      "batch3",
+      "batch4",
+      "batch5"
+     ],
+     "q": 0.48195634356661404,
+     "class": "inconclusive"
+    },
+    "H3_SAA_D4": {
+     "estimate": -0.10605793032390345,
+     "se": 0.38909224851205665,
+     "t": -0.2725778545563009,
+     "df": 34.0,
+     "p": 0.7868264151622992,
+     "n_donors": 45,
+     "r": -0.046695723197844693,
+     "ci90": [
+      -0.3191301185804491,
+      0.23635264121374253
+     ],
+     "equivalent": true,
+     "n_saa_neg": 7,
+     "n_saa_pos": 38,
+     "q": 0.9441916981947591,
+     "class": "equivalent"
+    },
+    "H3_NSDISS_D4": {
+     "estimate": 0.2679455236930205,
+     "se": 0.26538191679705947,
+     "t": 1.0096600662430268,
+     "df": 28.0,
+     "p": 0.32130422904440936,
+     "n_donors": 39,
+     "r": 0.1874264435650289,
+     "ci90": [
+      -0.12957408143254615,
+      0.45594371070079476
+     ],
+     "equivalent": false,
+     "q": 0.48195634356661404,
+     "class": "inconclusive"
+    }
+   }
+  },
+  "S5_leave_one_out": {
+   "beta3_full": -0.5659020623760488,
+   "loo_min": -0.7469509000167335,
+   "loo_max": -0.4240110434108079,
+   "n_sign_changes": 0,
+   "max_abs_change_in_se_units": 0.6922970743523669
+  },
+  "S6_first_5y": {
+   "H1_DA_primary": {
+    "estimate": -0.3452679221116122,
+    "se": 0.4817980268316727,
+    "t": -0.7166237777728375,
+    "df": 25.219318673104095,
+    "p": 0.4801907204586889,
+    "df_method": "satterthwaite",
+    "r": -0.1412690794962336,
+    "ci90": [
+     -0.4347251687644861,
+     0.1935925286858608
+    ],
+    "equivalent": false,
+    "n_donors": 44,
+    "n_obs": 339,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "genetic_pd",
+     "prs",
+     "media_e6",
+     "dur_baseline"
+    ],
+    "class": "inconclusive"
+   },
+   "H1_D4": {
+    "estimate": 0.28092124876954694,
+    "se": 0.4793127383134022,
+    "t": 0.5860917649675825,
+    "df": 25.169086817755986,
+    "p": 0.5630334407865365,
+    "df_method": "satterthwaite",
+    "r": 0.11603482221599558,
+    "ci90": [
+     -0.21818070712660576,
+     0.41581379831214244
+    ],
+    "equivalent": false,
+    "n_donors": 44,
+    "n_obs": 339,
+    "re": "slope_corr",
+    "fallback_log": [
+     {
+      "re": "slope_corr",
+      "converged": true,
+      "singular": false,
+      "hess_pd": true,
+      "opt_success": true
+     }
+    ],
+    "covariates": [
+     "age_onset",
+     "sex_female",
+     "genetic_pd",
+     "prs",
+     "media_e6",
+     "dur_baseline"
+    ]
+   },
+   "H2": {
+    "D2": {
+     "estimate": 0.01043072580139503,
+     "se": 0.0052266393913052555,
+     "t": 1.995684993831218,
+     "df": 18.939548783915615,
+     "p": 0.06055395826613129,
+     "df_method": "satterthwaite",
+     "r": 0.41683370230312006,
+     "ci90": [
+      0.06106965365938775,
+      0.650272930606546
+     ],
+     "equivalent": false,
+     "n_donors": 35,
+     "n_obs": 114,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ]
+    },
+    "D4": {
+     "estimate": -0.0012846863469647217,
+     "se": 0.005907406590343731,
+     "t": -0.21747044617932254,
+     "df": 22.97027841247266,
+     "p": 0.8297618947466143,
+     "df_method": "satterthwaite",
+     "r": -0.04532841070259444,
+     "ci90": [
+      -0.3737821938732222,
+      0.2980509673853817
+     ],
+     "equivalent": true,
+     "n_donors": 35,
+     "n_obs": 114,
+     "re": "slope_corr",
+     "fallback_log": [
+      {
+       "re": "slope_corr",
+       "converged": true,
+       "singular": false,
+       "hess_pd": true,
+       "opt_success": true
+      }
+     ],
+     "covariates": [
+      "age_onset",
+      "sex_female",
+      "genetic_pd",
+      "prs",
+      "media_e6",
+      "dur_baseline"
+     ]
+    }
+   }
+  }
+ },
+ "H4_phenotype": {
+  "n_lines": 79,
+  "n_genes_kept": 9827
+ },
+ "git_commit": "0ae944c1ad656e58ed50707c9e6f1fcf61b96ca6"
+}

@@ -1,0 +1,31 @@
+{
+ "registration_doi": "10.17605/OSF.IO/4PZXA (osf.io/4pzxa; DOI string unverified while embargoed)",
+ "n_jerber_leads": 895,
+ "rule": "PASS if concordance >= 0.70 and pi1 >= 0.30 and both above the null 95th percentile (primary: new label)",
+ "new": {
+  "n_tested": 28,
+  "sign_concordance": 0.9642857142857143,
+  "pi1": 0.7857142857142857,
+  "null95_concordance": 0.6785714285714286,
+  "null95_pi1": 0.2142857142857143,
+  "pass": true
+ },
+ "old": {
+  "n_tested": 26,
+  "sign_concordance": 0.9615384615384616,
+  "pi1": 0.8461538461538461,
+  "null95_concordance": 0.6173076923076917,
+  "null95_pi1": 0.3076923076923077,
+  "pass": true
+ },
+ "all": {
+  "n_tested": 25,
+  "sign_concordance": 1.0,
+  "pi1": 0.84,
+  "null95_concordance": 0.6419999999999993,
+  "null95_pi1": 0.36,
+  "pass": true
+ },
+ "G_eQTL_pass": true,
+ "git_commit": "9232e4e722ae44b39d7e596d585af79bd8495048"
+}
