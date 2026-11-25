@@ -8,6 +8,46 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (planning session): review of the Cell-to-Clinic II results; what remains before submission
+
+### Verdict
+The analyses are complete; nothing more needs running. G-eQTL was done before linkage, the deviations are logged, and the results are archived (Zenodo 10.5281/zenodo.24526514). What is missing is all manuscript and compliance work (list below).
+
+### Framing of the primary (agree with the local reading, plus one point)
+1. **Report it as registered:** H1-DA met (β −0.57, p 0.040, partial r −0.39). Give the batch-adjusted estimate (−0.37, p 0.20) **in the same sentence**, in the abstract as well as the results. Suggested wording: "a pre-registered association that met its threshold narrowly, attenuated by a third under batch adjustment, and likely overestimates the true effect; replication at ~160–220 donors is needed (Fig. 4)."
+2. **Added point: multiplicity across registrations.** SNCA was tested twice: all-cell P2 in registration 1 (r −0.18, inconclusive), and DA-neuron D2 here. The phenotypes are correlated and the second test was designed after the first was known. A sceptical reader will treat these as two attempts at one question; under Bonferroni over the two, 0.040 > 0.025. Say this ourselves in the discussion. It does not change the registered class, but it is the strongest objection and better pre-empted.
+3. **Direction (higher DA-neuron SNCA goes with slower progression):** report it without a mechanism story. Note that it runs against simple SNCA-dosage expectations, and that composition and batch could contribute. No causal language.
+4. **Do not highlight H3 D2 by SAA** (p 0.019, q 0.11; only 7 SAA−). Leave it in the table.
+5. **G-eQTL:** say it rests on 28 array-typed eQTLs and confirms genetic signal in the pseudobulk, not that the new label is more DA-specific than the old.
+6. **Batch check:** exploratory, post hoc; one sentence plus a supplementary table.
+
+### The five implementation readings (accepted without review)
+I have reviewed them now; all five are reasonable and none needs a rerun.
+- Reading 1 (H4, literal "as registration 1" adjustment) is the most defensible choice.
+- Reading 4 (sensitivity scope) matches §7.
+- In the paper, keep the honest statement that they were fixed by the author before linkage, plus "reviewed afterwards by the co-author/planning session; no changes".
+
+### Paper structure (one paper, TCBB)
+- **Framework**
+- **Registration 1:** all-cell phenotypes; 0 supported.
+- **What the null taught us, without clinical data:** DA-label refinement, Jerber across-batch reliability atlas, cell-sampling vs batch.
+- **Registration II:** DA-neuron phenotypes; G-eQTL gate; primary met but fragile.
+- **Design guide:** Fig. 4.
+- **Discussion:** multiplicity, winner's curse, batch, iPSC aging.
+
+### Before submission (checklist)
+- [ ] **Local:** rebuild `paper/main.tex` for Cell-to-Clinic. The current body is another study's text. `\input` the generated numbers, tables and sections; Figs 1, 3, 4, 5.
+- [ ] **Local:** add the data and code availability statement:
+  - OSF s6w9c and 4pzxa;
+  - Zenodo 24156791, 24494010 and 24526514;
+  - aggregate results only; PPMI and FOUNDIN-PD access via LONI.
+- [ ] **User:** DUA check on the PATNO printed in chat; decide Fig. 2 (binned version suggested).
+- [ ] **User: PPMI publication policy.** External manuscripts go to the PPMI Data and Publications Committee for **administrative review before journal submission**, uploaded via "Submit a Manuscript or Abstract" on the PPMI site. The committee has two weeks. Use the required acknowledgment: the data-access date statement with RRID:SCR_006431, plus the full funding-partner statement. Source: ppmi-info.org PPMI publication policy. Plan the timeline around these 2 weeks.
+- [ ] **User:** at submission, end both OSF embargoes early, or give reviewers access, so the registrations can be checked.
+- [ ] **User:** co-author (Prof. Kim) review of the draft.
+- [ ] **Optional:** external replication. No suitable cohort is known; treat it as a limitation, not a blocker.
+- Aspera (expires about 2026-12-11): nothing further is needed for this paper.
+
 ## 2026-11-25 (local session): Status: user's items 1, 3 and the batch check done; what is open
 
 The user's request "do 1 (archive) and 3 (figures/tables), and approve the batch check" is complete. The details are in the two entries below. All tags (`prereg-II-v1.0.0`, `g-eqtl-v1.0.0` (failed, reported), `g-eqtl-v1.1.0`, `models-da-v1.0.0`, `results-II-v1.0.0`, `explore-II-v0.1.0`) are pushed. The working tree is clean.
