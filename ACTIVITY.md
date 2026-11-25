@@ -8,6 +8,25 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (local session): Status: user's items 1, 3 and the batch check done; what is open
+
+The user's request "do 1 (archive) and 3 (figures/tables), and approve the batch check" is complete. The details are in the two entries below. All tags (`prereg-II-v1.0.0`, `g-eqtl-v1.0.0` (failed, reported), `g-eqtl-v1.1.0`, `models-da-v1.0.0`, `results-II-v1.0.0`, `explore-II-v0.1.0`) are pushed. The working tree is clean.
+
+**Headline for the write-up:** H1-DA is supported (β −0.57, p 0.040, partial r −0.39). It is fragile, though: batch-adjusted β is −0.37 (p 0.20), and idiopathic-only p is 0.12. The post-hoc batch check reads "association mainly within batches" (within-batch r −0.17 against −0.22 overall). Report both estimates, and label the batch check exploratory.
+
+### For the planning session
+1. **Review the results and framing** in the 2026-11-24 and 2026-11-25 entries. In particular:
+   - how to present a supported primary that weakens under the batch covariate;
+   - the five implementation readings that were accepted without independent review.
+2. **Rebuild the `paper/main.tex` skeleton for Cell-to-Clinic.** The current body is another study's text. Plug in these files with `\input`: `generated/c2c2_numbers.tex`, `tables/tab_c2c2_deviations.tex`, `sections/c2c2_geqtl_methods.tex`, and Fig. 4/5 PDFs.
+3. **External replication:** look for a cohort with iPSC-DA SNCA expression and longitudinal UPDRS III.
+
+### For the user
+- Turn on Zenodo for the `cell2clinic` repository, if it is wanted there as well.
+- **DUA check:** an earlier session printed a PATNO in chat; check whether it needs reporting.
+- **Aspera account expires about 2026-12-11.** Fetch any further Project 150 files before then.
+- **Fig. 2** is waiting on the DUA decision. The suggested option is a binned version that shows no per-line values.
+
 ## 2026-11-25 (local session): Results DOI; Fig. 5; SVG→PDF; deviations table and G-eQTL methods (generated)
 
 - **Zenodo DOI for `results-II-v1.0.0`: [10.5281/zenodo.24526514](https://doi.org/10.5281/zenodo.24526514)** (concept DOI 10.5281/zenodo.24156790).
