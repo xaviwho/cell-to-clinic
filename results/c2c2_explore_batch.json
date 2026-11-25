@@ -1,0 +1,40 @@
+{
+ "version": "0.1.0",
+ "label": "EXPLORATORY, POST HOC",
+ "donors_per_batch": {
+  "1": 3,
+  "2": 10,
+  "3": 15,
+  "4": 13,
+  "5": 6
+ },
+ "a_D2_by_batch": {
+  "R2": 0.19885996114454155,
+  "F": 2.6063228533687206,
+  "p": 0.04918995372229156,
+  "k": 5,
+  "n": 47
+ },
+ "b_slope_by_batch": {
+  "R2": 0.1450960524090629,
+  "F": 1.7820815479777656,
+  "p": 0.15045229315101477,
+  "k": 5,
+  "n": 47
+ },
+ "c_association": {
+  "n": 47,
+  "overall_r": -0.2159264746738398,
+  "overall_p": 0.14491908614450782,
+  "within_batch_r": -0.17475108169789058,
+  "within_batch_p": 0.26237155075835733,
+  "within_df": 41,
+  "between_batch_r_n5": -0.547475129912409
+ },
+ "d_media_share": {
+  "D2": 0.14963505668518085,
+  "slope": 0.203772553407717
+ },
+ "reading": "association mainly within batches",
+ "git_commit": "3ab22a306f914064897ac5981f16c6c5988cf4a8"
+}

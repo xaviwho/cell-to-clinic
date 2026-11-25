@@ -8,6 +8,25 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-25 (local session): Results archived (`results-II-v1.0.0`); **EXPLORATORY, POST HOC** batch check (`explore-II-v0.1.0`)
+
+**Archive:** aggregate results are committed in `results/c2c2_*.json`. The GitHub release [`results-II-v1.0.0`](https://github.com/xaviwho/cell-to-clinic/releases/tag/results-II-v1.0.0) was published, which triggers Zenodo; the DOI will be logged when it shows.
+
+**Batch check (user-approved 2026-11-25, specified in the script header and tagged before running).** Question: why does H1-DA weaken with five-level batch dummies? Per-donor summaries, not the registered LMM. n = 47; donors per batch 3 / 10 / 15 / 13 / 6.
+| | Result |
+|---|---|
+| (a) D2 by batch (ANOVA) | R² 0.20, F 2.61, **p 0.049** |
+| (b) UPDRS III OFF slope by batch | R² 0.15, F 1.78, p 0.15 |
+| (c) r(D2, slope): overall / within batch / between 5 batch means | −0.22 (p 0.14) / **−0.17** (p 0.26, df 41) / −0.55 (n = 5) |
+| (d) Share of batch differences captured by the media covariate | D2 15%, slope 20% |
+
+- **Pre-specified reading: "association mainly within batches."** The within-batch r keeps 81% of the overall r, and the confounding criterion fails because slope-by-batch p = 0.15 is above 0.10.
+- **Caveats:**
+  - D2 does differ by batch, and the 5 batch means point the same way as the overall association. A partial between-batch contribution cannot be excluded.
+  - Batch 1 has only 3 donors.
+  - Simple per-donor slopes give a weaker overall r (−0.22) than the registered covariate-adjusted LMM (partial r ≈ −0.39).
+- **For the paper:** the media covariate (registered) captures little of the batch structure. The batch-adjusted estimate (−0.37) is the more conservative figure, and the result should be presented with both. Most of the signal sits within batches, which argues against pure batch confounding, but the test cannot settle it at n = 47.
+
 ## 2026-11-24 (local session): **Cell-to-Clinic II results** (osf.io/4pzxa; code `models-da-v1.0.0`, commit 0ae944c): **H1-DA supported (p = 0.040), but fragile in sensitivity analyses**
 
 Run by the user's decision after G-eQTL passed. The five implementation readings in the linkage-code entry were accepted by the user **without** planning-session review; say so in the paper. Aggregates only. β = change in OFF-state UPDRS III slope (points/year) per SD of phenotype; partial r = t/√(t² + df).
