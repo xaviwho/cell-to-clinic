@@ -8,6 +8,35 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-26 (local session): J-BHI Methods and Results drafted (engineering style, equation-driven)
+
+- **`paper/sections/methods.tex`.** Requested by the user: an engineering-paper Methods section in which each step is an equation with a short explanation. 25 numbered equations, covering:
+  - the gate formalism (gate predicates and the linkable set);
+  - cell QC, module score and DA label, with threshold calibration;
+  - the pseudobulk, gene-set score and composition residualisation;
+  - the elastic net for A0-4, the ICC and its F-based CI, and the A0-1 rule;
+  - the G-eQTL model, concordance and π1 with their null;
+  - the LMM, REML objective, Satterthwaite t/ν and the fallbacks, plus OLS for H3;
+  - partial r, TOST, BH and the decision rule, with A0-5 coherence;
+  - the exploratory within/between-batch decomposition.
+
+  Every equation was checked against the frozen code (`models.py`, `lmm.py`, `phenotypes*.py`, `da_relabel.py`, `day0_gate_v2.py`, `eqtl_replication.py`, `explore_batch.py`) and the registrations.
+- **`paper/sections/results.tex`** has six parts: pipeline validation (A0-6, A0-4 partial); registration 1 (gates, 0 of 10 supported); DA labels and the registration-II gates (calibration at the grid edge reported, G-icc, G-eQTL for the new, old and all-cell labels); the registration-II primary, secondary, H4 and sensitivity results; and the batch check, labelled **exploratory, post hoc**. Every number is a macro; there are no typed results.
+- **New generator `scripts/paper_c2c1.py`.**
+  - `export` copies registration-1 and pre-link **aggregates** from `data/derived/` into `results/c2c1_registration1.json` and `results/c2c2_prelink.json`. These hold counts, ICCs, model estimates and class counts only, with no IDs or per-line values.
+  - The default mode writes `generated/c2c1_numbers.tex` (67 macros), `tables/tab_gates.tex` (every gate of both registrations, full page width) and `tables/tab_c2c1_tests.tex` (generated but not used yet; Fig. 3 shows the same tests).
+- **`scripts/paper_c2c2.py`** gains 15 macros: H4 r, SAA, D4 descriptive, the G-eQTL old/all-cell labels, the batch within p and the media share.
+- **Wording checks against the data:**
+  - All five registered sensitivity estimates are negative, so "the direction held" is accurate.
+  - Whether the FOUNDIN control runs share a batch is not established, so the text calls them technical replicates only.
+- **Build:** 7 pages, compiles cleanly with no overfull boxes. Figs 1, 3 and 5 are in place. The Introduction, Discussion, Conclusion and Abstract are still outlines.
+
+### For the planning session
+- Review the Methods and Results for framing. Points to look at:
+  - the DA-label paragraph, which says the new label was chosen for specificity, not agreement (calibration r 0.59 vs 0.79);
+  - the statement that the A0-4 "partial → proceed" rule was decided after the gate ran;
+  - the length against the J-BHI page limit.
+
 ## 2026-11-26 (local session): `paper/main.tex` rebuilt as the J-BHI manuscript skeleton
 
 - **Deviation from the planning request:** the user asked for `paper/main.tex` itself to be retargeted, so I did not create a separate `paper/jbhi/`. `main.tex` looks like the file the user edits in HiTeX. The old TCBB/compsoc skeleton for the lineage-clone study was replaced; it is still in git history (commit `c31057b` and earlier).

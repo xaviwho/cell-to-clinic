@@ -1,0 +1,306 @@
+% Methods for the J-BHI paper. Hand-written prose; every result value is a macro from
+% generated/c2c1_numbers.tex or generated/c2c2_numbers.tex. Constants typed here are protocol
+% parameters fixed in the registrations (osf.io/s6w9c, osf.io/4pzxa), not results.
+
+\section{Materials and Methods}\label{sec:methods}
+
+\subsection{Problem Formulation}\label{sec:formulation}
+Let $i = 1,\dots,n$ index Parkinson's disease (PD) donors, each with an induced pluripotent stem
+cell (iPSC) line differentiated towards dopaminergic (DA) neurons, and let $j = 1,\dots,n_i$ index
+the donor's clinical visits at times $t_{ij}$ (years since diagnosis). From the day-65 culture of
+donor $i$ we compute a scalar cellular phenotype $P_i$, and from the clinic we observe a score
+$Y_{ij}$. The question is whether $P_i$ predicts the rate of change of $Y$, i.e.\ whether the
+interaction coefficient $\beta_3$ in a longitudinal model of $Y_{ij}$ (Section~\ref{sec:lmm}) is
+non-zero.
+
+A cellular phenotype can fail for reasons unrelated to biology: the processing may not reproduce,
+the phenotype may not be stable across replicate differentiations, the labelled cells may not be
+the intended cell type, or the clinical data may be too sparse to estimate slopes. We therefore
+formulate the study as a sequence of \emph{gates}. Each gate $G_k$ is a statistic $T_k$ computed
+without clinical outcomes and a threshold $\tau_k$ fixed in advance,
+\begin{gather}
+G_k(P) = \mathbb{1}\!\left[T_k(P) \ge \tau_k\right],
+\label{eq:gates}\\
+\mathcal{P}_{\mathrm{link}} = \Big\{P \in \mathcal{P} : \textstyle\prod_k G_k(P) = 1\Big\},
+\label{eq:linkset}
+\end{gather}
+and only phenotypes in $\mathcal{P}_{\mathrm{link}}$ are linked to clinical data. Study-level
+gates (pipeline reproduction, clinical sufficiency) stop the analysis if they fail; phenotype-level
+gates (stability, coherence) remove a phenotype and report it as ``not tested''. All thresholds,
+models and decision rules were registered on OSF before linkage (registration~1:
+osf.io/s6w9c; registration~II: osf.io/4pzxa), and each analysis step ran from a git tag frozen
+before it touched the data \cite{nosek2018prereg}. Fig.~\ref{fig:gates} shows the gate sequence.
+
+\subsection{Data}\label{sec:data}
+\emph{Cellular data.} FOUNDIN-PD \cite{bressan2023foundin} provides day-65 single-cell RNA
+sequencing (scRNA-seq) of \cconeRuns{} runs from \cconeLines{} iPSC lines: one run for each of
+79 donor lines and four replicate runs of one control line, which serve as technical
+replicates. Lines were differentiated in five batches; the last two used a different
+medium (E6). We also use day-0 and day-65 bulk RNA-seq and NeuroChip genotypes (after quality
+control: call rate $\ge 0.95$, MAF $\ge 0.05$, Hardy--Weinberg $p \ge 10^{-6}$; \cctwoArraySNPs{}
+autosomal SNPs).
+
+\emph{Clinical data.} PPMI \cite{marek2011ppmi} provides longitudinal follow-up of the same donors.
+The primary outcome is the OFF-state MDS-UPDRS Part~III total \cite{goetz2008mdsupdrs}; a visit is
+OFF if the donor was untreated or the exam was recorded in the OFF state, and repeated exams on one
+date are averaged. Secondary outcomes are the mean left/right putamen specific binding ratio (SBR)
+from DaTscan, CSF $\alpha$-synuclein seed amplification (SAA) status (earliest valid assay)
+\cite{siderowf2023saa}, and the neuronal $\alpha$-synuclein disease integrated stage (NSD-ISS;
+latest record, integer stage) \cite{simuni2024nsdiss}. Only aggregate results leave the
+analysis machine.
+
+\subsection{Single-Cell Processing and Cell Labels}\label{sec:cells}
+\emph{Quality control.} For cell $c$ with UMI counts $u_{gc}$ over genes $g$, let $n_c$ be the
+number of detected genes, $U_c = \sum_g u_{gc}$ and $m_c$ the mitochondrial UMI share. A cell is
+retained if
+\begin{equation}
+500 \le n_c \le 8000, \qquad U_c \ge 1000, \qquad m_c \le 20\%.
+\label{eq:qc}
+\end{equation}
+
+\emph{Module scores.} With normalised expression $x_{gc} = \ln\!\big(1 + 10^4 u_{gc}/U_c\big)$, the
+score of cell $c$ for marker set $M$ is the mean marker expression minus that of a
+control set $R_M$ drawn to match the markers' expression distribution (50 genes from each of 25
+expression bins, fixed seed):
+\begin{equation}
+s_c(M) = \frac{1}{|M|}\sum_{g\in M} x_{gc} \;-\; \frac{1}{|R_M|}\sum_{g\in R_M} x_{gc}.
+\label{eq:score}
+\end{equation}
+Each cell is assigned to the compartment $k^\star(c) = \arg\max_k s_c(M_k)$ among neuron,
+progenitor, proliferating and ependymal-like marker sets, or left unassigned if all scores are
+negative.
+
+\emph{DA-neuron labels.} Registration~1 used the rule ``neuron with $u_{\mathrm{TH},c} \ge 1$''
+(old label). Registration~II uses a nine-marker DA module
+$M_{\mathrm{DA}} = \{$TH, DDC, SLC6A3, KCNJ6, SLC18A2, NR4A2, LMX1B, FOXA2, EN1$\}$:
+\begin{equation}
+\mathrm{DA}(c) = \mathbb{1}\!\left[k^\star(c) = \text{neuron}\right]\cdot
+\mathbb{1}\!\left[s_c(M_{\mathrm{DA}}) > t^\star\right].
+\label{eq:dalabel}
+\end{equation}
+The single threshold is calibrated on public data only, as the value that best reproduces the
+published DA-neuron fractions $f^{\mathrm{pub}}_\ell$ of the donor lines $\ell$:
+\begin{equation}
+t^\star = \arg\max_{t \in \mathcal{T}}\;
+\operatorname{corr}_\ell\!\left(\operatorname{logit} f_\ell(t),\, \operatorname{logit} f^{\mathrm{pub}}_\ell\right),
+\label{eq:calib}
+\end{equation}
+over the grid $\mathcal{T} = \{-0.10, -0.075, \dots, 0.60\}$, where $f_\ell(t)$ is the share of QC cells of line $\ell$ labelled DA at threshold $t$, and
+fractions are clipped to $[0.005, 0.995]$ before the logit.
+
+\subsection{Phenotype Construction}\label{sec:phenotypes}
+For a cell set $A$ (all QC cells, or DA neurons) of line $\ell$, the pseudobulk count of gene $g$
+and its log expression are
+\begin{equation}
+C_{g\ell} = \sum_{c \in A_\ell} u_{gc}, \qquad
+y_{g\ell} = \log_2\!\Big(1 + 10^6\, C_{g\ell} \big/ \textstyle\sum_{g'} C_{g'\ell}\Big).
+\label{eq:pseudobulk}
+\end{equation}
+A single-gene phenotype is $y_{g\ell}$ itself (SNCA). A pathway phenotype averages gene-wise
+standardised expression over the set $G'$ of pathway genes with mean CPM $\ge 10$:
+\begin{equation}
+S_\ell(G) = \frac{1}{|G'|}\sum_{g \in G'} \frac{y_{g\ell} - \bar{y}_g}{\sigma_g},
+\label{eq:geneset}
+\end{equation}
+with $\bar{y}_g, \sigma_g$ the mean and population SD over the 79 donor lines (HALLMARK oxidative
+phosphorylation, OXPHOS; KEGG lysosome).
+
+\emph{Registration~1} uses all-cell phenotypes: P1, the logit of the published DA-neuron fraction;
+P2, SNCA; P3, OXPHOS; P4, lysosome. Because all-cell expression mixes cell types, P2--P4 are
+residualised on composition,
+\begin{gather}
+\mathbf{P} = \big(\mathbf{I} - \mathbf{W}(\mathbf{W}^\top\mathbf{W})^{-1}\mathbf{W}^\top\big)\,\tilde{\mathbf{p}},
+\label{eq:resid}\\
+\mathbf{W} = \big[\mathbf{1},\ \operatorname{logit}\mathbf{f}_{\mathrm{DA}},\ \operatorname{logit}\mathbf{f}_{\mathrm{prog}}\big],
+\nonumber
+\end{gather}
+where $\tilde{\mathbf{p}}$ is the raw phenotype over lines and $\mathbf{f}$ are the published
+DA-neuron and progenitor fractions. \emph{Registration~II} computes the phenotypes inside DA neurons
+(\ref{eq:dalabel}): D1, the logit DA fraction; D2, SNCA; D3, OXPHOS; D4, lysosome. These need no
+composition adjustment; the residualised versions are a sensitivity analysis. Every phenotype is
+standardised to mean 0 and SD 1 over the donors of each model, so effects are per SD.
+
+\subsection{Gates Before Linkage}\label{sec:prelink}
+\emph{Reproduction (A0-6).} Our per-line fraction of TH$^+$ cells must correlate with the published
+value at Pearson $r \ge 0.80$.
+
+\emph{Positive control (A0-4).} A known biological signal must be recoverable: we replicate the
+published day-0 classifier of differentiation efficiency \cite{bressan2023foundin}, an elastic net
+on day-0 bulk expression $\mathbf{x}_\ell$ predicting high vs.\ low DA yield $y_\ell \in \{0,1\}$,
+\begin{equation}
+\min_{b_0,\mathbf{b}}\; -\frac{1}{n}\sum_\ell \big[y_\ell \eta_\ell - \ln(1 + e^{\eta_\ell})\big]
++ \lambda\Big(\tfrac{1-\alpha}{2}\|\mathbf{b}\|_2^2 + \alpha\|\mathbf{b}\|_1\Big),
+\label{eq:enet}
+\end{equation}
+with $\eta_\ell = b_0 + \mathbf{x}_\ell^\top\mathbf{b}$, $\alpha = 0.5$, $\lambda = 0.22$. It passes
+if the mean AUC over 100 repeats of 5-fold cross-validation is $\ge 0.75$ with permutation
+$p < 0.05$ (200 label permutations), and is ``partial'' at AUC $\ge 0.65$.
+
+\emph{Technical stability (A0-2, G-icc).} The control line's replicate runs estimate within-line
+noise. With $S_d^2$ the variance of the phenotype over the $n_d = 79$ donor lines and $S_w^2$ the
+variance over the $n_w = 4$ control runs, the intraclass correlation and its 95\% CI are
+\begin{gather}
+\widehat{\mathrm{ICC}} = 1 - \frac{S_w^2}{S_d^2},
+\label{eq:icc}\\
+\mathrm{CI}_{95} = \Big[\,1 - F_{0.975}\,\tfrac{S_w^2}{S_d^2},\;\; 1 - F_{0.025}\,\tfrac{S_w^2}{S_d^2}\,\Big],
+\label{eq:icc_ci}
+\end{gather}
+where $F_q$ is the $q$ quantile of $F(n_d - 1,\, n_w - 1)$, since
+$(1-\mathrm{ICC})\,S_d^2/S_w^2 \sim F(n_d-1, n_w-1)$. A phenotype passes at
+$\widehat{\mathrm{ICC}} \ge 0.5$ \cite{koo2016guideline}. Because the control runs may share
+batch effects, registration~II also requires an across-batch ICC $\ge 0.40$ for the same phenotype
+in an independent dataset of 199 lines differentiated in many batches \cite{jerber2021population}.
+
+\emph{Cell sufficiency (A0-3, G-cells).} A run needs $\ge 1{,}000$ QC cells (registration~1) and
+$\ge 100$ DA neurons (registration~II).
+
+\emph{Clinical sufficiency (A0-1).} Slopes need repeated visits:
+\begin{equation}
+N_{\mathrm{link}} = \sum_i \mathbb{1}\!\left[n_i^{\mathrm{OFF}} \ge 3\ \wedge\
+\max_j t_{ij} - \min_j t_{ij} \ge 2\right] \ge 30.
+\label{eq:a01}
+\end{equation}
+
+\subsection{Genetic Positive Control (G-eQTL)}\label{sec:geqtl}
+If the new DA-neuron pseudobulks reflect DA neurons, they should carry the genetic regulation
+known from DA neurons. Lead eQTLs (gene $g$, SNP $v_g$, effect $b^{\mathrm{J}}_g$) were taken from
+day-52 untreated DA neurons of Jerber et al.\ \cite{jerber2021population}, one lead per gene,
+Benjamini--Hochberg (BH) FDR $< 5\%$ on the gene-level permutation $p$. In the 79 FOUNDIN donor
+lines, each pair is tested by
+\begin{equation}
+y_{g\ell} = a_g + b_g\, d_{v_g\ell} + \sum_{k=1}^{3}\gamma_k\,\mathrm{GPC}_{k\ell}
++ \sum_{k=1}^{5}\delta_k\,\mathrm{EPC}_{k\ell} + \varepsilon_{g\ell},
+\label{eq:eqtl}
+\end{equation}
+where $d \in [0,2]$ is the allele dosage aligned to Jerber's assessed allele, GPC are genotype
+principal components and EPC are principal components of the 2,000 most variable genes. SNPs are
+matched on GRCh37 position and alleles, and strand-ambiguous SNPs are dropped. Over the $m$ testable
+pairs we compute the sign concordance and Storey's $\pi_1$ \cite{storey2003qvalue}:
+\begin{gather}
+\kappa = \frac{1}{m}\sum_{g=1}^{m}\mathbb{1}\!\left[\operatorname{sign}\hat{b}_g = \operatorname{sign} b^{\mathrm{J}}_g\right],
+\label{eq:kappa}\\
+\hat{\pi}_1 = 1 - \frac{\#\{g : p_g > \lambda\}}{m(1-\lambda)},
+\label{eq:pi1}
+\end{gather}
+with $\lambda = 0.5$. A null distribution comes from $B = 200$ sets that pair the same genes with
+random SNPs on other chromosomes in the same MAF bin. The gate passes if
+$\kappa \ge 0.70$, $\hat\pi_1 \ge 0.30$, and both exceed the 95th percentile of their null.
+
+\subsection{Longitudinal Linkage Model}\label{sec:lmm}
+For donor $i$ at visit $j$, with standardised phenotype $P_i$ and covariate vector $\mathbf{c}_i$
+(age at onset, sex, genetic PD, polygenic risk score, medium E6, disease duration at PPMI baseline),
+\begin{multline}
+Y_{ij} = \beta_0 + \beta_1 t_{ij} + \beta_2 P_i + \beta_3 P_i t_{ij}
++ \boldsymbol{\gamma}^\top\mathbf{c}_i + \boldsymbol{\delta}^\top\mathbf{c}_i\, t_{ij}\\
++ b_{0i} + b_{1i} t_{ij} + \varepsilon_{ij},
+\label{eq:lmm}
+\end{multline}
+with $(b_{0i}, b_{1i})^\top \sim \mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma}_b)$ and
+$\varepsilon_{ij} \sim \mathcal{N}(0, \sigma^2)$. The parameter of interest is $\beta_3$: the change
+in progression rate (UPDRS~III points per year) per SD of the phenotype. In matrix form,
+$\mathbf{y}_i \sim \mathcal{N}(\mathbf{X}_i\boldsymbol{\beta}, \mathbf{V}_i)$ with
+$\mathbf{V}_i = \mathbf{Z}_i\boldsymbol{\Sigma}_b\mathbf{Z}_i^\top + \sigma^2\mathbf{I}$ and
+$\mathbf{Z}_i = [\mathbf{1}, \mathbf{t}_i]$. The variance parameters
+$\boldsymbol{\psi} = (\boldsymbol{\theta}, \sigma)$, with
+$\boldsymbol{\Sigma}_b = \sigma^2\boldsymbol{\Lambda}_\theta\boldsymbol{\Lambda}_\theta^\top$ and
+$\boldsymbol{\Lambda}_\theta$ lower triangular, maximise the restricted log-likelihood
+\begin{multline}
+\ell_R(\boldsymbol{\psi}) = -\tfrac{1}{2}\Big[\sum_i \ln|\mathbf{V}_i|
++ \ln\Big|\sum_i \mathbf{X}_i^\top\mathbf{V}_i^{-1}\mathbf{X}_i\Big|\\
++ \sum_i (\mathbf{y}_i - \mathbf{X}_i\hat{\boldsymbol\beta})^\top\mathbf{V}_i^{-1}(\mathbf{y}_i - \mathbf{X}_i\hat{\boldsymbol\beta})\Big],
+\label{eq:reml}
+\end{multline}
+where $\hat{\boldsymbol\beta}$ is the generalised least-squares estimate with covariance
+$\boldsymbol{\Phi} = (\sum_i \mathbf{X}_i^\top\mathbf{V}_i^{-1}\mathbf{X}_i)^{-1}$. For the contrast
+$\mathbf{L}$ that selects $\beta_3$,
+\begin{equation}
+t = \frac{\mathbf{L}^\top\hat{\boldsymbol\beta}}{\sqrt{\mathbf{L}^\top\hat{\boldsymbol\Phi}\mathbf{L}}},
+\qquad
+\nu = \frac{2\big(\mathbf{L}^\top\hat{\boldsymbol\Phi}\mathbf{L}\big)^2}
+{\mathbf{g}^\top\mathbf{A}\,\mathbf{g}},
+\label{eq:satt}
+\end{equation}
+where $\nu$ is the Satterthwaite degrees of freedom \cite{satterthwaite1946},
+$\mathbf{g} = \partial(\mathbf{L}^\top\boldsymbol\Phi\mathbf{L})/\partial\boldsymbol\psi$ and
+$\mathbf{A} = 2\mathbf{H}^{-1}$ is the asymptotic covariance of $\hat{\boldsymbol\psi}$ from the
+Hessian $\mathbf{H}$ of the REML deviance $-2\ell_R$; both are computed by central finite
+differences. If the fit fails to converge, is singular (a random-effect SD below $10^{-4}\sigma$
+or $|\mathrm{corr}| > 0.999$) or has a non-positive-definite $\mathbf{H}$, the registered fallbacks
+are applied in order: uncorrelated random intercept and slope, then random intercept only. The
+same model with $Y$ = putamen SBR (all donors with $\ge 1$ scan) gives H2.
+
+\emph{Cross-sectional outcomes (H3).} SAA status and NSD-ISS stage $Z_i$ are tested by ordinary
+least squares, $P_i = \alpha_0 + \alpha_1 Z_i + \boldsymbol\gamma^\top\mathbf{c}_i + e_i$,
+with $\nu = n - p$ residual degrees of freedom.
+
+\subsection{Effect Size, Equivalence and Decision Rule}\label{sec:decision}
+Each test is reported as a partial correlation,
+\begin{equation}
+r = \frac{t}{\sqrt{t^2 + \nu}},
+\label{eq:partialr}
+\end{equation}
+which is monotone in $t$. The 90\% CI of the coefficient,
+$\hat\beta \pm t_{0.95,\nu}\,\widehat{\mathrm{SE}}$, therefore maps to a 90\% CI
+$[r_{\mathrm{lo}}, r_{\mathrm{hi}}]$ of $r$. The test is \emph{equivalent} to zero within the
+bound $\Delta = 0.40$ if
+\begin{equation}
+E = \mathbb{1}\!\left[-\Delta < r_{\mathrm{lo}}\ \wedge\ r_{\mathrm{hi}} < \Delta\right],
+\label{eq:tost}
+\end{equation}
+which is the two one-sided tests (TOST) procedure at $\alpha = 0.05$ \cite{lakens2017equivalence}.
+Within a family of $m$ tests, $p$-values are converted to BH $q$-values \cite{benjamini1995fdr},
+\begin{equation}
+q_{(k)} = \min_{j \ge k}\ \min\!\Big(1,\ \frac{m\,p_{(j)}}{j}\Big),
+\label{eq:bh}
+\end{equation}
+and every test receives one of three classes (for single tests, $q$ is replaced by $p$):
+\begin{equation}
+\mathrm{class} =
+\begin{cases}
+\text{supported}, & q < 0.05,\\
+\text{equivalent}, & q \ge 0.05,\ E = 1,\\
+\text{inconclusive}, & q \ge 0.05,\ E = 0.
+\end{cases}
+\label{eq:class}
+\end{equation}
+
+\emph{Coherence (A0-5).} A pathway score is tested only if its member genes agree with it. Refitting
+(\ref{eq:lmm}) with each member gene $g \in G'$ in place of $P$,
+\begin{equation}
+\pi_{\mathrm{coh}} = \frac{1}{|G'|}\sum_{g \in G'}
+\mathbb{1}\!\left[\operatorname{sign}\hat\beta_3^{(g)} = \operatorname{sign}\hat\beta_3^{(P)}\right] \ge 0.80.
+\label{eq:a05}
+\end{equation}
+
+\subsection{Hypotheses}\label{sec:hypotheses}
+\emph{Registration~1} tests the all-cell phenotypes retained by A0-2 against four outcomes, each a
+BH family: H1, UPDRS~III slope; H2, SBR slope; H3, SAA status and NSD-ISS stage.
+\emph{Registration~II} has one primary test, H1-DA: $\beta_3$ for D2 on the OFF-state UPDRS~III,
+two-sided $\alpha = 0.05$. A secondary BH family holds D4 on UPDRS~III (if A0-5 passes), D2 and D4 on
+SBR slope, SAA and NSD-ISS. A separate single test, H4, asks whether the registration-1 exploratory
+OXPHOS signal survives a change of assay: HALLMARK OXPHOS in day-65 bulk RNA, composition-adjusted
+as in (\ref{eq:resid}), on UPDRS~III. The registered sensitivity analyses of H1-DA are: old DA label;
+composition-adjusted D2; idiopathic PD only; five-level batch dummies in place of the medium
+covariate; leave-one-donor-out range of $\hat\beta_3$; and visits within 5 years of diagnosis.
+
+\subsection{Exploratory Batch Decomposition}\label{sec:batchmethod}
+After the primary result was seen to weaken under batch adjustment, one post-hoc analysis was
+specified and tagged before it ran. With per-donor OLS slopes $\hat s_i$ of UPDRS~III on time
+($\ge 3$ OFF visits), batch $b(i) \in \{1,\dots,5\}$ and $x_i$ = standardised D2, it measures
+batch structure, $R^2_x = \sum_b n_b(\bar x_b - \bar x)^2 / \sum_i (x_i - \bar x)^2$ (and likewise
+for $\hat s$), and splits the association into within- and between-batch parts:
+\begin{equation}
+r_{W} = \operatorname{corr}\!\left(x_i - \bar x_{b(i)},\ \hat s_i - \bar{\hat s}_{b(i)}\right),
+\qquad
+r_{B} = \operatorname{corr}_b\!\left(\bar x_b,\ \bar{\hat s}_b\right),
+\label{eq:within}
+\end{equation}
+with $\nu_W = n - 2 - (B - 1)$ for $r_W$. The reading rules were fixed in advance: confounding is
+plausible if both batch effects have $p < 0.10$ and $r_B$ has the sign of the overall $r$;
+otherwise the association lies mainly within batches if $|r_W| \ge 0.75\,|r|$ with the same sign.
+
+\subsection{Implementation}\label{sec:impl}
+All steps are implemented in Python with NumPy, SciPy, pandas and h5py; the REML fit,
+Satterthwaite degrees of freedom, elastic net and gene-set scoring were implemented from their
+definitions and checked against planted-effect synthetic data. Each step ran from a git tag
+created before it saw the relevant data, and failed versions are reported (Section~\ref{sec:deviations}).

@@ -48,6 +48,15 @@ def numbers(m, g, L, a, b):
         "cctwoBatchRtwoSlope": f2(b["b_slope_by_batch"]["R2"]), "cctwoBatchPSlope": fp(b["b_slope_by_batch"]["p"]),
         "cctwoRall": f2(b["c_association"]["overall_r"]), "cctwoRwithin": f2(b["c_association"]["within_batch_r"]),
         "cctwoRbetween": f2(b["c_association"]["between_batch_r_n5"]),
+        "cctwoRwithinP": fp(b["c_association"]["within_batch_p"]), "cctwoRallP": fp(b["c_association"]["overall_p"]),
+        "cctwoMediaShareD": f"{100 * b['d_media_share']['D2']:.0f}", "cctwoMediaShareS": f"{100 * b['d_media_share']['slope']:.0f}",
+        "cctwoHfourR": f2(m["H4_bulk_oxphos"]["r"]),
+        "cctwoSaaR": f2(m["secondary"]["H3_SAA_D2"]["r"]), "cctwoSaaP": fp(m["secondary"]["H3_SAA_D2"]["p"]),
+        "cctwoSaaQ": fp(m["secondary"]["H3_SAA_D2"]["q"]),
+        "cctwoDfourP": fp(m["secondary"]["H1_D4"]["p"]), "cctwoDfourR": f2(m["secondary"]["H1_D4"]["r"]),
+        "cctwoLooSign": S["S5_leave_one_out"]["n_sign_changes"], "cctwoDF": f"{P['df']:.1f}",
+        "cctwoOldTested": g["old"]["n_tested"], "cctwoOldConc": f2(g["old"]["sign_concordance"]), "cctwoOldPione": f2(g["old"]["pi1"]),
+        "cctwoAllTested": g["all"]["n_tested"], "cctwoAllConc": f2(g["all"]["sign_concordance"]), "cctwoAllPione": f2(g["all"]["pi1"]),
     }
     return HEADER + "".join(f"\\newcommand{{\\{k}}}{{{v}}}\n" for k, v in mac.items())
 

@@ -21,6 +21,7 @@
 \graphicspath{{figures/}}
 \hyphenation{op-tical net-works semi-conduc-tor}
 
+\input{generated/c2c1_numbers}
 \input{generated/c2c2_numbers}
 
 \begin{document}
@@ -59,83 +60,19 @@ pre-registration, disease progression, dopaminergic neurons, equivalence testing
 % Refs: \cite{bressan2023foundin,marek2011ppmi,jerber2021population,nosek2018prereg}
 
 % ---------------------------------------------------------------------------
-\section{Data}\label{sec:data}
-We use iPSC-derived dopaminergic-neuron data from FOUNDIN-PD~\cite{bressan2023foundin},
-linked to clinical follow-up of the same donors in PPMI~\cite{marek2011ppmi}.
-
-\subsection{FOUNDIN-PD iPSC differentiations}
-% FOUNDIN-PD \cite{bressan2023foundin}: donor lines, day-65 scRNA-seq and bulk RNA, five
-% differentiation batches, media change (E6). Counts only, via generated macros.
-
-\subsection{PPMI clinical follow-up}
-% PPMI \cite{marek2011ppmi}: OFF-state MDS-UPDRS III \cite{goetz2008mdsupdrs}, DaTscan putamen
-% SBR, CSF alpha-syn SAA \cite{siderowf2023saa}, NSD-ISS \cite{simuni2024nsdiss}.
-% Data download date; Project 150 access.
-
-% ---------------------------------------------------------------------------
-\section{Pre-Registered Framework and Gates}\label{sec:framework}
-% Fig.~\ref{fig:gates}. Gates before linkage (A0-1 visits, A0-3 cells, A0-5 coherence, G-icc,
-% G-cells, G-eQTL). Models: REML LMM, Satterthwaite df \cite{satterthwaite1946}; TOST at
-% +/-0.40 with 90% CI \cite{lakens2017equivalence}; BH \cite{benjamini1995fdr}; classes
-% supported / equivalent / inconclusive; partial r = t / sqrt(t^2 + df).
-
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=0.72\textwidth]{fig1_gates.pdf}
-\caption{Gated design. Each gate must pass before any phenotype is linked to clinical data.
-% TODO caption from fig1 script.
-}
+\caption{Gated design. (A) Gate sequence of registration~1: study-level gates stop the analysis if
+they fail; phenotype-level gates remove a phenotype, which is then reported as not tested.
+(B) Observed gate statistics against their thresholds (Table~\ref{tab:gates}).}
 \label{fig:gates}
 \end{figure*}
 
-% ---------------------------------------------------------------------------
-\section{Registration 1: All-Cell Phenotypes}\label{sec:reg1}
-% osf.io/s6w9c. Ten confirmatory tests; none supported (Fig.~\ref{fig:reg1}).
-% Numbers via a registration-1 macro file (TODO generator).
-
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=0.9\textwidth]{fig3_forest.pdf}
-\caption{Registration~1: partial correlation with 90\% CI for the confirmatory tests; shaded
-region is the equivalence bound ($\pm 0.40$).}
-\label{fig:reg1}
-\end{figure*}
+\input{sections/methods}
 
 % ---------------------------------------------------------------------------
-\section{DA-Neuron Phenotypes and Registration II Gates}\label{sec:reg2gates}
-% DA-label refinement (new vs old label); phenotypes D1--D4; G-icc outcome (D1, D3 not tested).
-
-\input{sections/c2c2_geqtl_methods}
-
-% ---------------------------------------------------------------------------
-\section{Registration II: Confirmatory Results}\label{sec:reg2}
-% osf.io/4pzxa. Fig.~\ref{fig:reg2}.
-Of the 47 PD donors, \cctwoAzeroOne{} met the visit rule (A0-1). For the primary test
-(H1-DA), higher SNCA expression in DA neurons went with slower motor progression:
-$\beta = \cctwoBeta$ UPDRS~III points per year per SD (SE \cctwoSE, $p = \cctwoP$; partial
-$r = \cctwoR$, 90\% CI \cctwoRlo{} to \cctwoRhi; \cctwoVisits{} visits).
-% Classification: supported. A0-5 for D4 failed (\cctwoAfiveShare\% of \cctwoAfiveGenes{}
-% genes), so H1-D4 was dropped. Secondary family: \cctwoSecN{} tests, none supported.
-% H4 bulk OXPHOS equivalent (p = \cctwoHfourP).
-
-\subsection{Sensitivity analyses}
-% Old label (p \cctwoOldP), composition-adjusted (p \cctwoAdjP), idiopathic only
-% (n \cctwoIdioN, p \cctwoIdioP), batch covariate (beta \cctwoBatchBeta, p \cctwoBatchP),
-% leave-one-out (\cctwoLooMin{} to \cctwoLooMax), first 5 years (p \cctwoFiveP).
-
-\subsection{Exploratory, post hoc: batch structure}
-% Label clearly. D2 by batch R^2 \cctwoBatchRtwoDtwo{} (p \cctwoBatchPDtwo); slope by batch
-% R^2 \cctwoBatchRtwoSlope{} (p \cctwoBatchPSlope); r overall / within / between:
-% \cctwoRall{} / \cctwoRwithin{} / \cctwoRbetween{} (n = 5).
-
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=0.85\textwidth]{fig5_c2c2_forest.pdf}
-\caption{Registration~II: partial correlation with 90\% CI for the primary test, its
-sensitivity analyses, the secondary family, H4 and the phenotypes not tested. Class is shown by
-colour and marker shape; shaded region is the equivalence bound ($\pm 0.40$).}
-\label{fig:reg2}
-\end{figure*}
+\input{sections/results}
 
 % ---------------------------------------------------------------------------
 \section{Deviations from the Registrations}\label{sec:deviations}

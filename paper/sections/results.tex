@@ -1,0 +1,126 @@
+% Results for the J-BHI paper. Every number is a macro from generated/c2c1_numbers.tex or
+% generated/c2c2_numbers.tex (scripts/paper_c2c1.py, scripts/paper_c2c2.py; inputs in results/).
+
+\section{Results}\label{sec:results}
+
+\subsection{Pipeline Validation}\label{sec:res_pipeline}
+Table~\ref{tab:gates} lists every gate of both registrations. Our single-cell processing
+reproduced the published per-line TH$^+$ fractions almost exactly ($r = \cconeReproR$,
+$n = \cconeReproN$ lines; A0-6 pass). The positive control was harder to meet. A first version of
+A0-4, which predicted our own TH$^+$ fraction, failed (CV AUC \cconeAucv). An exact replication of
+the published classifier (\ref{eq:enet}) on \cconeDayZeroGenes{} expressed genes reached a mean CV
+AUC of \cconeAuc{} (SD \cconeAucSD; permutation $p = \cconeAucP$; \cconeHigh{} high- and
+\cconeLow{} low-yield lines), against 0.85 reported in \cite{bressan2023foundin} and
+\cconeAucBatch{} for a batch-only model. This is the ``partial'' verdict (AUC between 0.65 and
+0.75 with $p < 0.05$). The analysis proceeded, with the shortfall reported as a limitation.
+
+\input{tables/tab_gates}
+
+\subsection{Registration 1: All-Cell Phenotypes}\label{sec:res_reg1}
+\emph{Gates.} Technical stability (\ref{eq:icc}) removed the DA-fraction phenotype P1
+($\widehat{\mathrm{ICC}} = \cconeIccPone$) and retained SNCA, OXPHOS and lysosome (P2--P4:
+\cconeIccPtwo, \cconeIccPthree, \cconeIccPfour). A0-3 excluded \cconeAthreeExcl{} donor line,
+leaving \cconeN{} PD donors with linked PPMI data, of whom \cconeAzeroOne{} met the clinical rule
+(\ref{eq:a01}). Both pathway scores then failed coherence (\ref{eq:a05}): only
+\cconeAfivePthree\% of \cconeAfivePthreeN{} OXPHOS genes and \cconeAfivePfour\% of
+\cconeAfivePfourN{} lysosome genes shared the composite's sign, so P3 and P4 were not tested on
+UPDRS~III.
+
+\emph{Tests.} None of the \cconeNtests{} confirmatory tests was supported
+(Fig.~\ref{fig:reg1}): \cconeNeq{} were equivalent to zero within $\pm 0.40$ and \cconeNinc{} were
+inconclusive. For the motor outcome, all-cell SNCA gave $\hat\beta_3 = \cconeHoneBeta$
+($p = \cconeHoneP$; partial $r = \cconeHoneR$, 90\% CI \cconeHoneRlo{} to \cconeHoneRhi;
+\cconeVisits{} visits). The OXPHOS estimate removed by A0-5 was larger ($r = \cconeHthreeR$,
+$p = \cconeHthreeP$) and is reported descriptively only. All three SBR tests
+($n = \cconeSBRn$ donors, \cconeSBRobs{} scans) were equivalent. No registered sensitivity analysis
+produced a supported result (\cconeSensSup{} of all sensitivity tests).
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{fig3_forest.pdf}
+\caption{Registration~1: partial correlation $r$ (\ref{eq:partialr}) with 90\% CI for the
+confirmatory tests of the all-cell phenotypes. Shaded: equivalence region $\pm 0.40$
+(\ref{eq:tost}). Class (\ref{eq:class}) is shown by colour and marker shape.}
+\label{fig:reg1}
+\end{figure}
+
+\subsection{DA-Neuron Labels and Registration-II Gates}\label{sec:res_reg2gates}
+\emph{Labels.} Among neurons, the old rule (TH $\ge 1$ UMI) was not DA-specific: apart from TH,
+canonical DA markers were not enriched relative to other neurons. Under the new rule
+(\ref{eq:dalabel}) DA neurons were enriched for every DA marker (median log$_2$ ratio against other
+neurons: TH \cctwoTH; SLC6A3, the weakest, \cctwoSLCthree) and depleted of the GABAergic marker
+GAD1 (\cctwoGADone). The calibration (\ref{eq:calib}) selected $t^\star = \cctwoT$, the lower edge
+of the grid $[\cctwoGridMin, \cctwoGridMax]$. Agreement with the published DA fractions was lower
+than for the old rule ($r = \cctwoCalR$ vs.\ \cctwoCalRold), and kept rising as the rule broadened.
+The published fractions therefore track how many neurons a run makes rather than DA identity, and
+we chose the new label for specificity, not for agreement. The median run had \cctwoDAcells{} DA
+neurons, and \cctwoDAlow{} runs fell below the G-cells threshold.
+
+\emph{Stability.} FOUNDIN control-run ICCs and the across-batch ICCs from the independent dataset
+were \cctwoIccDone/\cctwoJerDone{} for D1, \cctwoIccDtwo/\cctwoJerDtwo{} for D2 (across-batch
+95\% CI \cctwoJerDtwoLo{} to \cctwoJerDtwoHi), \cctwoIccDthree/\cctwoJerDthree{} for D3 and
+\cctwoIccDfour/\cctwoJerDfour{} for D4. D2 and D4 passed G-icc; D1 and D3 were not tested and are
+reported descriptively.
+
+\emph{Genetic positive control.} Of \cctwoLeads{} lead eQTLs, \cctwoExpressed{} genes were
+expressed and \cctwoOnArray{} lead SNPs were directly genotyped, leaving $m = \cctwoTested$
+testable pairs. In the new DA-neuron pseudobulk (\ref{eq:eqtl}), sign concordance was
+$\kappa = \cctwoConc$ and $\hat\pi_1 = \cctwoPione$ (\ref{eq:pi1}), above the null 95th percentiles
+(\cctwoNullConc{} and \cctwoNullPione). G-eQTL passed. The old-label ($\kappa = \cctwoOldConc$,
+$\hat\pi_1 = \cctwoOldPione$, $m = \cctwoOldTested$) and all-cell ($\kappa = \cctwoAllConc$,
+$\hat\pi_1 = \cctwoAllPione$, $m = \cctwoAllTested$) pseudobulks passed as well. The gate thus
+shows that genetic regulation is present in the new label, not that the new label is more
+DA-specific than the alternatives.
+
+\emph{Clinical sufficiency and coherence.} All \cctwoN{} PD donors passed G-cells and
+\cctwoAzeroOne{} met (\ref{eq:a01}). The lysosome score D4 failed coherence
+(\cctwoAfiveShare\% of \cctwoAfiveGenes{} genes), so H1 on D4 was not tested
+(descriptive $r = \cctwoDfourR$, $p = \cctwoDfourP$); the secondary family kept \cctwoSecN{} tests.
+
+\subsection{Registration II: Confirmatory Tests}\label{sec:res_reg2}
+\emph{Primary (H1-DA).} Higher SNCA expression in DA neurons was associated with slower motor
+progression: $\hat\beta_3 = \cctwoBeta$ UPDRS~III points per year per SD (SE \cctwoSE,
+$\nu = \cctwoDF$, $p = \cctwoP$), partial $r = \cctwoR$ (90\% CI \cctwoRlo{} to \cctwoRhi;
+$n = \cctwoN$ donors, \cctwoVisits{} visits). Under (\ref{eq:class}) the primary hypothesis is
+supported. Its CI excludes zero but does not exclude correlations near zero, and it overlaps the
+equivalence region (Fig.~\ref{fig:reg2}).
+
+\emph{Secondary and H4.} No secondary test was supported. The largest was SNCA by SAA status
+($r = \cctwoSaaR$, $p = \cctwoSaaP$, $q = \cctwoSaaQ$; inconclusive). Bulk OXPHOS (H4) was
+equivalent to zero ($r = \cctwoHfourR$, $p = \cctwoHfourP$), so the registration-1 exploratory OXPHOS
+signal did not carry over to an independent assay of the same lines.
+
+\emph{Sensitivity.} The direction of the primary effect held in every registered sensitivity
+analysis, but its strength did not:
+\begin{itemize}
+\item old DA label: $\hat\beta_3 = \cctwoOldBeta$, $p = \cctwoOldP$;
+\item composition-adjusted: $\hat\beta_3 = \cctwoAdjBeta$, $p = \cctwoAdjP$;
+\item idiopathic PD only: $p = \cctwoIdioP$ ($n = \cctwoIdioN$);
+\item five-level batch dummies: $\hat\beta_3 = \cctwoBatchBeta$, $p = \cctwoBatchP$;
+\item visits within 5 years of diagnosis: $p = \cctwoFiveP$;
+\item leaving out one donor gave $\hat\beta_3$ from \cctwoLooMin{} to \cctwoLooMax, with
+\cctwoLooSign{} sign changes.
+\end{itemize}
+The batch-adjusted estimate is smaller and no longer significant.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.85\textwidth]{fig5_c2c2_forest.pdf}
+\caption{Registration~II: partial correlation $r$ (\ref{eq:partialr}) with 90\% CI for the primary
+test, its registered sensitivity analyses, the secondary family, H4 and the phenotypes not tested.
+Class (\ref{eq:class}) is shown by colour and marker shape; shaded: equivalence region
+$\pm 0.40$.}
+\label{fig:reg2}
+\end{figure*}
+
+\subsection{Exploratory, Post Hoc: Batch Structure}\label{sec:res_batch}
+The decomposition (\ref{eq:within}) was specified after the primary result was seen and is
+exploratory. D2 differed between batches ($R^2 = \cctwoBatchRtwoDtwo$, $p = \cctwoBatchPDtwo$);
+per-donor progression slopes differed less ($R^2 = \cctwoBatchRtwoSlope$,
+$p = \cctwoBatchPSlope$), so the pre-set confounding criterion was not met. The simple per-donor
+association was $r = \cctwoRall$ overall and $r_W = \cctwoRwithin$ within batches
+($p = \cctwoRwithinP$), which meets the pre-set rule for an association lying mainly within batches.
+The five batch means pointed the same way ($r_B = \cctwoRbetween$), so a partial between-batch
+contribution cannot be excluded. The registered medium covariate captured only
+\cctwoMediaShareD\% (D2) and \cctwoMediaShareS\% (slopes) of the between-batch variance, which
+explains why replacing it with batch dummies changed the estimate.
