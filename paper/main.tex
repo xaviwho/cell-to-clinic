@@ -1,178 +1,169 @@
-% IEEE/ACM Transactions on Computational Biology and Bioinformatics (TCBB)
-% IEEE Computer Society journal template (IEEEtran v1.8b, compsoc mode).
+% IEEE Journal of Biomedical and Health Informatics (J-BHI), regular submission.
+% IEEE journal template (IEEEtran v1.8b, [journal] mode). Target decided 2026-11-26 (see ACTIVITY.md).
+% Previous TCBB/compsoc skeleton (lineage-clone study) is in git history before this commit.
 %
-% Numbers in the text come from generated/data_numbers.tex and tables/*.tex,
-% written by scripts/ from committed results/. Do not type results by hand.
-\documentclass[10pt,journal,compsoc]{IEEEtran}
+% Limits to confirm against the current J-BHI author guidelines (embs.org/jbhi) before drafting:
+%   ~10 pages double-column (overlength charges beyond 8), abstract <= 250 words, index terms,
+%   author bios/photos at acceptance.
+%
+% Numbers in the text come from generated/*.tex and tables/*.tex, written by scripts/ from
+% committed results/ (scripts/paper_c2c2.py for registration II). Do not type results by hand.
+% Registration-1 macros: TODO generator (aggregates in data/derived/models.json -> results/).
+\documentclass[journal]{IEEEtran}
 
-\ifCLASSOPTIONcompsoc
-  \usepackage[nocompress]{cite}
-\else
-  \usepackage{cite}
-\fi
+\usepackage{cite}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 
+\graphicspath{{figures/}}
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-\input{generated/data_numbers}
+\input{generated/c2c2_numbers}
 
 \begin{document}
 
-\title{Cell-to-Clinic: A Gated Framework Linking iPSC Neuron Phenotypes to Parkinson’s Progression}
+\title{Cell-to-Clinic: A Gated, Pre-Registered Test of Whether iPSC Dopaminergic-Neuron
+Phenotypes Track Parkinson's Disease Progression}
 
 \author{Victor~Ikenna~Kanu
         and~Dong-Seong~Kim%
-\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem V.~I.~Kanu and D.-S.~Kim are with the
-Network Systems Lab, Kumoh National Institute of Technology, Gumi, South Korea.\protect\\
-E-mail: vkanu@kumoh.ac.kr}}
+\thanks{V.~I.~Kanu and D.-S.~Kim are with the Network Systems Lab, Kumoh National
+Institute of Technology, Gumi, South Korea (e-mail: vkanu@kumoh.ac.kr).}}
 
-\markboth{IEEE/ACM Transactions on Computational Biology and Bioinformatics}%
-{Kanu and Kim: Lineage-Grounded Evaluation of Couplings and Marker States}
+\markboth{IEEE Journal of Biomedical and Health Informatics}%
+{Kanu and Kim: Cell-to-Clinic}
 
-\IEEEtitleabstractindextext{%
+\maketitle
+
 \begin{abstract}
-% Written last, from the final results.
+% <= 250 words. Written last, from the final results. Must state: data (FOUNDIN-PD / PPMI),
+% gated pre-registered design (osf.io/s6w9c, osf.io/4pzxa), registration-1 null, registration-II
+% primary (beta \cctwoBeta, p \cctwoP) and its batch attenuation, and the design implication.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Single-cell RNA sequencing, lineage tracing, optimal transport, cell-state
-forecasting, benchmarking, neural differentiation.
-\end{IEEEkeywords}}
-
-\maketitle
-\IEEEdisplaynontitleabstractindextext
-\IEEEpeerreviewmaketitle
+Induced pluripotent stem cells, Parkinson's disease, single-cell RNA sequencing,
+pre-registration, disease progression, dopaminergic neurons, equivalence testing.
+\end{IEEEkeywords}
 
 % ---------------------------------------------------------------------------
-\IEEEraisesectionheading{\section{Introduction}\label{sec:intro}}
-% Two assumptions under test: (1) inferred couplings link cells to their true
-% descendants; (2) marker states such as (P, D) capture fate. RQ1--RQ4.
+\section{Introduction}\label{sec:intro}
+% Question: do donor-derived iPSC DA-neuron phenotypes track the donor's clinical progression?
+% Why gates: reliability, cell identity and genetic validity must hold before any linkage.
+% Contributions: (1) gated pre-registered framework; (2) registration 1 (all-cell, null);
+% (3) DA-label refinement + G-eQTL positive control; (4) registration II with sensitivity and
+% deviations reported in full. Cite EMBC 2027 companion (under review) for reliability/design.
+% Refs: \cite{bressan2023foundin,marek2011ppmi,jerber2021population,nosek2018prereg}
 
 % ---------------------------------------------------------------------------
-\section{Related Work}\label{sec:related}
+\section{Data}\label{sec:data}
+We use iPSC-derived dopaminergic-neuron data from FOUNDIN-PD~\cite{bressan2023foundin},
+linked to clinical follow-up of the same donors in PPMI~\cite{marek2011ppmi}.
+
+\subsection{FOUNDIN-PD iPSC differentiations}
+% FOUNDIN-PD \cite{bressan2023foundin}: donor lines, day-65 scRNA-seq and bulk RNA, five
+% differentiation batches, media change (E6). Counts only, via generated macros.
+
+\subsection{PPMI clinical follow-up}
+% PPMI \cite{marek2011ppmi}: OFF-state MDS-UPDRS III \cite{goetz2008mdsupdrs}, DaTscan putamen
+% SBR, CSF alpha-syn SAA \cite{siderowf2023saa}, NSD-ISS \cite{simuni2024nsdiss}.
+% Data download date; Project 150 access.
 
 % ---------------------------------------------------------------------------
-\section{Data and Setup}\label{sec:data}
+\section{Pre-Registered Framework and Gates}\label{sec:framework}
+% Fig.~\ref{fig:gates}. Gates before linkage (A0-1 visits, A0-3 cells, A0-5 coherence, G-icc,
+% G-cells, G-eQTL). Models: REML LMM, Satterthwaite df \cite{satterthwaite1946}; TOST at
+% +/-0.40 with 90% CI \cite{lakens2017equivalence}; BH \cite{benjamini1995fdr}; classes
+% supported / equivalent / inconclusive; partial r = t / sqrt(t^2 + df).
 
-\subsection{Lineage-traced differentiation data}
-We use the single-cell split-barcoding (SISBAR) data of~\cite{You_2023}:
-H9 human embryonic stem cells differentiated towards ventral midbrain and hindbrain
-fates and profiled by droplet single-cell RNA sequencing at stages I, II, III and IV
-(days~\dayOne, \dayTwo, \dayThree{} and~\dayFour). Each of three experiments labels
-progenitors with a retroviral barcode library at one stage, lets them divide three to
-four times, and splits the culture so that one half is profiled at that stage and the
-other at the next. Experiments~1--3 thus link I$\to$II, II$\to$III and III$\to$IV. A
-barcode observed in both halves links \emph{sister} cells rather than one cell observed
-twice; this shared ancestry is our ground truth. Because each experiment is barcoded once
-and sampled at two consecutive stages, no clone spans three stages, and every analysis
-concerns a single transition $t\to t+1$.
-
-Each experiment has three biological replicates, deposited in GEO as GSE207921
-(replicate~1) and GSE221592 (replicates~2--3): \nLibraries{} 10x libraries with
-\nBarcodes{} cell barcodes and \nGenes{} genes. The authors' barcode-to-cell table lists
-\nCloneTableCells{} cells with their viral barcodes and cluster labels. Every cell in it
-was found in the 10x library predicted by its barcode suffix and replicate. Stage-IV
-barcodes lack the library suffix, so we take the replicate from the viral barcode, which
-also resolves \nStageIVCollisions{} stage-IV cell barcodes shared between libraries. In
-experiment~3 the GEO sample names swap replicates~2 and~3 relative to the viral barcodes,
-consistently in both stages (viral replicate~2: \swapRepTwoGSM; viral replicate~3:
-\swapRepThreeGSM). This leaves clone pairing unchanged; we use the viral-barcode replicate
-throughout.
-
-\subsection{Clone definition}
-Of the clone-table cells, \pctMultiBarcode\% carry more than one viral barcode
-(\pctMultiBarcodeMin--\pctMultiBarcodeMax\% across stage--experiment sheets). We define a
-clone as the exact set of viral barcodes on a cell, within one experiment and replicate,
-and call it cross-stage if it has cells at both stages of its transition. Treating each
-barcode as a clone, or merging barcodes that co-occur in a cell, does not reproduce the
-published counts; the barcode-set definition reproduces I$\to$II and II$\to$III exactly
-(Table~\ref{tab:data_counts}). For III$\to$IV we obtain \nExpThreeClones{} clones and
-\nExpThreeCells{} cells against \nExpThreePubClones{} and \nExpThreePubCells{} published
-(\pctExpThreeCloneGap\% and \pctExpThreeCellGap\% fewer). All \nStageIVCells{} stage-IV
-clone-table cells are present in their expression matrices, so the shortfall lies in the
-deposited table. We fixed the handling rule beforehand (one matching pass, then accept the
-deposited count) and did not adjust filters to recover the published value.
-
-\subsection{Cell filtering and doublets}
-The original study reports thresholds of at least \minGenes{} genes, at most \umiCap{}
-UMIs and at most \maxMt\% mitochondrial reads. These pass \nPaperQCPass{} barcodes but
-reject \nCloneTableFailPaperQC{} (\pctCloneTableFailPaperQC\%) of the authors' own
-clone-table cells, \nCloneTableOverUMICap{} of them on the UMI cap alone, including
-\pctStageIVOverUMICap\% of stage-IV clone-table cells; maturing neurons have larger
-transcriptomes. Under these thresholds III$\to$IV would retain \nExpThreeClonesPaperQC{}
-cross-stage clones (Table~\ref{tab:data_counts}), so the lineage table was evidently not
-filtered on UMIs. Because couplings are fitted on barcoded and unbarcoded cells together,
-one rule must cover both. Our primary rule keeps cells with at least \minGenes{} genes and
-at most \maxMt\% mitochondrial reads, with no UMI cap: \nPrimaryCells{} cells, including
-\nCloneTablePrimary{} of \nCloneTableCells{} clone-table cells (\pctCloneTableKept\%).
-Neither rule reproduces the published \nPublishedCells{} cells, which reflect further
-filtering in the original pipeline.
-
-Doublet detection with Scrublet~\cite{Wolock_2019} was pre-specified per library at an
-expected rate of \dblRatePct\% per \dblRatePer{} barcodes, but its automatic threshold was
-unstable: it flagged between none and \nScrubletAutoMax{} cells per library (none in
-\nLibsScrubletZero{} of \nLibraries{}; \nScrubletAutoTotal{} in total), its output
-depended on implementation settings, and observed scores overlapped simulated doublets, as
-expected when cells within a stage form a continuum. We therefore do not filter on it.
-Instead, each library's top expected-rate fraction by doublet score is flagged. Flagged
-cells have \umiRatioFlagMin--\umiRatioFlagMax{} times the median UMI count of other cells,
-yet the score correlates only weakly with UMI count (Spearman $\rho=\rhoDoubletUMI$).
-Every RQ1--RQ3 analysis is repeated without flagged cells (\nSensitivityCells{} cells;
-\nCloneTableSensitivity{} clone-table cells) as a pre-specified sensitivity analysis.
-
-All analyses use one-step pairs from the primary set (Table~\ref{tab:data_counts}).
-Dopaminergic neurons are rare among lineage-traced cells: only \nDACellsCrossStage{}
-stage-IV dopaminergic cells fall in cross-stage III$\to$IV clones. We therefore study
-dopaminergic fate as progenitor fate bias at stage~III rather than as a forecasting target.
-
-\input{tables/tab_data_counts}
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.72\textwidth]{fig1_gates.pdf}
+\caption{Gated design. Each gate must pass before any phenotype is linked to clinical data.
+% TODO caption from fig1 script.
+}
+\label{fig:gates}
+\end{figure*}
 
 % ---------------------------------------------------------------------------
-\section{Methods}\label{sec:methods}
-% Protocol (Table 1): clone-level splits, training-only normalisation, 20 seeds,
-% paired bootstrap CIs, Wilcoxon--Holm, Cohen's d_z, pre-fixed equivalence margin.
-% OT settings (UPDATES.md Q4). Models: Ridge, matched random forest, Transformer.
-% Controls: TCBB simulation (positive); independent pairing, within-stage
-% clone-label shuffle (negative).
+\section{Registration 1: All-Cell Phenotypes}\label{sec:reg1}
+% osf.io/s6w9c. Ten confirmatory tests; none supported (Fig.~\ref{fig:reg1}).
+% Numbers via a registration-1 macro file (TODO generator).
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.9\textwidth]{fig3_forest.pdf}
+\caption{Registration~1: partial correlation with 90\% CI for the confirmatory tests; shaded
+region is the equivalence bound ($\pm 0.40$).}
+\label{fig:reg1}
+\end{figure*}
 
 % ---------------------------------------------------------------------------
-\section{Results}\label{sec:results}
+\section{DA-Neuron Phenotypes and Registration II Gates}\label{sec:reg2gates}
+% DA-label refinement (new vs old label); phenotypes D1--D4; G-icc outcome (D1, D3 not tested).
 
-\subsection{Coupling recovery}\label{sec:rq1}
-% RQ1 (Fig. 2).
+\input{sections/c2c2_geqtl_methods}
 
-\subsection{Fate-level agreement}\label{sec:fate}
-% RQ1, stage-III progenitors (Fig. 3).
+% ---------------------------------------------------------------------------
+\section{Registration II: Confirmatory Results}\label{sec:reg2}
+% osf.io/4pzxa. Fig.~\ref{fig:reg2}.
+Of the 47 PD donors, \cctwoAzeroOne{} met the visit rule (A0-1). For the primary test
+(H1-DA), higher SNCA expression in DA neurons went with slower motor progression:
+$\beta = \cctwoBeta$ UPDRS~III points per year per SD (SE \cctwoSE, $p = \cctwoP$; partial
+$r = \cctwoR$, 90\% CI \cctwoRlo{} to \cctwoRhi; \cctwoVisits{} visits).
+% Classification: supported. A0-5 for D4 failed (\cctwoAfiveShare\% of \cctwoAfiveGenes{}
+% genes), so H1-D4 was dropped. Secondary family: \cctwoSecN{} tests, none supported.
+% H4 bulk OXPHOS equivalent (p = \cctwoHfourP).
 
-\subsection{Forecasting on true lineage}\label{sec:rq2}
-% RQ2 (Fig. 4, Table 2).
+\subsection{Sensitivity analyses}
+% Old label (p \cctwoOldP), composition-adjusted (p \cctwoAdjP), idiopathic only
+% (n \cctwoIdioN, p \cctwoIdioP), batch covariate (beta \cctwoBatchBeta, p \cctwoBatchP),
+% leave-one-out (\cctwoLooMin{} to \cctwoLooMax), first 5 years (p \cctwoFiveP).
 
-\subsection{State adequacy}\label{sec:rq3}
-% RQ3 and Jerber transfer (Fig. 5).
+\subsection{Exploratory, post hoc: batch structure}
+% Label clearly. D2 by batch R^2 \cctwoBatchRtwoDtwo{} (p \cctwoBatchPDtwo); slope by batch
+% R^2 \cctwoBatchRtwoSlope{} (p \cctwoBatchPSlope); r overall / within / between:
+% \cctwoRall{} / \cctwoRwithin{} / \cctwoRbetween{} (n = 5).
 
-\subsection{Consequence for perturbation models}\label{sec:rq4}
-% RQ4 (Fig. 6).
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.85\textwidth]{fig5_c2c2_forest.pdf}
+\caption{Registration~II: partial correlation with 90\% CI for the primary test, its
+sensitivity analyses, the secondary family, H4 and the phenotypes not tested. Class is shown by
+colour and marker shape; shaded region is the equivalence bound ($\pm 0.40$).}
+\label{fig:reg2}
+\end{figure*}
+
+% ---------------------------------------------------------------------------
+\section{Deviations from the Registrations}\label{sec:deviations}
+% Table~\ref{tab:c2c2_deviations}. Registration-1 deviations: TODO.
+
+\input{tables/tab_c2c2_deviations}
 
 % ---------------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
-% Table 3 checklist.
+% Multiplicity across two registrations; batch attenuation (report both estimates);
+% winner's curse for a narrowly met primary; direction vs registration-1 P2;
+% design implications (cite EMBC companion); limitations (n = 47, single cohort, no
+% external replication yet).
 
 % ---------------------------------------------------------------------------
-\section{Limitations and Conclusion}\label{sec:conclusion}
+\section{Conclusion}\label{sec:conclusion}
 
 % ---------------------------------------------------------------------------
-\ifCLASSOPTIONcompsoc
-  \section*{Acknowledgments}
-\else
-  \section*{Acknowledgment}
-\fi
-% Funding.
+\section*{Data and Code Availability}
+% Registrations: osf.io/s6w9c, osf.io/4pzxa. Code and aggregate results: Zenodo
+% 10.5281/zenodo.24156791, 10.5281/zenodo.24494010, 10.5281/zenodo.24526514.
+% Participant-level data: PPMI and FOUNDIN-PD under their data use agreements.
+
+\section*{Acknowledgment}
+% PPMI acknowledgment (download date, RRID:SCR_006431, full funder list) and FOUNDIN-PD/MJFF
+% wording, verbatim from the current PPMI publication policy.
 
 \bibliographystyle{IEEEtran}
-\bibliography{sisbar_refs}
+\bibliography{newref,c2c_refs}
 
 \end{document}

@@ -8,6 +8,28 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-26 (local session): `paper/main.tex` rebuilt as the J-BHI manuscript skeleton
+
+- **Deviation from the planning request:** the user asked for `paper/main.tex` itself to be retargeted, so I did not create a separate `paper/jbhi/`. `main.tex` looks like the file the user edits in HiTeX. The old TCBB/compsoc skeleton for the lineage-clone study was replaced; it is still in git history (commit `c31057b` and earlier).
+- **Template:** `\documentclass[journal]{IEEEtran}` (J-BHI; not compsoc). Header `\markboth{IEEE Journal of Biomedical and Health Informatics}`; keywords updated.
+- **Section outline follows the planning entry:**
+  - Introduction;
+  - Data (FOUNDIN-PD, PPMI);
+  - framework and gates (Fig. 1);
+  - registration 1 (Fig. 3, renumbered Fig. 2 in the manuscript);
+  - DA-neuron phenotypes and G-eQTL (`\input{sections/c2c2_geqtl_methods}`);
+  - registration II, with sensitivity and an exploratory batch subsection (Fig. 5, renumbered Fig. 3);
+  - deviations (`\input{tables/tab_c2c2_deviations}`);
+  - Discussion; Conclusion; data/code availability; acknowledgment.
+- **Text so far:** sections are comment outlines. The only prose is the data-source sentence and the registration II primary-result sentence. All numbers come from `\input{generated/c2c2_numbers}`.
+- **References:** new `paper/c2c_refs.bib` with 9 entries: FOUNDIN-PD, PPMI, MDS-UPDRS, SAA, NSD-ISS, BH, Storey, Satterthwaite, Nosek. They were entered from memory and are marked "verify against Crossref". Jerber and Lakens are reused from `newref.bib`.
+- **Build:** latexmk compiles cleanly to 4 pages, with no overfull boxes. The deviations-table column widths in `scripts/paper_c2c2.py` were narrowed by 0.4 cm to fit the J-BHI text width; no numbers changed.
+
+### Still to do for the J-BHI skeleton
+1. Write a registration-1 numbers generator: aggregates from `data/derived/models.json` to `results/`, then macros. The registration-1 numbers and deviations are placeholders for now.
+2. Write the Fig. 1 caption.
+3. Confirm the J-BHI limits (page count, abstract length) with the planning session or the user before drafting prose.
+
 ## 2026-11-26 (planning session): **DECISION: J-BHI is the journal target** (confirmed by the user)
 
 - **Journal: IEEE Journal of Biomedical and Health Informatics (J-BHI), regular submission.** TCBB and TBME are out because of quartile (the user reports TBME is JCR Q2). LetPub lists J-BHI as Q1 in all four JCR categories: Math & Comp Biol 5/67, Medical Informatics 7/54, CS Information Systems 23/267, CS Interdisciplinary Applications 27/185. The user will confirm the year on the library JCR.

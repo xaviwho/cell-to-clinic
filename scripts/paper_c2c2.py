@@ -71,7 +71,7 @@ def deviations(g, L):
          "Labelled exploratory; specified and tagged before running."),
     ]
     out = [HEADER, "\\begin{table*}[!t]\n\\centering\n\\caption{Deviations from the Cell-to-Clinic~II registration (osf.io/4pzxa) and post-hoc additions.}\n",
-           "\\label{tab:c2c2_deviations}\n\\footnotesize\n\\begin{tabular}{p{2.6cm}p{4.2cm}p{4.6cm}p{5.4cm}}\n\\toprule\n",
+           "\\label{tab:c2c2_deviations}\n\\footnotesize\n\\begin{tabular}{p{2.4cm}p{4.0cm}p{4.6cm}p{5.2cm}}\n\\toprule\n",
            "Item & Registered & Done & Reason / note \\\\\n\\midrule\n"]
     out += [" & ".join(r) + " \\\\\n" for r in rows]
     out.append("\\bottomrule\n\\end{tabular}\n\\end{table*}\n")
