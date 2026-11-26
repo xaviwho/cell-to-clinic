@@ -8,6 +8,36 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-26 (planning session): **DECISION: J-BHI is the journal target** (confirmed by the user)
+
+- **Journal: IEEE Journal of Biomedical and Health Informatics (J-BHI), regular submission.** TCBB and TBME are out because of quartile (the user reports TBME is JCR Q2). LetPub lists J-BHI as Q1 in all four JCR categories: Math & Comp Biol 5/67, Medical Informatics 7/54, CS Information Systems 23/267, CS Interdisciplinary Applications 27/185. The user will confirm the year on the library JCR.
+- **No J-BHI special issue fits.** As of 2026-11-25 the open calls are drug discovery (due 2026-12-31), agentic AI and edge-AI digital twins. Submit through the regular track.
+- **EMBC 2027 stays** as the companion conference paper. It covers reliability and design, with no clinical results; J-BHI carries the full study. See the 2026-11-25 entry below.
+- **J-BHI is the main paper.** If the two compete for time, J-BHI quality comes first. The EMBC deadline (2027-01-24) is fixed, so EMBC still gets drafted first.
+
+### For the local session: J-BHI specifics
+1. Create `paper/jbhi/` with `\documentclass[journal]{IEEEtran}` (the IEEE journal template used by J-BHI). Leave the old `paper/main.tex` untouched.
+2. Before drafting, check the J-BHI author guidelines (embs.org/jbhi). The user or the planning session can confirm the limits. Typical J-BHI limits: about 10 pages double-column (overlength fees beyond 8), structured abstract up to 250 words, index terms, and author bios/photos at acceptance.
+3. Proposed outline:
+   - Introduction
+   - Data (FOUNDIN-PD, PPMI)
+   - Pre-registered framework and gates
+   - Registration 1 results (all-cell, null)
+   - DA-neuron phenotypes, G-eQTL, and the registration II gates
+   - Registration II confirmatory results with sensitivity analyses
+   - Deviations
+   - Discussion: multiplicity across registrations, batch attenuation, winner's curse, and the design implications that point to the EMBC paper
+   - Conclusion
+   - Data/code availability
+4. Reuse the generated assets (`c2c2_numbers.tex`, `tab_c2c2_deviations.tex`, `c2c2_geqtl_methods.tex`, Figs 1/3/5). All numbers go through `\input` from `results/`; none are typed in by hand.
+5. Cite the EMBC paper as "under review" and keep the reliability and design results to a short summary.
+6. Report the page count against the limit, and list anything that will need supplementary material.
+
+### Timeline (unchanged)
+- J-BHI skeleton by 2026-12-18.
+- Full draft by the end of January 2027.
+- February 2027: Prof. Kim review, then PPMI DPC review (2 weeks), then end the OSF embargoes and submit. Target end of February.
+
 ## 2026-11-25 (planning session): **DECISION UPDATE: two IEEE papers, EMBC 2027 conference + IEEE journal** (replaces the scope in the entry below)
 
 ### Decided by the user
