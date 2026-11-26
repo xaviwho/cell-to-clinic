@@ -61,10 +61,14 @@ pre-registration, disease progression, dopaminergic neurons, equivalence testing
 % ---------------------------------------------------------------------------
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=0.72\textwidth]{fig1_gates.pdf}
-\caption{Gated design. (A) Gate sequence of registration~1: study-level gates stop the analysis if
-they fail; phenotype-level gates remove a phenotype, which is then reported as not tested.
-(B) Observed gate statistics against their thresholds (Table~\ref{tab:gates}).}
+\includegraphics[width=\textwidth]{fig1_system.pdf}
+\caption{System model of the Cell-to-Clinic framework. Upper tiers: the cellular branch
+(FOUNDIN-PD) and the clinical branch (PPMI) are processed and gated separately; phenotypes never
+meet clinical outcomes above the registration lock. Lower tier (right to left): only phenotypes in
+the linkable set are fitted against outcomes, and each test is classified by the registered
+decision rule. Shaded blue: gates. Dashed paths: gate failures, after which a phenotype is reported
+as not tested, and the labelled post-hoc analysis. Numbers in parentheses refer to the equations of
+Section~\ref{sec:methods}; observed gate values are in Table~\ref{tab:gates}.}
 \label{fig:gates}
 \end{figure*}
 

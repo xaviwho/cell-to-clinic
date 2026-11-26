@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="600" viewBox="0 0 1080 600" font-family="Arial, Helvetica, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#222222"/></marker></defs>
+<rect width="1080" height="600" fill="#ffffff"/>
+<rect x="20" y="40" width="215" height="200" rx="6" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<text x="127.5" y="66" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">FOUNDIN-PD</text>
+<text x="127.5" y="92" font-size="17" fill="#444444" text-anchor="middle">iPSC-derived neurons</text>
+<text x="127.5" y="114" font-size="17" fill="#444444" text-anchor="middle">day-65 scRNA-seq</text>
+<text x="127.5" y="136" font-size="17" fill="#444444" text-anchor="middle">bulk RNA, day 0/65</text>
+<text x="127.5" y="158" font-size="17" fill="#444444" text-anchor="middle">SNP genotypes</text>
+<rect x="265" y="40" width="215" height="200" rx="6" fill="#f1f1f1" stroke="#222222" stroke-width="1.6"/>
+<text x="372.5" y="66" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Single-cell processing</text>
+<text x="372.5" y="92" font-size="17" fill="#444444" text-anchor="middle">QC filter (3)</text>
+<text x="372.5" y="114" font-size="17" fill="#444444" text-anchor="middle">module scores (4)</text>
+<text x="372.5" y="136" font-size="17" fill="#444444" text-anchor="middle">DA-neuron label (5)</text>
+<text x="372.5" y="158" font-size="17" fill="#444444" text-anchor="middle">threshold t* (6)</text>
+<rect x="510" y="40" width="215" height="200" rx="6" fill="#f1f1f1" stroke="#222222" stroke-width="1.6"/>
+<text x="617.5" y="66" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Phenotype construction</text>
+<text x="617.5" y="92" font-size="17" fill="#444444" text-anchor="middle">pseudobulk (7)</text>
+<text x="617.5" y="114" font-size="17" fill="#444444" text-anchor="middle">gene-set score (8)</text>
+<text x="617.5" y="136" font-size="17" fill="#444444" text-anchor="middle">composition adj. (9)</text>
+<text x="617.5" y="158" font-size="17" fill="#444444" text-anchor="middle">z-score per model</text>
+<rect x="755" y="40" width="215" height="200" rx="6" fill="#e6eef8" stroke="#2b5797" stroke-width="1.6"/>
+<text x="862.5" y="66" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Pre-link gates</text>
+<text x="862.5" y="92" font-size="17" fill="#444444" text-anchor="middle">A0-6 reproduction</text>
+<text x="862.5" y="114" font-size="17" fill="#444444" text-anchor="middle">A0-4 pos. control (10)</text>
+<text x="862.5" y="136" font-size="17" fill="#444444" text-anchor="middle">A0-2, G-icc (11)–(12)</text>
+<text x="862.5" y="158" font-size="17" fill="#444444" text-anchor="middle">A0-3, G-cells</text>
+<text x="862.5" y="180" font-size="17" fill="#444444" text-anchor="middle">G-eQTL (14)–(16)</text>
+<rect x="20" y="270" width="215" height="105" rx="6" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<text x="127.5" y="296" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">PPMI</text>
+<text x="127.5" y="322" font-size="17" fill="#444444" text-anchor="middle">MDS-UPDRS III</text>
+<text x="127.5" y="344" font-size="17" fill="#444444" text-anchor="middle">DaTscan, SAA, NSD-ISS</text>
+<rect x="265" y="270" width="215" height="105" rx="6" fill="#f1f1f1" stroke="#222222" stroke-width="1.6"/>
+<text x="372.5" y="296" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Outcome derivation</text>
+<text x="372.5" y="322" font-size="17" fill="#444444" text-anchor="middle">OFF state, time since dx</text>
+<text x="372.5" y="344" font-size="17" fill="#444444" text-anchor="middle">SBR, SAA, NSD-ISS stage</text>
+<rect x="510" y="270" width="215" height="105" rx="6" fill="#e6eef8" stroke="#2b5797" stroke-width="1.6"/>
+<text x="617.5" y="296" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">A0-1 clinical gate (13)</text>
+<text x="617.5" y="322" font-size="17" fill="#444444" text-anchor="middle">≥ 30 donors with ≥ 3</text>
+<text x="617.5" y="344" font-size="17" fill="#444444" text-anchor="middle">OFF visits over ≥ 2 y</text>
+<rect x="755" y="270" width="215" height="105" rx="6" fill="#ffffff" stroke="#222222" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="862.5" y="296" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Not tested</text>
+<text x="862.5" y="322" font-size="17" fill="#444444" text-anchor="middle">phenotype removed;</text>
+<text x="862.5" y="344" font-size="17" fill="#444444" text-anchor="middle">estimate descriptive</text>
+<rect x="755" y="425" width="215" height="150" rx="6" fill="#f1f1f1" stroke="#222222" stroke-width="1.6"/>
+<text x="862.5" y="451" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Linkage models</text>
+<text x="862.5" y="477" font-size="17" fill="#444444" text-anchor="middle">LMM, REML (17)–(18)</text>
+<text x="862.5" y="499" font-size="17" fill="#444444" text-anchor="middle">Satterthwaite df (19)</text>
+<text x="862.5" y="521" font-size="17" fill="#444444" text-anchor="middle">OLS for H3</text>
+<text x="862.5" y="543" font-size="17" fill="#444444" text-anchor="middle">A0-5 coherence (24)</text>
+<rect x="510" y="425" width="215" height="150" rx="6" fill="#f1f1f1" stroke="#222222" stroke-width="1.6"/>
+<text x="617.5" y="451" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Decision rule</text>
+<text x="617.5" y="477" font-size="17" fill="#444444" text-anchor="middle">partial r (20)</text>
+<text x="617.5" y="499" font-size="17" fill="#444444" text-anchor="middle">TOST, Δ = 0.40 (21)</text>
+<text x="617.5" y="521" font-size="17" fill="#444444" text-anchor="middle">BH q-values (22)</text>
+<text x="617.5" y="543" font-size="17" fill="#444444" text-anchor="middle">class (23)</text>
+<rect x="265" y="425" width="215" height="150" rx="6" fill="#ffffff" stroke="#222222" stroke-width="1.6"/>
+<text x="372.5" y="451" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Reported result</text>
+<text x="372.5" y="477" font-size="17" fill="#444444" text-anchor="middle">supported</text>
+<text x="372.5" y="499" font-size="17" fill="#444444" text-anchor="middle">equivalent</text>
+<text x="372.5" y="521" font-size="17" fill="#444444" text-anchor="middle">inconclusive</text>
+<rect x="20" y="425" width="215" height="150" rx="6" fill="#ffffff" stroke="#222222" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="127.5" y="451" font-size="18" font-weight="bold" fill="#111111" text-anchor="middle">Exploratory</text>
+<text x="127.5" y="477" font-size="17" fill="#444444" text-anchor="middle">post hoc, labelled:</text>
+<text x="127.5" y="499" font-size="17" fill="#444444" text-anchor="middle">batch decomposition (25)</text>
+<path d="M 235 140.0 L 263 140.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 480 140.0 L 508 140.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 725 140.0 L 753 140.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 235 322.5 L 263 322.5" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 480 322.5 L 508 322.5" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 970 140.0 L 1010 140.0 L 1010 500.0 L 972 500.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="1016" y="200.0" font-size="16" fill="#111111" text-anchor="start">linkable</text>
+<text x="1016" y="220.0" font-size="16" fill="#111111" text-anchor="start">set (2)</text>
+<path d="M 725 322.5 L 740 322.5 L 740 455 L 753 455" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 815 240 L 815 268" fill="none" stroke="#222222" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+<text x="823" y="261" font-size="16" fill="#111111" text-anchor="start">fail</text>
+<path d="M 915 425 L 915 377" fill="none" stroke="#222222" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+<text x="923" y="419" font-size="16" fill="#111111" text-anchor="start">A0-5 fail</text>
+<path d="M 755 500.0 L 727 500.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 510 500.0 L 482 500.0" fill="none" stroke="#222222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M 265 500.0 L 237 500.0" fill="none" stroke="#222222" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+<line x1="10" x2="1070" y1="400" y2="400" stroke="#111111" stroke-width="2" stroke-dasharray="2 4"/>
+<rect x="24" y="389" width="600.6" height="22" fill="#ffffff"/>
+<text x="30" y="406" font-size="16" fill="#111111" text-anchor="start" font-style="italic">Registration lock: rules, models and code frozen (OSF, git tag) before linkage</text>
+</svg>
