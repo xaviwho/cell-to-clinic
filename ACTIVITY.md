@@ -14,7 +14,7 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 - Both a **conference paper (EMBC 2027)** and a **journal paper**, both IEEE. TCBB is out (the user is unsure of its quartile).
 
 ### Journal target (planning-session recommendation)
-- **IEEE Journal of Biomedical and Health Informatics (J-BHI)** as first choice; IEEE TBME as alternative.
+- **IEEE Journal of Biomedical and Health Informatics (J-BHI)** as first choice. (2026-11-26: TBME dropped as backup, the user reports it is JCR Q2. LetPub lists J-BHI as Q1 in all four of its JCR categories; no other IEEE Q1 journal fits this study, so any backup will be non-IEEE and decided later.)
 - A third-party metrics site lists J-BHI IF 8.18 (2025), above 96% of journals. The user should confirm the JCR/SJR quartile through the library before submitting.
 
 ### How the two papers are split (so they can run in parallel without the ~70% new-content problem)
