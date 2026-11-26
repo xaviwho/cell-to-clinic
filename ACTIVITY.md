@@ -8,6 +8,17 @@ Progress record for the FOUNDIN-PD (PPMI Project 150) cell-to-clinic analysis. T
 
 ---
 
+## 2026-11-26 (local session): Fig. 1 redesigned as an IEEE-style system model; title shortened
+
+- **Title** (user's choice from five options): *Cell-to-Clinic: Gated Linkage of iPSC Neuron Phenotypes to Parkinson's Progression*.
+- **New Fig. 1** (`scripts/figures/fig1_system.py` → `paper/figures/fig1_system.{svg,pdf}`, full width): a block diagram of the architecture only, with no results.
+  - Layout: a U-shaped pipeline. The cellular branch (FOUNDIN-PD → single-cell processing → phenotypes → pre-link gates) and the clinical branch (PPMI → outcome derivation → A0-1) run along the top. A "registration lock" line follows. Below it, the bottom tier runs from linkage models to the decision rule to the reported result. Dashed paths mark gate failures ("not tested") and the labelled post-hoc analysis.
+  - Each block cites the Section II equations it implements. The numbers are read from the LaTeX `.aux` file (`--aux`); the script refuses to run if a label is missing, so the figure cannot drift from the text.
+  - Vector output via `svg2pdf.py`; grayscale-safe (state is shown by line style, with blue shading only for gates); text prints at about 8 pt.
+- The old `fig1_gates.{png,pdf}` (matplotlib, mixed design and results) is no longer used by `main.tex`; the gate values now live in Table I. The files are left in the repository.
+- Rebased onto the user's HiTeX edits (bold headings, colons after run-in heads); no conflicts. Build: 6 pages, compiles cleanly.
+- **Build order for Fig. 1:** compile LaTeX, then run `python -I scripts/figures/fig1_system.py --aux <build>/main.aux`, then `svg2pdf.py`, then recompile. Rerun this whenever the equations in `methods.tex` change.
+
 ## 2026-11-26 (local session): J-BHI Methods and Results drafted (engineering style, equation-driven)
 
 - **`paper/sections/methods.tex`.** Requested by the user: an engineering-paper Methods section in which each step is an equation with a short explanation. 25 numbered equations, covering:
