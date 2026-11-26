@@ -49,8 +49,8 @@ from DaTscan, CSF $\alpha$-synuclein seed amplification (SAA) status (earliest v
 latest record, integer stage) \cite{simuni2024nsdiss}. Only aggregate results leave the
 analysis machine.
 
-\subsection{Single-Cell Processing and Cell Labels}\label{sec:cells}
-\emph{Quality control.} For cell $c$ with UMI counts $u_{gc}$ over genes $g$, let $n_c$ be the
+\subsection{\textbf{Single-Cell Processing and Cell Labels}}\label{sec:cells}
+\emph{Quality control:} For cell $c$ with UMI counts $u_{gc}$ over genes $g$, let $n_c$ be the
 number of detected genes, $U_c = \sum_g u_{gc}$ and $m_c$ the mitochondrial UMI share. A cell is
 retained if
 \begin{equation}
@@ -58,7 +58,7 @@ retained if
 \label{eq:qc}
 \end{equation}
 
-\emph{Module scores.} With normalised expression $x_{gc} = \ln\!\big(1 + 10^4 u_{gc}/U_c\big)$, the
+\emph{Module scores:} With normalised expression $x_{gc} = \ln\!\big(1 + 10^4 u_{gc}/U_c\big)$, the
 score of cell $c$ for marker set $M$ is the mean marker expression minus that of a
 control set $R_M$ drawn to match the markers' expression distribution (50 genes from each of 25
 expression bins, fixed seed):
